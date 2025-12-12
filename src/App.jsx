@@ -29,6 +29,7 @@ import { Search } from './components/Search'
 import { CreatePost } from './components/CreatePost'
 import { Folder } from './components/Folder'
 import { Chatbot } from './components/Chatbot'
+import { Profile } from './components/Profile'
 
 function App() {
   const [screen, setScreen] = useState('splash');
@@ -64,6 +65,9 @@ function App() {
       )}
       {screen === 'folder' && (
         <Folder onNavigate={setScreen} />
+      )}
+      {screen === 'profile' && (
+        <Profile onNavigate={setScreen} />
       )}
       {screen === 'community' && (
         <Community onNavigate={setScreen} />
