@@ -1,0 +1,304 @@
+.post-detail-container {
+    width: 100%;
+    max-width: 393px;
+    height: 100%;
+    position: relative;
+    background: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.pd-header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: white;
+    z-index: 10;
+    margin-top: 40px; /* Safe Area */
+}
+
+.pd-header-title {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+}
+
+.pd-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 20px;
+    padding-bottom: 100px;
+}
+
+.pd-author-section {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.pd-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 12px;
+}
+
+.pd-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pd-category-badge {
+    width: 50px;
+    height: 16px;
+    background: #d4d4d8; /* zinc-300 */
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+}
+
+.pd-author-name {
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+}
+
+.pd-title {
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+    margin-bottom: 12px;
+}
+
+.pd-content {
+    font-size: 16px;
+    font-weight: 600; /* Regular in snippet looks bold? */
+    font-family: 'Pretendard';
+    color: black;
+    margin-bottom: 40px;
+    line-height: 1.5;
+}
+
+.pd-time {
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: #a3a3a3; /* neutral-400 */
+    margin-bottom: 20px;
+}
+
+.pd-stats-bar {
+    width: 100%;
+    height: 64px;
+    border-top: 1px solid #d4d4d8;
+    border-bottom: 1px solid #d4d4d8;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 20px;
+}
+
+.pd-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pd-stat-item span {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: #a3a3a3;
+}
+
+.pd-empty-comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    gap: 10px;
+}
+
+.pd-empty-text {
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: #a3a3a3;
+}
+
+.pd-view-count {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+}
+
+.pd-view-count span {
+    font-size: 12px;
+    font-weight: 600;
+    color: #a3a3a3;
+}
+
+.pd-bottom-bar {
+    position: absolute;
+    width: 100%; /* Or 360px centered */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 20px;
+    z-index: 20;
+    transition: bottom 0.3s ease;
+}
+
+.pd-input-container {
+    width: 100%;
+    height: 56px;
+    background: white;
+    border-radius: 30px;
+    border: 1px solid #d4d4d8;
+    box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.13);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    position: relative;
+    max-width: 360px;
+}
+
+.pd-anon-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 12px;
+}
+
+.pd-check-icon {
+    width: 16px;
+    height: 16px;
+    background: #27272a; /* zinc-800 */
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pd-anon-toggle span {
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Pretendard';
+    color: #a3a3a3;
+}
+
+.pd-input-placeholder {
+    flex: 1;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: #d6d3d1; /* stone-300 */
+    cursor: text;
+}
+
+.pd-submit-btn {
+    width: 48px;
+    height: 28px;
+    background: #d4d4d8;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+    cursor: pointer;
+}
+
+.pd-keyboard-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 336px; /* Approx keyboard height */
+    background: #f2f2f2;
+    z-index: 50;
+    /* Normally we'd use a real image or HTML, placeholder styling for now */
+}
+
+.pd-comment-card {
+    width: 100%;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #d4d4d8;
+    box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.13);
+    padding: 20px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.pd-warning-text {
+    position: absolute;
+    top: -25px;
+    left: 20px;
+    color: #ef4444; /* red-500 */
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+}
+
+.pd-comment-body {
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: #a3a3a3;
+    margin-bottom: 40px;
+}
+
+.pd-comment-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pd-meta-author {
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Pretendard';
+    color: #a3a3a3;
+}
+
+.pd-comment-icon {
+    width: 16px;
+    height: 16px;
+    background: #27272a;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pd-comment-btn {
+    width: 48px;
+    height: 28px;
+    background: #d4d4d8;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+}

@@ -1,0 +1,177 @@
+.create-post-container {
+    width: 100%;
+    max-width: 393px;
+    height: 100%;
+    position: relative;
+    background: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.cp-screen-header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 40px; /* Safe area */
+    border-bottom: 1px solid #dcdcdc; /* stone-300 like */
+}
+
+.cp-cancel-btn {
+    position: absolute;
+    left: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+    cursor: pointer;
+}
+
+.cp-screen-title {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+}
+
+.cp-complete-btn {
+    position: absolute;
+    right: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+    cursor: pointer;
+}
+
+.cp-category-row {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.cp-category-label {
+    width: 60px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+}
+
+.cp-category-options {
+    flex: 1;
+    display: flex;
+    gap: 15px;
+}
+
+.cp-cat-option {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: #a3a3a3; /* neutral-400 */
+    cursor: pointer;
+}
+
+.cp-cat-option.active {
+    color: black;
+}
+
+.cp-input-group {
+    width: 100%;
+    padding: 0 20px;
+    position: relative;
+}
+
+.title-group {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.cp-title-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 20px; /* snippet says xl */
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+}
+.cp-title-input::placeholder {
+    color: #a3a3a3;
+}
+
+.content-group {
+    flex: 1;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cp-content-input {
+    width: 100%;
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+    resize: none;
+    line-height: 1.5;
+}
+.cp-content-input::placeholder {
+    color: #a3a3a3;
+}
+
+.cp-char-count {
+    text-align: right;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: #a3a3a3;
+    margin-bottom: 20px;
+}
+
+.cp-bottom-toolbar {
+    width: 100%;
+    height: 60px;
+    border-top: 1px solid #dcdcdc;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Right aligned based on snippet coords */
+    padding-right: 20px;
+}
+
+.cp-anon-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.cp-check-box {
+    width: 16px;
+    height: 16px;
+    background: #27272a; /* zinc-800 */
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cp-anon-label {
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Pretendard';
+    color: #a3a3a3;
+}

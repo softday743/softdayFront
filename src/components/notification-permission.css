@@ -1,0 +1,93 @@
+.notification-container {
+    width: 393px;
+    height: 852px;
+    position: relative;
+    background: #959595;
+    overflow: hidden;
+}
+
+.notification-modal {
+    width: 324px;
+    height: 246px;
+    left: 35px;
+    top: 303px;
+    position: absolute;
+    background: white;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.notification-btn {
+    width: 120px;
+    height: 44px;
+    top: 182px;
+    position: absolute;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.notification-btn.deny {
+    left: 38px;
+    background: #E6E6E6;
+}
+
+.notification-btn.allow {
+    left: 166px;
+    background: #FFB200;
+}
+
+.notification-btn-text {
+    width: 97px;
+    height: 30px;
+    left: 11px;
+    top: 7px;
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    font-size: 16px;
+    font-family: 'Pretendard';
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.notification-title {
+    width: 285px;
+    height: 52px;
+    left: 19px;
+    top: 24px;
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    font-size: 18px;
+    font-family: 'Pretendard';
+    font-weight: 700;
+    word-wrap: break-word;
+}
+
+.notification-desc {
+    width: 285px;
+    height: 52px;
+    left: 19px;
+    top: 103px;
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    font-size: 16px;
+    font-family: 'Pretendard';
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.notification-desc.reconfirm {
+    top: 91px;
+}

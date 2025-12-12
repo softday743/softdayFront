@@ -1,0 +1,23 @@
+.splash-container {
+    width: 393px;
+    height: 852px;
+    background-color: #FFB200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.splash-logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.splash-logo {
+    width: 75px; /* Adjust size as needed based on 1.png aspect ratio */
+    height: auto;
+}

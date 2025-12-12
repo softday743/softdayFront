@@ -4,7 +4,7 @@ import { Button } from "./Button";
 
 import "./onboarding.css";
 
-export const Onboarding = ({ onSignUp, onLogin }) => {
+export const Onboarding = ({ onSignUp, onLogin, onLookAround }) => {
     return (
         <div className="onboarding-container">
             <div className="onboarding-inner">
@@ -17,7 +17,9 @@ export const Onboarding = ({ onSignUp, onLogin }) => {
                     <div onClick={onLogin}>
                         <Button className="design-component-instance-node" text="로그인" />
                     </div>
-                    <Button className="button-2" text="둘러보기" />
+                    <div onClick={onLookAround}>
+                        <Button className="button-2" text="둘러보기" />
+                    </div>
                 </div>
             </div>
         </div>

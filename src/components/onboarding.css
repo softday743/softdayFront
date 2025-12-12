@@ -18,12 +18,12 @@
 .onboarding-inner .img {
     height: auto;
     width: auto;
-    max-width: 60%;
-    max-height: 35%; /* Prevents overlapping with buttons at 55% */
+    max-width: 25%;
+    max-height: 15%; /* Prevents overlapping with buttons at 55% */
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    top: 15%; 
+    top: 20%; 
     object-fit: contain;
 }
 

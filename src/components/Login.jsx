@@ -3,7 +3,7 @@ import icon from "../assets/icon_arrow_left.svg";
 import { InputText } from "./InputText";
 import "./login.css";
 
-export const Login = ({ onBack }) => {
+export const Login = ({ onBack, onFindId, onFindPw }) => {
     return (
         <div className="login-container">
             <div className="arrow-left" onClick={onBack} style={{ cursor: 'pointer' }}>
@@ -25,7 +25,7 @@ export const Login = ({ onBack }) => {
             </button>
 
             <div className="find-links">
-                아이디 찾기&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;비밀번호 찾기
+                <span onClick={onFindId} style={{ cursor: 'pointer' }}>아이디 찾기</span>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;<span onClick={onFindPw} style={{ cursor: 'pointer' }}>비밀번호 찾기</span>
             </div>
         </div>
     );

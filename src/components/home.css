@@ -1,0 +1,241 @@
+.home-container {
+    width: 100%;
+    max-width: 393px;
+    height: 100vh;
+    position: relative;
+    background: white;
+    overflow: hidden;
+}
+
+.home-scroll-area {
+    width: 100%;
+    height: calc(100vh - 80px); /* 네비바 높이만큼 빼기 */
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    padding-bottom: 20px; /* 추가 여백 */
+}
+
+.home-header-icon {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+}
+
+.home-header-dot {
+    width: 9px;
+    height: 9px;
+    position: absolute;
+}
+
+.home-greeting {
+    width: 144px;
+    height: 36px;
+    left: 36px;
+    top: 56px;
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: black;
+    font-size: 14px;
+    font-family: 'Pretendard';
+    font-weight: 600;
+}
+
+.home-card {
+    position: absolute;
+    background: white;
+    box-shadow: 0px 0px 3px 1px rgba(136,136,136,0.25);
+    border-radius: 16px;
+    border: 0.5px solid #a3a3a3;
+    overflow: hidden;
+}
+
+.stress-check {
+    width: 320px;
+    height: 96px;
+    left: 35px;
+    top: 101px;
+}
+
+.stress-check-date {
+    width: 144px;
+    height: 36px;
+    left: 21px;
+    top: 9px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    color: black;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+}
+
+.stress-check-title {
+    width: 144px;
+    height: 36px;
+    left: 21px;
+    top: 59px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    text-decoration: underline;
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+}
+
+.stress-check-icon {
+    left: 247px;
+    top: 20px;
+    position: absolute;
+}
+
+.stress-check-question {
+    width: 32px;
+    height: 32px;
+    left: 261px;
+    top: 33px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+}
+
+.message-card {
+    width: 320px;
+    height: 128px;
+    left: 35px;
+    top: 248px;
+}
+
+.message-content {
+    left: 126px;
+    top: 58px; 
+    position: absolute;
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+}
+
+.section-title {
+    width: 144px;
+    height: 36px;
+    left: 35px;
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+}
+
+.more-link {
+    left: 327px;
+    position: absolute;
+    color: #a3a3a3;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    cursor: pointer;
+}
+
+.post-list-container {
+    position: absolute;
+    top: 426px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 100px;
+}
+
+.post-card {
+    width: 320px;
+    height: 112px;
+    margin-left: 35px;
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0px 0px 3px 1px rgba(136,136,136,0.25);
+    border: 0.5px solid #a3a3a3;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.post-title {
+    left: 20px;
+    top: 21px;
+    position: absolute;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+}
+
+.post-time {
+    left: 287px;
+    top: 18px;
+    position: absolute;
+    color: #a3a3a3;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+}
+
+.post-author {
+    left: 23px;
+    top: 72px;
+    position: absolute;
+    color: #a3a3a3;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+}
+
+.post-stat {
+    position: absolute;
+    top: 75px;
+    color: #a3a3a3;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+}
+
+.post-icon {
+    top: 73px;
+    position: absolute;
+}
+
+/* Bottom Nav - FIXED 위치로 변경 */
+.bottom-nav {
+    width: 100%;
+    max-width: 393px;
+    height: 80px;
+    background: white;
+    box-shadow: 0px -1px 6px 0px rgba(160,160,160,0.38);
+    overflow: hidden;
+    z-index: 9999;
+    position: fixed; /* absolute에서 fixed로 변경 */
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); /* 중앙 정렬 */
+}
+
+.nav-item,
+.nav-item-active {
+    width: 80px;
+    height: 64px;
+    position: absolute;
+    cursor: pointer;
+}

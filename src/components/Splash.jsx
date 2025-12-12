@@ -1,11 +1,13 @@
-import React from "react";
-import x1 from "./1.png";
-import "./style.css";
+import React from 'react';
+import logo from '../assets/1.png';
+import './splash.css';
 
-export const Element = ({ onClick }) => {
+export function Splash({ onClick }) {
     return (
-        <div className="splash-container" onClick={onClick} style={{ cursor: 'pointer' }}>
-            <img className="img" alt="Element" src={x1} />
+        <div className="splash-container" onClick={onClick}>
+            <div className="splash-logo-container">
+                <img src={logo} alt="Softday Logo" className="splash-logo" />
+            </div>
         </div>
     );
-};
+}
