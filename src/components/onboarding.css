@@ -1,0 +1,55 @@
+.onboarding-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0; 
+}
+
+.onboarding-inner {
+    background-color: #ffffff;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.onboarding-inner .img {
+    height: auto;
+    width: auto;
+    max-width: 60%;
+    max-height: 35%; /* Prevents overlapping with buttons at 55% */
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 15%; 
+    object-fit: contain;
+}
+
+/* Button positioning adjustments */
+/* Using a container for buttons might be better but sticking to absolute for now as requested/provided, 
+   but tweaking for centering */
+
+.onboarding-inner .button-instance {
+    left: 50% !important;
+    transform: translateX(-50%);
+    position: absolute !important;
+    top: 55% !important;
+}
+
+.onboarding-inner .design-component-instance-node {
+    left: 50% !important;
+    transform: translateX(-50%);
+    position: absolute !important;
+    top: 65% !important; /* Adjusted spacing */
+}
+
+.onboarding-inner .button-2 {
+    left: 50% !important;
+    transform: translateX(-50%);
+    position: absolute !important;
+    top: 75% !important; /* Adjusted spacing */
+    background-color: transparent; /* Assuming 'Look around' might be secondary */
+    border: 1px solid #ddd;
+}

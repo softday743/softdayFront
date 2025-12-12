@@ -1,0 +1,23 @@
+.button {
+    all: unset;
+    align-items: center;
+    background-color: #ffbf1d;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    height: 48px;
+    justify-content: center;
+    width: 329px;
+}
+
+.button .text-wrapper {
+    color: #000000;
+    font-family: var(--pre-semi-16-font-family);
+    font-size: var(--pre-semi-16-font-size);
+    font-style: var(--pre-semi-16-font-style);
+    font-weight: var(--pre-semi-16-font-weight);
+    letter-spacing: var(--pre-semi-16-letter-spacing);
+    line-height: var(--pre-semi-16-line-height);
+    text-align: center;
+    white-space: nowrap;
+}

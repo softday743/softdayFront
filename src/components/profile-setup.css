@@ -1,0 +1,99 @@
+.profile-setup-container {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.onbording-steps {
+    height: 6px;
+    left: 14px;
+    position: absolute;
+    top: 62px;
+    width: 364px;
+    display: flex;
+    gap: 5px; /* Adjust if needed */
+}
+
+.onbording-steps .step {
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    height: 100%;
+    flex: 1;
+}
+
+.onbording-steps .step.active {
+    background-color: #3d3d3d;
+}
+
+.profile-setup-container .title {
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+    position: absolute;
+    top: 9.86%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/* Labels */
+.profile-setup-container .label {
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+    position: absolute;
+    left: 32px;
+}
+
+.profile-setup-container .name-label { top: 16.43%; }
+.profile-setup-container .job-label { top: 29.81%; }
+.profile-setup-container .year-label { top: 43.19%; }
+.profile-setup-container .industry-label { top: 56.57%; }
+
+/* Inputs */
+.profile-setup-container .input-field {
+    background-color: #f6f6f6;
+    border: 1px solid #cdcdcd;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55px;
+    width: 330px;
+    position: absolute;
+    left: 32px;
+}
+
+.profile-setup-container .name-input { top: 21.01%; }
+.profile-setup-container .job-input { top: 34.39%; }
+.profile-setup-container .year-input { top: 47.77%; }
+.profile-setup-container .industry-input { top: 61.15%; }
+
+.profile-setup-container .input-placeholder {
+    color: #acacac;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.profile-setup-container .button-next {
+    all: unset;
+    background-color: #c8c8c8;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    width: 330px;
+    position: absolute;
+    left: 32px;
+    bottom: 126px; /* Approx based on 670px top in 852px height */
+    cursor: pointer;
+}
+
+.profile-setup-container .button-text {
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+}

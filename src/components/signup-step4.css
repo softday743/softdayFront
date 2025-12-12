@@ -1,0 +1,28 @@
+.signup-step4-container {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    height: 100%;
+    width: 100%;
+}
+
+.signup-step4-container .message-container {
+    text-align: center;
+    /* Adjust margin to visually match the provided design if needed */
+    margin-bottom: 30%; 
+}
+
+.signup-step4-container .title {
+    color: #000000;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.signup-step4-container .subtitle {
+    color: #000000;
+    font-size: 24px;
+    font-weight: 400; /* Regular weight for contrast if needed, or stick to provided */
+    line-height: 1.4;
+}
