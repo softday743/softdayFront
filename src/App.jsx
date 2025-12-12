@@ -100,7 +100,7 @@ function App() {
         />
       )}
       {screen === 'signup4' && (
-        <SignUpStep4 onNext={() => setScreen('profile')} />
+        <SignUpStep4 onNext={() => setScreen('profileSetup')} />
       )}
       {screen === 'login' && (
         <Login 
@@ -109,13 +109,13 @@ function App() {
             onFindPw={() => setScreen('findPwInput')}
         />
       )}
-      {screen === 'profile' && (
+      {screen === 'profileSetup' && (
         <ProfileSetup onNext={() => setScreen('survey')} />
       )}
       {screen === 'survey' && (
         <StressSurvey 
             onNext={() => setScreen('calculating')} 
-            onBack={() => setScreen('profile')}
+            onBack={() => setScreen('profileSetup')}
         />
       )}
       {screen === 'calculating' && (
