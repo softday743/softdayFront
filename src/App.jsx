@@ -1,248 +1,264 @@
-import React, { useState } from 'react'
-import { Splash } from './components/Splash'
-import { Onboarding } from './components/Onboarding'
-import { SignUpStep1 } from './components/SignUpStep1'
-import { SignUpStep2 } from './components/SignUpStep2'
-import { SignUpStep3 } from './components/SignUpStep3'
-import { SignUpStep4 } from './components/SignUpStep4'
-import { Login } from './components/Login'
-import { ProfileSetup } from './components/ProfileSetup'
-import { StressSurvey } from './components/StressSurvey'
-import { Calculating } from './components/Calculating'
-import { StressResult } from './components/StressResult'
-import { ContentPreference } from './components/ContentPreference'
-import { SignupComplete } from './components/SignupComplete'
-import { ServiceNotification } from './components/ServiceNotification'
-import { MarketingNotification } from './components/MarketingNotification'
-import { ServiceReconfirm } from './components/ServiceReconfirm'
-import { FindIdEmail } from './components/FindIdEmail'
-import { FindIdVerify } from './components/FindIdVerify'
-import { FindIdResult } from './components/FindIdResult'
-import { FindPwInput } from './components/FindPwInput'
-import { FindPwVerify } from './components/FindPwVerify'
-import { FindPwReset } from './components/FindPwReset'
-import { FindPwComplete } from './components/FindPwComplete'
-import { Home } from './components/Home'
-import { Community } from './components/Community'
-import { PostDetail } from './components/PostDetail'
-import { Search } from './components/Search'
-import { CreatePost } from './components/CreatePost'
-import { Folder } from './components/Folder'
-import { Chatbot } from './components/Chatbot'
-import { Profile } from './components/Profile'
-import api from './api/axiosConfig';
+import React, { useState } from "react";
+import { Splash } from "./components/Splash";
+import { Onboarding } from "./components/Onboarding";
+import { SignUpStep1 } from "./components/SignUpStep1";
+import { SignUpStep2 } from "./components/SignUpStep2";
+import { SignUpStep3 } from "./components/SignUpStep3";
+import { SignUpStep4 } from "./components/SignUpStep4";
+import { Login } from "./components/Login";
+import { ProfileSetup } from "./components/ProfileSetup";
+import { StressSurvey } from "./components/StressSurvey";
+import { Calculating } from "./components/Calculating";
+import { StressResult } from "./components/StressResult";
+import { ContentPreference } from "./components/ContentPreference";
+import { SignupComplete } from "./components/SignupComplete";
+import { ServiceNotification } from "./components/ServiceNotification";
+import { MarketingNotification } from "./components/MarketingNotification";
+import { ServiceReconfirm } from "./components/ServiceReconfirm";
+import { FindIdEmail } from "./components/FindIdEmail";
+import { FindIdVerify } from "./components/FindIdVerify";
+import { FindIdResult } from "./components/FindIdResult";
+import { FindPwInput } from "./components/FindPwInput";
+import { FindPwVerify } from "./components/FindPwVerify";
+import { FindPwReset } from "./components/FindPwReset";
+import { FindPwComplete } from "./components/FindPwComplete";
+import { Home } from "./components/Home";
+import { Community } from "./components/Community";
+import { PostDetail } from "./components/PostDetail";
+import { Search } from "./components/Search";
+import { CreatePost } from "./components/CreatePost";
+import { Folder } from "./components/Folder";
+import { Chatbot } from "./components/Chatbot";
+import { Profile } from "./components/Profile";
+import api from "./api/axiosConfig";
+
+import { MainLayout } from "./components/MainLayout";
 
 function App() {
-  const [screen, setScreen] = useState('splash');
+  const [screen, setScreen] = useState("splash");
 
   const containerStyle = {
-    width: '100%',
-    maxWidth: '393px',
-    height: '100%',
-    maxHeight: '852px',
-    overflow: 'hidden',
-    position: 'relative',
-    boxShadow: '0 0 20px rgba(0,0,0,0.1)',
-    backgroundColor: '#ffffff'
+    width: "100%",
+    maxWidth: "393px",
+    height: "100%",
+    maxHeight: "852px",
+    overflow: "hidden",
+    position: "relative",
+    boxShadow: "0 0 20px rgba(0,0,0,0.1)",
+    backgroundColor: "#ffffff",
   };
 
   const [signupData, setSignupData] = useState({
-    email: '',
-    password: '',
-    industry: '',
-    careerYears: '',
+    email: "",
+    password: "",
+    industry: "",
+    careerYears: "",
     surveyAnswer: [],
     preferences: { video: false, text: false, audio: false },
-    allowNotification: true
+    allowNotification: true,
   });
 
   const updateSignupData = (key, value) => {
-    setSignupData(prev => ({ ...prev, [key]: value }));
-  }
+    setSignupData((prev) => ({ ...prev, [key]: value }));
+  };
 
   const handleSignupSubmit = async (finalPreferences) => {
     try {
       // 마지막 단계 데이터(선호 콘텐츠)까지 합치기
       const finalData = {
         ...signupData,
-        preferences: finalPreferences
+        preferences: finalPreferences,
       };
 
       console.log("회원가입 요청 데이터:", finalData);
 
       // 백엔드 API 호출
-      const response = await api.post('/auth/signup', finalData);
-      
+      const response = await api.post("/auth/signup", finalData);
+
       const { accessToken } = response.data;
-      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem("accessToken", accessToken);
 
       alert("회원가입 완료! 환영합니다.");
-      setScreen('signupComplete'); // 완료 화면으로 이동
-
+      setScreen("signupComplete"); // 완료 화면으로 이동
     } catch (error) {
       console.error("Signup Failed:", error);
-      alert("회원가입에 실패했습니다. " + (error.response?.data || "오류가 발생했습니다."));
+      alert(
+        "회원가입에 실패했습니다. " +
+          (error.response?.data || "오류가 발생했습니다.")
+      );
     }
   };
 
   return (
     <div style={containerStyle}>
-      {screen === 'splash' && (
-        <Splash onClick={() => setScreen('onboarding')} />
+      {screen === "splash" && (
+        <Splash onClick={() => setScreen("onboarding")} />
       )}
-      {screen === 'onboarding' && (
-        <Onboarding 
-            onSignUp={() => setScreen('signup1')} 
-            onLogin={() => setScreen('login')}
-            onLookAround={() => setScreen('home')}
+      {screen === "onboarding" && (
+        <Onboarding
+          onSignUp={() => setScreen("signup1")}
+          onLogin={() => setScreen("login")}
+          onLookAround={() => setScreen("home")}
         />
       )}
-      {screen === 'home' && (
-        <Home onNavigate={setScreen} />
+      {screen === "home" && (
+        <MainLayout active="home" onNavigate={setScreen}>
+          <Home onNavigate={setScreen} />
+        </MainLayout>
       )}
-      {screen === 'chatbot' && (
-        <Chatbot onNavigate={setScreen} />
+      {screen === "chatbot" && (
+        <MainLayout active="chatbot" onNavigate={setScreen}>
+          <Chatbot onNavigate={setScreen} />
+        </MainLayout>
       )}
-      {screen === 'folder' && (
-        <Folder onNavigate={setScreen} />
+      {screen === "folder" && (
+        <MainLayout active="folder" onNavigate={setScreen}>
+          <Folder onNavigate={setScreen} />
+        </MainLayout>
       )}
-      {screen === 'profile' && (
-        <Profile onNavigate={setScreen} />
+      {screen === "profile" && (
+        <MainLayout active="profile" onNavigate={setScreen}>
+          <Profile onNavigate={setScreen} />
+        </MainLayout>
       )}
-      {screen === 'community' && (
-        <Community onNavigate={setScreen} />
+      {screen === "community" && (
+        <MainLayout active="community" onNavigate={setScreen}>
+          <Community onNavigate={setScreen} />
+        </MainLayout>
       )}
-      {screen === 'postDetail' && (
-        <PostDetail onNavigate={setScreen} />
-      )}
-      {screen === 'search' && (
-        <Search onNavigate={setScreen} />
-      )}
-      {screen === 'createPost' && (
-        <CreatePost onNavigate={setScreen} />
-      )}
-      {screen === 'signup1' && (
+      {screen === "postDetail" && <PostDetail onNavigate={setScreen} />}
+      {screen === "search" && <Search onNavigate={setScreen} />}
+      {screen === "createPost" && <CreatePost onNavigate={setScreen} />}
+      {screen === "signup1" && (
         <SignUpStep1
-          onNext={() => setScreen('signup2')} 
-          onBack={() => setScreen('onboarding')}
+          onNext={() => setScreen("signup2")}
+          onBack={() => setScreen("onboarding")}
           data={signupData}
           onUpdate={updateSignupData}
         />
       )}
-      {screen === 'signup2' && (
-        <SignUpStep2 
-            onNext={() => setScreen('signup3')} 
-            onBack={() => setScreen('signup1')}
+      {screen === "signup2" && (
+        <SignUpStep2
+          onNext={() => setScreen("signup3")}
+          onBack={() => setScreen("signup1")}
         />
       )}
-      {screen === 'signup3' && (
+      {screen === "signup3" && (
         <SignUpStep3
-          onNext={() => setScreen('signup4')} 
-          onBack={() => setScreen('signup2')}
+          onNext={() => setScreen("signup4")}
+          onBack={() => setScreen("signup2")}
           data={signupData}
           onUpdate={updateSignupData}
         />
       )}
-      {screen === 'signup4' && (
-        <SignUpStep4 onNext={() => setScreen('profileSetup')} />
-      )}
-      {screen === 'login' && (
-        <Login 
-            onBack={() => setScreen('onboarding')} 
-            onFindId={() => setScreen('findIdEmail')}
-            onFindPw={() => setScreen('findPwInput')}
+      {screen === "signup4" && (
+        <SignUpStep4
+          onNext={() => setScreen("profileSetup")}
+          onBack={() => setScreen("signup3")}
         />
       )}
-      {screen === 'profileSetup' && (
+      {screen === "login" && (
+        <Login
+          onBack={() => setScreen("onboarding")}
+          onFindId={() => setScreen("findIdEmail")}
+          onFindPw={() => setScreen("findPwInput")}
+        />
+      )}
+      {screen === "profileSetup" && (
         <ProfileSetup
-          onNext={() => setScreen('survey')}
+          onNext={() => setScreen("survey")}
+          onBack={() => setScreen("signup4")}
           data={signupData}
           onUpdate={updateSignupData}
         />
       )}
-      {screen === 'survey' && (
-        <StressSurvey 
-            onNext={() => setScreen('calculating')} 
-          onBack={() => setScreen('profileSetup')}
+      {screen === "survey" && (
+        <StressSurvey
+          onNext={() => setScreen("calculating")}
+          onBack={() => setScreen("profileSetup")}
           onUpdate={updateSignupData}
         />
       )}
-      {screen === 'calculating' && (
-        <Calculating onFinished={() => setScreen('result')} />
+      {screen === "calculating" && (
+        <Calculating onFinished={() => setScreen("result")} />
       )}
-      {screen === 'result' && (
-        <StressResult onConfirm={() => setScreen('preference')} />
-      )}
-      {screen === 'preference' && (
-        <ContentPreference 
-            onComplete={(prefs) => handleSignupSubmit(prefs)} 
+      {screen === "result" && (
+        <StressResult
+          onConfirm={() => setScreen("preference")}
+          onBack={() => setScreen("survey")}
         />
       )}
-      {screen === 'signupComplete' && (
-        <SignupComplete onNext={() => setScreen('serviceAuth')} />
-      )}
-      {screen === 'serviceAuth' && (
-        <ServiceNotification 
-          onAllow={() => setScreen('marketingAuth')}
-          onDeny={() => setScreen('serviceReconfirm')}
+      {screen === "preference" && (
+        <ContentPreference
+          onComplete={(prefs) => handleSignupSubmit(prefs)}
+          onBack={() => setScreen("result")}
         />
       )}
-      {screen === 'serviceReconfirm' && (
-        <ServiceReconfirm 
-          onAllow={() => setScreen('marketingAuth')}
-          onDeny={() => setScreen('marketingAuth')}
+      {screen === "signupComplete" && (
+        <SignupComplete onNext={() => setScreen("serviceAuth")} />
+      )}
+      {screen === "serviceAuth" && (
+        <ServiceNotification
+          onAllow={() => setScreen("marketingAuth")}
+          onDeny={() => setScreen("serviceReconfirm")}
         />
       )}
-      {screen === 'marketingAuth' && (
-        <MarketingNotification 
-          onAllow={() => setScreen('onboarding')}
-          onDeny={() => setScreen('onboarding')}
+      {screen === "serviceReconfirm" && (
+        <ServiceReconfirm
+          onAllow={() => setScreen("marketingAuth")}
+          onDeny={() => setScreen("marketingAuth")}
         />
       )}
-      {screen === 'findIdEmail' && (
-        <FindIdEmail 
-            onNext={() => setScreen('findIdVerify')} 
-            onBack={() => setScreen('login')} 
+      {screen === "marketingAuth" && (
+        <MarketingNotification
+          onAllow={() => setScreen("onboarding")}
+          onDeny={() => setScreen("onboarding")}
         />
       )}
-      {screen === 'findIdVerify' && (
-        <FindIdVerify 
-            onNext={() => setScreen('findIdResult')} 
-            onBack={() => setScreen('findIdEmail')} 
+      {screen === "findIdEmail" && (
+        <FindIdEmail
+          onNext={() => setScreen("findIdVerify")}
+          onBack={() => setScreen("login")}
         />
       )}
-      {screen === 'findIdResult' && (
-        <FindIdResult onLogin={() => setScreen('login')} />
-      )}
-      {screen === 'findPwInput' && (
-        <FindPwInput 
-            onNext={() => setScreen('findPwVerify')} 
-            onBack={() => setScreen('login')} 
-            onTabId={() => setScreen('findIdEmail')}
+      {screen === "findIdVerify" && (
+        <FindIdVerify
+          onNext={() => setScreen("findIdResult")}
+          onBack={() => setScreen("findIdEmail")}
         />
       )}
-      {screen === 'findPwVerify' && (
-        <FindPwVerify 
-            onNext={() => setScreen('findPwReset')} 
-            onBack={() => setScreen('findPwInput')} 
-            onTabId={() => setScreen('findIdEmail')}
+      {screen === "findIdResult" && (
+        <FindIdResult onLogin={() => setScreen("login")} />
+      )}
+      {screen === "findPwInput" && (
+        <FindPwInput
+          onNext={() => setScreen("findPwVerify")}
+          onBack={() => setScreen("login")}
+          onTabId={() => setScreen("findIdEmail")}
         />
       )}
-      {screen === 'findPwReset' && (
-        <FindPwReset 
-            onNext={() => setScreen('findPwComplete')} 
-            onBack={() => setScreen('findPwVerify')} 
-            onTabId={() => setScreen('findIdEmail')}
+      {screen === "findPwVerify" && (
+        <FindPwVerify
+          onNext={() => setScreen("findPwReset")}
+          onBack={() => setScreen("findPwInput")}
+          onTabId={() => setScreen("findIdEmail")}
         />
       )}
-      {screen === 'findPwComplete' && (
-        <FindPwComplete 
-            onLogin={() => setScreen('login')} 
-            onTabId={() => setScreen('findIdEmail')}
+      {screen === "findPwReset" && (
+        <FindPwReset
+          onNext={() => setScreen("findPwComplete")}
+          onBack={() => setScreen("findPwVerify")}
+          onTabId={() => setScreen("findIdEmail")}
+        />
+      )}
+      {screen === "findPwComplete" && (
+        <FindPwComplete
+          onLogin={() => setScreen("login")}
+          onTabId={() => setScreen("findIdEmail")}
         />
       )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

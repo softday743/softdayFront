@@ -1,6 +1,5 @@
 import React from 'react';
 import './folder.css';
-import { BottomNav } from './BottomNav'; // We will try to re-use or copy-paste depending on stability
 
 export function Folder({ onNavigate }) {
     return (
@@ -78,10 +77,6 @@ export function Folder({ onNavigate }) {
                     </div>
                 </div>
             </div>
-
-            {/* Bottom Nav - Inline to ensure stability matching Home/Community */}
-            {/* Bottom Nav - Shared Component */}
-            <BottomNav active="folder" onNavigate={onNavigate} />
         </div>
     );
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import './profile.css';
-import { BottomNav } from './BottomNav';
 
 export function Profile({ onNavigate }) {
     return (
@@ -81,9 +80,6 @@ export function Profile({ onNavigate }) {
                     <div className="login-btn-text">로그인하러 가기</div>
                 </div>
             </div>
-
-            {/* Bottom Nav */}
-            <BottomNav active="profile" onNavigate={onNavigate} />
         </div>
     );
 }

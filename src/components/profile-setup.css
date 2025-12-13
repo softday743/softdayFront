@@ -6,6 +6,16 @@
     overflow: hidden;
 }
 
+.profile-setup-container .arrow-left {
+    position: absolute;
+    top: 80px;
+    left: 15px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 10;
+}
+
 .onbording-steps {
     height: 6px;
     left: 14px;

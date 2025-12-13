@@ -1,9 +1,14 @@
 import React from "react";
+import icon from "../assets/icon_arrow_left.svg";
 import "./signup-step4.css";
 
-export const SignUpStep4 = ({ onNext }) => {
+export const SignUpStep4 = ({ onNext, onBack }) => {
     return (
         <div className="signup-step4-container">
+            <div className="arrow-left" onClick={onBack} style={{ cursor: 'pointer' }}>
+                <img className="icon" alt="Back" src={icon} />
+            </div>
+
             <div className="message-container">
                 <div className="title">
                     회원가입 완료되었어요🎉
@@ -13,19 +18,7 @@ export const SignUpStep4 = ({ onNext }) => {
                 </div>
             </div>
             
-            <button className="button-next" onClick={onNext} style={{
-                position: 'absolute',
-                bottom: '48px',
-                all: 'unset',
-                backgroundColor: '#c8c8c8',
-                borderRadius: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '56px',
-                width: '330px',
-                cursor: 'pointer'
-            }}>
+            <button className="button-next" onClick={onNext}>
                 <div style={{ color: '#000000', fontSize: '16px', fontWeight: '600' }}>다음</div>
             </button>
         </div>

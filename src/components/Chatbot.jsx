@@ -1,6 +1,5 @@
 import React from 'react';
 import './chatbot.css';
-import { BottomNav } from './BottomNav';
 
 export function Chatbot({ onNavigate }) {
     return (
@@ -48,9 +47,6 @@ export function Chatbot({ onNavigate }) {
             <div className="start-chat-btn">
                 <div className="start-chat-text">대화 시작하기</div>
             </div>
-
-            {/* Bottom Navigation */}
-            <BottomNav active="chatbot" onNavigate={onNavigate} />
         </div>
     );
 }

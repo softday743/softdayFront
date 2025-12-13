@@ -5,7 +5,7 @@ import iconText from "../assets/icon-text.svg";
 import iconAudio from "../assets/icon-audio.svg";
 import "./content-preference.css";
 
-export const ContentPreference = ({ onComplete }) => {
+export const ContentPreference = ({ onComplete, onBack }) => {
     const [selected, setSelected] = useState([]);
 
     const toggleSelection = (type) => {
@@ -52,7 +52,7 @@ export const ContentPreference = ({ onComplete }) => {
                 <div className="button-text">완료</div>
             </button>
 
-            <div className="arrow-left" style={{ cursor: 'pointer' }}>
+            <div className="arrow-left" onClick={onBack} style={{ cursor: 'pointer' }}>
                  {/* Navigation back not strictly defined in flow but good to have ui element */}
                 <img className="icon" alt="Back" src={iconArrow} />
             </div>

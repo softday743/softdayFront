@@ -1,9 +1,14 @@
 import React from "react";
+import icon from "../assets/icon_arrow_left.svg";
 import "./profile-setup.css";
 
-export const ProfileSetup = ({ onNext }) => {
+export const ProfileSetup = ({ onNext, onBack }) => {
     return (
         <div className="profile-setup-container">
+            <div className="arrow-left" onClick={onBack} style={{ cursor: 'pointer' }}>
+                <img className="icon" alt="Back" src={icon} />
+            </div>
+
              <div className="onbording-steps">
                 <div className="step active" />
                 <div className="step" />

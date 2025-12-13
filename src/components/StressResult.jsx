@@ -1,14 +1,19 @@
 import React from "react";
 import face from "../assets/confused-face.svg";
+import icon from "../assets/icon_arrow_left.svg";
 import "./stress-result.css";
 
-export const StressResult = ({ onConfirm }) => {
+export const StressResult = ({ onConfirm, onBack }) => {
     return (
         <div className="stress-result-container">
              <div className="onbording-steps">
                 <div className="step active" />
                 <div className="step active" />
                 <div className="step active" />
+            </div>
+
+            <div className="arrow-left" onClick={onBack} style={{ cursor: 'pointer' }}>
+                <img className="icon" alt="Back" src={icon} />
             </div>
 
             <div className="confused-face">
