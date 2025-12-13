@@ -31,6 +31,8 @@ import { Folder } from './components/Folder'
 import { Chatbot } from './components/Chatbot'
 import { Profile } from './components/Profile'
 
+import { MainLayout } from './components/MainLayout'
+
 function App() {
   const [screen, setScreen] = useState('splash');
 
@@ -58,19 +60,29 @@ function App() {
         />
       )}
       {screen === 'home' && (
-        <Home onNavigate={setScreen} />
+        <MainLayout active="home" onNavigate={setScreen}>
+            <Home onNavigate={setScreen} />
+        </MainLayout>
       )}
       {screen === 'chatbot' && (
-        <Chatbot onNavigate={setScreen} />
+        <MainLayout active="chatbot" onNavigate={setScreen}>
+            <Chatbot onNavigate={setScreen} />
+        </MainLayout>
       )}
       {screen === 'folder' && (
-        <Folder onNavigate={setScreen} />
+        <MainLayout active="folder" onNavigate={setScreen}>
+            <Folder onNavigate={setScreen} />
+        </MainLayout>
       )}
       {screen === 'profile' && (
-        <Profile onNavigate={setScreen} />
+        <MainLayout active="profile" onNavigate={setScreen}>
+            <Profile onNavigate={setScreen} />
+        </MainLayout>
       )}
       {screen === 'community' && (
-        <Community onNavigate={setScreen} />
+        <MainLayout active="community" onNavigate={setScreen}>
+            <Community onNavigate={setScreen} />
+        </MainLayout>
       )}
       {screen === 'postDetail' && (
         <PostDetail onNavigate={setScreen} />
@@ -100,7 +112,10 @@ function App() {
         />
       )}
       {screen === 'signup4' && (
-        <SignUpStep4 onNext={() => setScreen('profileSetup')} />
+        <SignUpStep4 
+            onNext={() => setScreen('profileSetup')} 
+            onBack={() => setScreen('signup3')}
+        />
       )}
       {screen === 'login' && (
         <Login 
@@ -110,7 +125,10 @@ function App() {
         />
       )}
       {screen === 'profileSetup' && (
-        <ProfileSetup onNext={() => setScreen('survey')} />
+        <ProfileSetup 
+            onNext={() => setScreen('survey')} 
+            onBack={() => setScreen('signup4')}
+        />
       )}
       {screen === 'survey' && (
         <StressSurvey 
@@ -122,10 +140,16 @@ function App() {
         <Calculating onFinished={() => setScreen('result')} />
       )}
       {screen === 'result' && (
-        <StressResult onConfirm={() => setScreen('preference')} />
+        <StressResult 
+            onConfirm={() => setScreen('preference')} 
+            onBack={() => setScreen('survey')}
+        />
       )}
       {screen === 'preference' && (
-        <ContentPreference onComplete={() => setScreen('signupComplete')} />
+        <ContentPreference 
+            onComplete={() => setScreen('signupComplete')} 
+            onBack={() => setScreen('result')}
+        />
       )}
       {screen === 'signupComplete' && (
         <SignupComplete onNext={() => setScreen('serviceAuth')} />

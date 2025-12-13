@@ -1,6 +1,5 @@
 import React from 'react';
 import './home.css';
-import { BottomNav } from './BottomNav';
 
 export function Home({ onNavigate }) {
     return (
@@ -70,9 +69,6 @@ export function Home({ onNavigate }) {
                     ))}
                 </div>
             </div>
-
-            {/* Bottom Navigation */}
-            <BottomNav active="home" onNavigate={onNavigate} />
         </div>
     );
 }

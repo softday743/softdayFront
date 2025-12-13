@@ -1,6 +1,6 @@
+
 import React from 'react';
 import './community.css';
-import { BottomNav } from './BottomNav';
 
 export function Community({ onNavigate }) {
     return (
@@ -155,9 +155,7 @@ export function Community({ onNavigate }) {
                     </svg>
                 </div>
             </div>
-
-            {/* Bottom Nav */}
-            <BottomNav active="community" onNavigate={onNavigate} />
         </div>
     );
 }
+
