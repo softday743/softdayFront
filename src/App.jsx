@@ -30,6 +30,7 @@ import { CreatePost } from './components/CreatePost'
 import { Folder } from './components/Folder'
 import { Chatbot } from './components/Chatbot'
 import { Profile } from './components/Profile'
+import api from './api/axiosConfig';
 
 function App() {
   const [screen, setScreen] = useState('splash');
@@ -43,6 +44,45 @@ function App() {
     position: 'relative',
     boxShadow: '0 0 20px rgba(0,0,0,0.1)',
     backgroundColor: '#ffffff'
+  };
+
+  const [signupData, setSignupData] = useState({
+    email: '',
+    password: '',
+    industry: '',
+    careerYears: '',
+    surveyAnswer: [],
+    preferences: { video: false, text: false, audio: false },
+    allowNotification: true
+  });
+
+  const updateSignupData = (key, value) => {
+    setSignupData(prev => ({ ...prev, [key]: value }));
+  }
+
+  const handleSignupSubmit = async (finalPreferences) => {
+    try {
+      // 마지막 단계 데이터(선호 콘텐츠)까지 합치기
+      const finalData = {
+        ...signupData,
+        preferences: finalPreferences
+      };
+
+      console.log("회원가입 요청 데이터:", finalData);
+
+      // 백엔드 API 호출
+      const response = await api.post('/auth/signup', finalData);
+      
+      const { accessToken } = response.data;
+      localStorage.setItem('accessToken', accessToken);
+
+      alert("회원가입 완료! 환영합니다.");
+      setScreen('signupComplete'); // 완료 화면으로 이동
+
+    } catch (error) {
+      console.error("Signup Failed:", error);
+      alert("회원가입에 실패했습니다. " + (error.response?.data || "오류가 발생했습니다."));
+    }
   };
 
   return (
@@ -82,9 +122,11 @@ function App() {
         <CreatePost onNavigate={setScreen} />
       )}
       {screen === 'signup1' && (
-        <SignUpStep1 
-            onNext={() => setScreen('signup2')} 
-            onBack={() => setScreen('onboarding')}
+        <SignUpStep1
+          onNext={() => setScreen('signup2')} 
+          onBack={() => setScreen('onboarding')}
+          data={signupData}
+          onUpdate={updateSignupData}
         />
       )}
       {screen === 'signup2' && (
@@ -94,9 +136,11 @@ function App() {
         />
       )}
       {screen === 'signup3' && (
-        <SignUpStep3 
-            onNext={() => setScreen('signup4')} 
-            onBack={() => setScreen('signup2')}
+        <SignUpStep3
+          onNext={() => setScreen('signup4')} 
+          onBack={() => setScreen('signup2')}
+          data={signupData}
+          onUpdate={updateSignupData}
         />
       )}
       {screen === 'signup4' && (
@@ -110,12 +154,17 @@ function App() {
         />
       )}
       {screen === 'profileSetup' && (
-        <ProfileSetup onNext={() => setScreen('survey')} />
+        <ProfileSetup
+          onNext={() => setScreen('survey')}
+          data={signupData}
+          onUpdate={updateSignupData}
+        />
       )}
       {screen === 'survey' && (
         <StressSurvey 
             onNext={() => setScreen('calculating')} 
-            onBack={() => setScreen('profileSetup')}
+          onBack={() => setScreen('profileSetup')}
+          onUpdate={updateSignupData}
         />
       )}
       {screen === 'calculating' && (
@@ -125,7 +174,9 @@ function App() {
         <StressResult onConfirm={() => setScreen('preference')} />
       )}
       {screen === 'preference' && (
-        <ContentPreference onComplete={() => setScreen('signupComplete')} />
+        <ContentPreference 
+            onComplete={(prefs) => handleSignupSubmit(prefs)} 
+        />
       )}
       {screen === 'signupComplete' && (
         <SignupComplete onNext={() => setScreen('serviceAuth')} />
