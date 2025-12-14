@@ -56,7 +56,7 @@ function App() {
     rank: "",
     industry: "",
     careerYears: "",
-    surveyAnswer: [],
+    surveyAnswers: [],
     preferences: { video: false, text: false, audio: false },
     allowNotification: true,
   });
@@ -198,6 +198,7 @@ function App() {
           onBack={() => setScreen("onboarding")}
           onFindId={() => setScreen("findIdEmail")}
           onFindPw={() => setScreen("findPwInput")}
+          onLoginSuccess={() => setScreen("home")}
         />
       )}
       {screen === "profileSetup" && (

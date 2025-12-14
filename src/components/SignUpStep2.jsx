@@ -1,6 +1,5 @@
-import React from "react";
-import icon from "../assets/icon_arrow_left.svg";
-import line from "../assets/line_dashed.svg"; // Using simplified asset
+import React, { useState } from "react"; // useState 포함
+import icon from "../assets/icon_arrow_left.svg"; // [중요] 이 줄이 있어야 에러가 안 납니다!
 import "./signup-step2.css";
 
 export const SignUpStep2 = ({ onVerify, onBack, email }) => {
@@ -16,7 +15,7 @@ export const SignUpStep2 = ({ onVerify, onBack, email }) => {
         인증번호를 입력해주세요.
       </div>
 
-      {/* 실제 입력 필드로 변경 */}
+      {/* 인증번호 입력 필드 */}
       <input
         style={{
           position: "absolute",
@@ -55,6 +54,7 @@ export const SignUpStep2 = ({ onVerify, onBack, email }) => {
         onClick={onBack}
         style={{ cursor: "pointer" }}
       >
+        {/* 여기서 icon 변수를 사용하므로 상단 import 필수 */}
         <img className="icon" alt="Back" src={icon} />
       </div>
     </div>
