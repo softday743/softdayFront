@@ -49,8 +49,11 @@ function App() {
   };
 
   const [signupData, setSignupData] = useState({
+    username: "",
     email: "",
     password: "",
+    name: "",
+    rank: "",
     industry: "",
     careerYears: "",
     surveyAnswer: [],
@@ -86,6 +89,37 @@ function App() {
         "회원가입에 실패했습니다. " +
           (error.response?.data || "오류가 발생했습니다.")
       );
+    }
+  };
+
+  // [중요] Step 1에서 호출할 "인증번호 발송" 로직
+  const handleSendEmail = async () => {
+    if (!signupData.email) return alert("이메일을 입력해주세요.");
+    try {
+      // 로딩 표시 로직 추가 가능
+      await api.post("/auth/send-verification-code", {
+        email: signupData.email,
+      });
+      alert("인증번호가 이메일로 전송되었습니다.");
+      setScreen("signup2"); // 다음 화면 이동
+    } catch (error) {
+      console.error(error);
+      alert("이메일 전송 실패: " + (error.response?.data || "오류 발생"));
+    }
+  };
+
+  // [중요] Step 2에서 호출할 "인증번호 확인" 로직
+  const handleVerifyCode = async (code) => {
+    if (!code) return alert("인증번호를 입력해주세요.");
+    try {
+      await api.post("/auth/verify-code", {
+        email: signupData.email,
+        code: code,
+      });
+      alert("인증 성공!");
+      setScreen("signup3"); // 다음 화면 이동
+    } catch (error) {
+      alert("인증 실패: " + (error.response?.data || "코드를 확인해주세요."));
     }
   };
 
@@ -129,9 +163,10 @@ function App() {
       {screen === "postDetail" && <PostDetail onNavigate={setScreen} />}
       {screen === "search" && <Search onNavigate={setScreen} />}
       {screen === "createPost" && <CreatePost onNavigate={setScreen} />}
+
       {screen === "signup1" && (
         <SignUpStep1
-          onNext={() => setScreen("signup2")}
+          onNext={handleSendEmail} // API 호출 함수 전달
           onBack={() => setScreen("onboarding")}
           data={signupData}
           onUpdate={updateSignupData}
@@ -139,8 +174,9 @@ function App() {
       )}
       {screen === "signup2" && (
         <SignUpStep2
-          onNext={() => setScreen("signup3")}
+          onVerify={handleVerifyCode} // 검증 함수 전달
           onBack={() => setScreen("signup1")}
+          email={signupData.email} // 이메일 주소 표시용
         />
       )}
       {screen === "signup3" && (
