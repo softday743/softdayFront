@@ -36,6 +36,7 @@ import { MainLayout } from "./components/MainLayout";
 
 function App() {
   const [screen, setScreen] = useState("splash");
+  const [selectedPostId, setSelectedPostId] = useState(null);
 
   const containerStyle = {
     width: "100%",
@@ -157,10 +158,17 @@ function App() {
       )}
       {screen === "community" && (
         <MainLayout active="community" onNavigate={setScreen}>
-          <Community onNavigate={setScreen} />
+          <Community
+            onNavigate={(screen, id) => {
+              if (id) setSelectedPostId(id);
+              setScreen(screen);
+            }}
+          />
         </MainLayout>
       )}
-      {screen === "postDetail" && <PostDetail onNavigate={setScreen} />}
+      {screen === "postDetail" && (
+        <PostDetail onNavigate={setScreen} postId={selectedPostId} />
+      )}
       {screen === "search" && <Search onNavigate={setScreen} />}
       {screen === "createPost" && <CreatePost onNavigate={setScreen} />}
 
