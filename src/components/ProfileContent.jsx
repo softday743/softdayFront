@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './profile.css';
+import api from '../api/axiosConfig';
+
 
 export function ProfileContent({ onBack }) {
     const [selectedContentTypes, setSelectedContentTypes] = useState(['text', 'audio']);

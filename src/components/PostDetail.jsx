@@ -5,15 +5,32 @@ import "./post-detail.css";
 export function PostDetail({ onNavigate, postId }) {
   const [post, setPost] = useState(null);
   const [commentText, setCommentText] = useState("");
-  const [isAnonymous, setIsAnonymous] = useState(false); // 익명 체크 상태
+  const [isAnonymous, setIsAnonymous] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [replyToCommentId, setReplyToCommentId] = useState(null);
 
-  // postId가 변경되면 상세 내용 다시 불러오기
+  // [수정] 로그인한 유저의 모든 정보 저장 (이메일 & 아이디)
+  const [currentUser, setCurrentUser] = useState({ email: "", username: "" });
+
   useEffect(() => {
     if (postId) {
       fetchPostDetail();
+      fetchCurrentUser();
     }
   }, [postId]);
+
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await api.get("/user/me");
+      // 백엔드 UserProfileResponse에 username 필드가 있어야 값이 들어옵니다.
+      setCurrentUser({
+        email: response.data.email,
+        username: response.data.username,
+      });
+    } catch (error) {
+      console.error("유저 정보 로드 실패", error);
+    }
+  };
 
   const fetchPostDetail = async () => {
     try {
@@ -29,40 +46,60 @@ export function PostDetail({ onNavigate, postId }) {
     }
   };
 
-  // 댓글 작성 핸들러
+  const handleDeletePost = async () => {
+    if (!window.confirm("정말 이 게시글을 삭제하시겠습니까?")) return;
+    try {
+      await api.delete(`/board/${postId}`);
+      alert("게시글이 삭제되었습니다.");
+      onNavigate("community");
+    } catch (error) {
+      console.error("게시글 삭제 실패", error);
+      alert("삭제 권한이 없거나 오류가 발생했습니다.");
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    if (!window.confirm("댓글을 삭제하시겠습니까?")) return;
+    try {
+      await api.delete(`/board/comments/${commentId}`);
+      fetchPostDetail();
+    } catch (error) {
+      console.error("댓글 삭제 실패", error);
+      alert("삭제 실패");
+    }
+  };
+
   const handleSubmitComment = async () => {
     if (!commentText.trim()) return;
-
     try {
       await api.post(`/board/${postId}/comment`, {
         content: commentText,
-        parentId: null, // 대댓글이 아니므로 null
-        isAnonymous: isAnonymous, // [핵심] 익명 여부 전송
+        parentId: replyToCommentId,
+        // 프론트에서 해결: 백엔드가 인식하는 필드명(anonymous)으로 전송
+        anonymous: isAnonymous,
+        isAnonymous: isAnonymous,
       });
 
-      setCommentText(""); // 입력창 초기화
-      setIsAnonymous(false); // 익명 체크 초기화
-      fetchPostDetail(); // 댓글 목록 갱신을 위해 재조회
+      setCommentText("");
+      setIsAnonymous(false);
+      setReplyToCommentId(null);
+      fetchPostDetail();
     } catch (error) {
       console.error("댓글 등록 실패", error);
       alert("댓글 등록에 실패했습니다.");
     }
   };
 
-  if (loading)
-    return (
-      <div
-        className="post-detail-container"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        Loading...
-      </div>
-    );
+  const handleReplyClick = (commentId, authorName) => {
+    setReplyToCommentId(commentId);
+    setCommentText(`@${authorName} `);
+  };
+
+  if (loading) return <div className="post-detail-container">Loading...</div>;
   if (!post) return null;
+
+  // [게시글 삭제 권한] 게시글 작성자는 email로 비교 (백엔드 PostDetailResponse가 email을 반환하므로)
+  const isMyPost = currentUser.email && post.username === currentUser.email;
 
   return (
     <div className="post-detail-container">
@@ -82,33 +119,30 @@ export function PostDetail({ onNavigate, postId }) {
             />
           </svg>
         </div>
-        {/* String 카테고리 표시 */}
         <div className="pd-header-title">{post.category}</div>
-        <div>
-          {/* 메뉴 아이콘 (필요시 구현) */}
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-              stroke="black"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z"
-              stroke="black"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z"
-              stroke="black"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+
+        {/* [수정] 삭제 버튼 스타일 개선 (글자 잘림 방지) */}
+        <div
+          style={{
+            minWidth: "40px",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          {isMyPost && (
+            <div
+              onClick={handleDeletePost}
+              style={{
+                cursor: "pointer",
+                color: "#ff4444",
+                fontSize: "14px",
+                fontWeight: "600",
+                whiteSpace: "nowrap",
+              }}
+            >
+              삭제
+            </div>
+          )}
         </div>
       </div>
 
@@ -131,7 +165,6 @@ export function PostDetail({ onNavigate, postId }) {
           </div>
         </div>
 
-        {/* 게시글 본문 */}
         <div className="pd-title">{post.title}</div>
         <div className="pd-content" style={{ whiteSpace: "pre-wrap" }}>
           {post.content}
@@ -140,61 +173,119 @@ export function PostDetail({ onNavigate, postId }) {
           {new Date(post.createdAt).toLocaleString()}
         </div>
 
-        {/* 통계 바 */}
         <div className="pd-stats-bar">
           <div className="pd-stat-item">
-            <svg width="25" height="25" viewBox="0 0 25 25" fill="none">
-              <path
-                d="M16.5829 3.08789C20.2083 3.08789 22.6442 6.53856 22.6442 9.75764C22.6442 16.2769 12.5344 21.615 12.3514 21.615C12.1684 21.615 2.05859 16.2769 2.05859 9.75764C2.05859 6.53856 4.49456 3.08789 8.11992 3.08789C10.2014 3.08789 11.5623 4.14162 12.3514 5.06797C13.1405 4.14162 14.5015 3.08789 16.5829 3.08789Z"
-                stroke="#959595"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
             <span>좋아요 {post.likeCount}</span>
           </div>
           <div className="pd-stat-item">
-            <svg width="25" height="25" viewBox="0 0 25 25" fill="none">
-              <path
-                d="M21.615 12.3514C21.615 17.4675 17.4675 21.615 12.3514 21.615C11.1192 21.615 9.94322 21.3744 8.86781 20.9376C8.66199 20.854 8.55908 20.8122 8.47589 20.7936C8.39451 20.7754 8.33429 20.7687 8.2509 20.7687C8.16565 20.7687 8.07279 20.7841 7.88707 20.8151L4.225 21.4254C3.84151 21.4893 3.64977 21.5213 3.51111 21.4618C3.38976 21.4098 3.29306 21.3131 3.24101 21.1917C3.18154 21.0531 3.21349 20.8613 3.27741 20.4778L3.88775 16.8158C3.91871 16.6301 3.93418 16.5372 3.93417 16.4519C3.93416 16.3685 3.92749 16.3083 3.90925 16.227C3.89061 16.1438 3.84881 16.0409 3.76522 15.835C3.32847 14.7596 3.08789 13.5836 3.08789 12.3514C3.08789 7.23531 7.23531 3.08789 12.3514 3.08789C17.4675 3.08789 21.615 7.23531 21.615 12.3514Z"
-                stroke="#959595"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span>댓글 {post.comments ? post.comments.length : 0}</span>
-          </div>
-          <div className="pd-stat-item">
-            <span>저장</span>
-            <svg width="25" height="25" viewBox="0 0 25 25" fill="none">
-              <path
-                d="M19.5473 21.6043L12.3456 16.4603L5.14404 21.6043V5.14354C5.14404 4.59783 5.36083 4.07447 5.7467 3.68859C6.13258 3.30272 6.65593 3.08594 7.20164 3.08594H17.4897C18.0354 3.08594 18.5587 3.30272 18.9446 3.68859C19.3305 4.07447 19.5473 4.59783 19.5473 5.14354V21.6043Z"
-                stroke="#959595"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <span>
+              댓글{" "}
+              {post.comments
+                ? post.comments.reduce(
+                    (acc, curr) =>
+                      acc + 1 + (curr.children ? curr.children.length : 0),
+                    0
+                  )
+                : 0}
+            </span>
           </div>
         </div>
 
         {/* 댓글 목록 */}
         {post.comments && post.comments.length > 0 ? (
           post.comments.map((comment) => (
-            <div key={comment.id} className="pd-comment-card">
-              <div className="pd-comment-meta">
-                {/* 백엔드에서 익명 댓글은 username이 "익명"으로 내려옴 */}
-                <span className="pd-meta-author">{comment.username}</span>
+            <div key={comment.id}>
+              <div className="pd-comment-card">
+                <div className="pd-comment-meta">
+                  <span className="pd-meta-author">{comment.username}</span>
+                  <div
+                    className="pd-time"
+                    style={{ fontSize: "10px", marginLeft: "auto" }}
+                  >
+                    {new Date(comment.createdAt).toLocaleDateString()}
+                  </div>
+                </div>
+                <div className="pd-comment-body">{comment.content}</div>
+
                 <div
-                  className="pd-time"
-                  style={{ fontSize: "10px", marginLeft: "auto" }}
+                  style={{ display: "flex", gap: "10px", marginTop: "-10px" }}
                 >
-                  {new Date(comment.createdAt).toLocaleDateString()}
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      color: "#a3a3a3",
+                      cursor: "pointer",
+                    }}
+                    onClick={() =>
+                      handleReplyClick(comment.id, comment.username)
+                    }
+                  >
+                    답글 달기
+                  </div>
+                  {/* [수정] 댓글 삭제 권한: 아이디(username)로 비교 */}
+                  {currentUser.username &&
+                    comment.username === currentUser.username && (
+                      <div
+                        style={{
+                          fontSize: "12px",
+                          color: "#ff4444",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleDeleteComment(comment.id)}
+                      >
+                        삭제
+                      </div>
+                    )}
                 </div>
               </div>
-              <div className="pd-comment-body">{comment.content}</div>
+
+              {/* 대댓글 렌더링 */}
+              {comment.children && comment.children.length > 0 && (
+                <div
+                  style={{
+                    marginLeft: "40px",
+                    marginTop: "10px",
+                    borderLeft: "2px solid #e5e5e5",
+                    paddingLeft: "10px",
+                  }}
+                >
+                  {comment.children.map((reply) => (
+                    <div
+                      key={reply.id}
+                      className="pd-comment-card"
+                      style={{ backgroundColor: "#fafafa", marginTop: "8px" }}
+                    >
+                      <div className="pd-comment-meta">
+                        <span className="pd-meta-author">{reply.username}</span>
+                        <div
+                          className="pd-time"
+                          style={{ fontSize: "10px", marginLeft: "auto" }}
+                        >
+                          {new Date(reply.createdAt).toLocaleDateString()}
+                        </div>
+                      </div>
+                      <div className="pd-comment-body">{reply.content}</div>
+
+                      {/* [수정] 대댓글 삭제 권한: 아이디(username)로 비교 */}
+                      {currentUser.username &&
+                        reply.username === currentUser.username && (
+                          <div
+                            style={{
+                              fontSize: "12px",
+                              color: "#ff4444",
+                              cursor: "pointer",
+                              textAlign: "right",
+                              marginTop: "-10px",
+                            }}
+                            onClick={() => handleDeleteComment(reply.id)}
+                          >
+                            삭제
+                          </div>
+                        )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))
         ) : (
@@ -202,14 +293,35 @@ export function PostDetail({ onNavigate, postId }) {
             <div className="pd-empty-text">첫 댓글을 남겨주세요</div>
           </div>
         )}
-        {/* 하단 여백 (입력창 가림 방지) */}
         <div style={{ height: "80px" }}></div>
       </div>
 
-      {/* 하단 댓글 입력창 */}
       <div className="pd-bottom-bar" style={{ bottom: "20px" }}>
+        {replyToCommentId && (
+          <div
+            style={{
+              padding: "8px 16px",
+              background: "#f0f0f0",
+              fontSize: "12px",
+              color: "#666",
+              borderRadius: "10px 10px 0 0",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <span>답글 작성 중...</span>
+            <span
+              onClick={() => {
+                setReplyToCommentId(null);
+                setCommentText("");
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              ✕ 취소
+            </span>
+          </div>
+        )}
         <div className="pd-input-container">
-          {/* 익명 토글 버튼 */}
           <div
             className="pd-anon-toggle"
             onClick={() => setIsAnonymous(!isAnonymous)}
@@ -233,8 +345,6 @@ export function PostDetail({ onNavigate, postId }) {
             </div>
             <span>익명</span>
           </div>
-
-          {/* 입력 필드 */}
           <input
             className="pd-input-placeholder"
             style={{
@@ -245,12 +355,12 @@ export function PostDetail({ onNavigate, postId }) {
             }}
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
-            placeholder="댓글을 달아주세요"
+            placeholder={
+              replyToCommentId ? "답글을 입력하세요" : "댓글을 달아주세요"
+            }
           />
-
-          {/* 전송 버튼 */}
           <div className="pd-submit-btn" onClick={handleSubmitComment}>
-            댓글
+            등록
           </div>
         </div>
       </div>

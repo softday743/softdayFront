@@ -1,11 +1,15 @@
 /* Profile Container */
 .profile-container {
   width: 100%;
-  /* max-width: 393px; */ /* Let layout handle max width if needed */
-  height: 100vh;
+  height: 100vh; /* 화면 전체 높이 사용 */
   position: relative;
-  background: #fafafa; /* bg-neutral-50 */
-  overflow: hidden;
+  background: #fafafa;
+
+  /* [핵심 수정] 내용이 길면 스크롤이 되도록 설정 */
+  overflow-y: auto;
+
+  /* [핵심 수정] 하단 네비게이션 바에 버튼이 가려지지 않도록 여백 추가 */
+  padding-bottom: 120px;
 }
 
 .mypost-comment-list-container {
@@ -553,21 +557,30 @@
 .edit-save-btn {
   position: absolute;
   left: 31px;
-  top: 670px;
+  top: 670px; /* 버튼 위치 */
   width: 320px;
   height: 56px;
-  background: #d6d3d1;
+
+  /* [핵심 수정] 버튼이 잘 보이도록 배경색을 검은색으로 변경 */
+  background: #000000;
+
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  /* [핵심 수정] 다른 요소 위에 뜨도록 순서 지정 */
+  z-index: 10;
 }
 
+/* 3. 텍스트 수정: 검은 버튼 위에 흰 글씨 */
 .edit-save-text {
   font-size: 16px;
   font-weight: 600;
-  color: black;
+
+  /* [핵심 수정] 글자색을 흰색으로 변경 */
+  color: #ffffff;
 }
 
 /* ================== Modal ================== */

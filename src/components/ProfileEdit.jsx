@@ -1,84 +1,146 @@
-import React, { useState } from 'react';
-import './profile.css';
+import React, { useEffect, useState } from "react";
+import api from "../api/axiosConfig"; // [중요] api import 확인
+import "./profile.css";
 
 export function ProfileEdit({ onBack }) {
-    const [formData, setFormData] = useState({
-        name: '이소민',
-        job: '대리',
-        year: '3년차',
-        industry: '마케팅'
-    });
-    const [showUnsavedModal, setShowUnsavedModal] = useState(false);
+  // 1. State 선언을 최상단으로 이동 & 초기값은 빈 문자열로 설정
+  const [formData, setFormData] = useState({
+    name: "",
+    job: "",
+    year: "",
+    industry: "",
+  });
+  const [loading, setLoading] = useState(false);
 
-    const handleInputChange = (field, value) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
+  // 2. 화면이 켜지자마자 백엔드에서 정보 가져오기
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get("/user/me");
+        const data = response.data;
+
+        // 가져온 데이터로 상태 업데이트
+        setFormData({
+          name: data.name || "",
+          job: data.rank || "", // 백엔드: rank -> 프론트: job
+          year: data.careerYears || "", // 백엔드: careerYears -> 프론트: year
+          industry: data.industry || "",
+        });
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
     };
+    fetchProfile();
+  }, []);
 
-    const handleSave = () => {
-        // Save logic here (API call etc.)
-        console.log('Saved:', formData);
-        onBack();
-    };
+  const handleInputChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
-    const handleBack = () => {
-        // If dirty, show modal (simplified for now to always go back or show modal logic if needed)
-        // For this refactor, let's keep it simple or strictly copy logic.
-        // Assuming no dirty check logic transfer for this immediate step unless requested.
-        onBack();
-    };
+  const handleSave = async () => {
+    // 유효성 검사
+    if (
+      !formData.name ||
+      !formData.job ||
+      !formData.year ||
+      !formData.industry
+    ) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
 
-    return (
-        <div className="profile-container">
-            <div className="edit-header-title">프로필 정보 수정</div>
-            <div className="edit-back-arrow" onClick={handleBack}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-            </div>
+    try {
+      setLoading(true);
 
-            <div className="edit-label label-name">이름</div>
-            <div className="edit-input-wrapper input-name">
-                <input 
-                    type="text" 
-                    className="edit-input" 
-                    value={formData.name} 
-                    onChange={(e) => handleInputChange('name', e.target.value)} 
-                />
-            </div>
+      const payload = {
+        name: formData.name,
+        rank: formData.job, // 프론트: job -> 백엔드: rank
+        careerYears: formData.year, // 프론트: year -> 백엔드: careerYears
+        industry: formData.industry,
+      };
 
-            <div className="edit-label label-job">직급</div>
-            <div className="edit-input-wrapper input-job">
-                <input 
-                    type="text" 
-                    className="edit-input" 
-                    value={formData.job} 
-                    onChange={(e) => handleInputChange('job', e.target.value)} 
-                />
-            </div>
+      await api.patch("/user/me", payload);
 
-            <div className="edit-label label-year">연차</div>
-            <div className="edit-input-wrapper input-year">
-                <input 
-                    type="text" 
-                    className="edit-input" 
-                    value={formData.year} 
-                    onChange={(e) => handleInputChange('year', e.target.value)} 
-                />
-            </div>
+      alert("저장되었습니다.");
+      onBack();
+    } catch (error) {
+      console.error("Profile update failed: ", error);
+      alert("저장에 실패했습니다");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-            <div className="edit-label label-industry">산업 분야</div>
-            <div className="edit-input-wrapper input-industry">
-                <input 
-                    type="text" 
-                    className="edit-input" 
-                    value={formData.industry} 
-                    onChange={(e) => handleInputChange('industry', e.target.value)} 
-                />
-            </div>
+  return (
+    <div className="profile-container">
+      <div className="edit-header-title">프로필 정보 수정</div>
+      <div
+        className="edit-back-arrow"
+        onClick={onBack}
+        style={{ cursor: "pointer" }}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M19 12H5M5 12L12 19M5 12L12 5"
+            stroke="black"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
 
-            <div className="edit-save-btn" onClick={handleSave}>
-                <div className="edit-save-text">저장</div>
-            </div>
-        </div>
-    );
+      <div className="edit-label label-name">이름</div>
+      <div className="edit-input-wrapper input-name">
+        <input
+          type="text"
+          className="edit-input"
+          value={formData.name}
+          onChange={(e) => handleInputChange("name", e.target.value)}
+        />
+      </div>
+
+      <div className="edit-label label-job">직급</div>
+      <div className="edit-input-wrapper input-job">
+        <input
+          type="text"
+          className="edit-input"
+          value={formData.job}
+          onChange={(e) => handleInputChange("job", e.target.value)}
+        />
+      </div>
+
+      <div className="edit-label label-year">연차</div>
+      <div className="edit-input-wrapper input-year">
+        <input
+          type="text"
+          className="edit-input"
+          value={formData.year}
+          onChange={(e) => handleInputChange("year", e.target.value)}
+        />
+      </div>
+
+      <div className="edit-label label-industry">산업 분야</div>
+      <div className="edit-input-wrapper input-industry">
+        <input
+          type="text"
+          className="edit-input"
+          value={formData.industry}
+          onChange={(e) => handleInputChange("industry", e.target.value)}
+        />
+      </div>
+
+      {/* 로딩 중일 때 클릭 방지 및 텍스트 변경 */}
+      <div
+        className="edit-save-btn"
+        onClick={!loading ? handleSave : null}
+        style={{
+          opacity: loading ? 0.7 : 1,
+          cursor: loading ? "default" : "pointer",
+        }}
+      >
+        <div className="edit-save-text">{loading ? "저장 중..." : "저장"}</div>
+      </div>
+    </div>
+  );
 }

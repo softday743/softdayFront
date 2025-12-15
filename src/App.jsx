@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Splash } from "./components/Splash";
 import { Onboarding } from "./components/Onboarding";
 import { SignUpStep1 } from "./components/SignUpStep1";
@@ -35,7 +35,10 @@ import api from "./api/axiosConfig";
 import { MainLayout } from "./components/MainLayout";
 
 function App() {
-  const [screen, setScreen] = useState("splash");
+  const [screen, setScreen] = useState(() => {
+    const token = localStorage.getItem("accessToken");
+    return token ? "home" : "splash";
+  });
   const [selectedPostId, setSelectedPostId] = useState(null);
 
   const containerStyle = {
