@@ -9,7 +9,7 @@ export function PostDetail({ onNavigate, postId }) {
   const [loading, setLoading] = useState(true);
   const [replyToCommentId, setReplyToCommentId] = useState(null);
 
-  // [수정] 로그인한 유저의 모든 정보 저장 (이메일 & 아이디)
+  // [유지] 게시글 본문 삭제 권한 확인을 위해 내 정보는 계속 가져옵니다.
   const [currentUser, setCurrentUser] = useState({ email: "", username: "" });
 
   useEffect(() => {
@@ -22,7 +22,6 @@ export function PostDetail({ onNavigate, postId }) {
   const fetchCurrentUser = async () => {
     try {
       const response = await api.get("/user/me");
-      // 백엔드 UserProfileResponse에 username 필드가 있어야 값이 들어옵니다.
       setCurrentUser({
         email: response.data.email,
         username: response.data.username,
@@ -62,6 +61,7 @@ export function PostDetail({ onNavigate, postId }) {
     if (!window.confirm("댓글을 삭제하시겠습니까?")) return;
     try {
       await api.delete(`/board/comments/${commentId}`);
+      // 백엔드에서 권한 체크를 하므로 별도 에러 처리 없이 갱신
       fetchPostDetail();
     } catch (error) {
       console.error("댓글 삭제 실패", error);
@@ -75,7 +75,7 @@ export function PostDetail({ onNavigate, postId }) {
       await api.post(`/board/${postId}/comment`, {
         content: commentText,
         parentId: replyToCommentId,
-        // 프론트에서 해결: 백엔드가 인식하는 필드명(anonymous)으로 전송
+        // 백엔드 필드명에 맞춰 전송
         anonymous: isAnonymous,
         isAnonymous: isAnonymous,
       });
@@ -98,7 +98,7 @@ export function PostDetail({ onNavigate, postId }) {
   if (loading) return <div className="post-detail-container">Loading...</div>;
   if (!post) return null;
 
-  // [게시글 삭제 권한] 게시글 작성자는 email로 비교 (백엔드 PostDetailResponse가 email을 반환하므로)
+  // 게시글 삭제 권한 확인 (이메일 비교 유지)
   const isMyPost = currentUser.email && post.username === currentUser.email;
 
   return (
@@ -121,7 +121,7 @@ export function PostDetail({ onNavigate, postId }) {
         </div>
         <div className="pd-header-title">{post.category}</div>
 
-        {/* [수정] 삭제 버튼 스타일 개선 (글자 잘림 방지) */}
+        {/* 게시글 삭제 버튼 */}
         <div
           style={{
             minWidth: "40px",
@@ -222,20 +222,20 @@ export function PostDetail({ onNavigate, postId }) {
                   >
                     답글 달기
                   </div>
-                  {/* [수정] 댓글 삭제 권한: 아이디(username)로 비교 */}
-                  {currentUser.username &&
-                    comment.username === currentUser.username && (
-                      <div
-                        style={{
-                          fontSize: "12px",
-                          color: "#ff4444",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => handleDeleteComment(comment.id)}
-                      >
-                        삭제
-                      </div>
-                    )}
+
+                  {/* [핵심 수정] 백엔드가 보내준 isOwner가 true면 삭제 버튼 표시 */}
+                  {comment.isOwner && (
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: "#ff4444",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => handleDeleteComment(comment.id)}
+                    >
+                      삭제
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -266,22 +266,21 @@ export function PostDetail({ onNavigate, postId }) {
                       </div>
                       <div className="pd-comment-body">{reply.content}</div>
 
-                      {/* [수정] 대댓글 삭제 권한: 아이디(username)로 비교 */}
-                      {currentUser.username &&
-                        reply.username === currentUser.username && (
-                          <div
-                            style={{
-                              fontSize: "12px",
-                              color: "#ff4444",
-                              cursor: "pointer",
-                              textAlign: "right",
-                              marginTop: "-10px",
-                            }}
-                            onClick={() => handleDeleteComment(reply.id)}
-                          >
-                            삭제
-                          </div>
-                        )}
+                      {/* [핵심 수정] 대댓글도 isOwner 확인 */}
+                      {reply.isOwner && (
+                        <div
+                          style={{
+                            fontSize: "12px",
+                            color: "#ff4444",
+                            cursor: "pointer",
+                            textAlign: "right",
+                            marginTop: "-10px",
+                          }}
+                          onClick={() => handleDeleteComment(reply.id)}
+                        >
+                          삭제
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
