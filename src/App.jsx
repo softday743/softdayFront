@@ -36,8 +36,17 @@ import { MainLayout } from "./components/MainLayout";
 
 function App() {
   const [screen, setScreen] = useState(() => {
-    const token = localStorage.getItem("accessToken");
-    return token ? "home" : "splash";
+    // 'hasShownSplash' 값이 세션 스토리지에 있는지 확인
+    const hasShownSplash = sessionStorage.getItem("hasShownSplash");
+
+    if (hasShownSplash) {
+      // 이미 스플래시를 본 적이 있다면(새로고침 등), 토큰 확인 후 바로 해당 화면으로 이동
+      const token = localStorage.getItem("accessToken");
+      return token ? "home" : "onboarding";
+    }
+
+    // 세션 스토리지에 값이 없다면(첫 진입), 스플래시 화면으로 시작
+    return "splash";
   });
   const [selectedPostId, setSelectedPostId] = useState(null);
 
@@ -130,7 +139,20 @@ function App() {
   return (
     <div style={containerStyle}>
       {screen === "splash" && (
-        <Splash onClick={() => setScreen("onboarding")} />
+        <Splash
+          onClick={() => {
+            // [수정 2] 스플래시 화면이 끝나면 세션 스토리지에 '봤음' 표시를 남깁니다.
+            sessionStorage.setItem("hasShownSplash", "true");
+
+            // 이후 로그인 여부에 따라 화면 이동
+            const token = localStorage.getItem("accessToken");
+            if (token) {
+              setScreen("home");
+            } else {
+              setScreen("onboarding");
+            }
+          }}
+        />
       )}
       {screen === "onboarding" && (
         <Onboarding
