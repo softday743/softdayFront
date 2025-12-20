@@ -1,241 +1,297 @@
 .home-container {
-    width: 100%;
-    max-width: 393px;
-    height: 100vh;
-    position: relative;
-    background: white;
-    overflow: hidden;
+  width: 100%;
+  max-width: 393px;
+  height: 100vh;
+  position: relative;
+  background: white;
+  overflow: hidden;
 }
 
 .home-scroll-area {
-    width: 100%;
-    height: calc(100vh - 80px); /* 네비바 높이만큼 빼기 */
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: relative;
-    padding-bottom: 20px; /* 추가 여백 */
+  width: 100%;
+  height: calc(100vh - 80px); /* 네비바 높이만큼 빼기 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  padding-bottom: 20px; /* 추가 여백 */
 }
 
 .home-header-icon {
-    width: 24px;
-    height: 24px;
-    position: absolute;
+  width: 24px;
+  height: 24px;
+  position: absolute;
 }
 
 .home-header-dot {
-    width: 9px;
-    height: 9px;
-    position: absolute;
+  width: 9px;
+  height: 9px;
+  position: absolute;
 }
 
 .home-greeting {
-    width: 144px;
-    height: 36px;
-    left: 36px;
-    top: 56px;
-    position: absolute;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    color: black;
-    font-size: 14px;
-    font-family: 'Pretendard';
-    font-weight: 600;
+  width: 144px;
+  height: 36px;
+  left: 36px;
+  top: 56px;
+  position: absolute;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: black;
+  font-size: 14px;
+  font-family: "Pretendard";
+  font-weight: 600;
 }
 
 .home-card {
-    position: absolute;
-    background: white;
-    box-shadow: 0px 0px 3px 1px rgba(136,136,136,0.25);
-    border-radius: 16px;
-    border: 0.5px solid #a3a3a3;
-    overflow: hidden;
+  position: absolute;
+  background: white;
+  box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
+  border-radius: 16px;
+  border: 0.5px solid #a3a3a3;
+  overflow: hidden;
 }
 
 .stress-check {
-    width: 320px;
-    height: 96px;
-    left: 35px;
-    top: 101px;
+  width: 320px;
+  height: 96px;
+  left: 35px;
+  top: 101px;
 }
 
 .stress-check-date {
-    width: 144px;
-    height: 36px;
-    left: 21px;
-    top: 9px;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    color: black;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  width: 144px;
+  height: 36px;
+  left: 21px;
+  top: 9px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  color: black;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .stress-check-title {
-    width: 144px;
-    height: 36px;
-    left: 21px;
-    top: 59px;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    text-decoration: underline;
-    color: black;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  width: 144px;
+  height: 36px;
+  left: 21px;
+  top: 59px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  text-decoration: underline;
+  color: black;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .stress-check-icon {
-    left: 247px;
-    top: 20px;
-    position: absolute;
+  left: 247px;
+  top: 20px;
+  position: absolute;
 }
 
 .stress-check-question {
-    width: 32px;
-    height: 32px;
-    left: 261px;
-    top: 33px;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  width: 32px;
+  height: 32px;
+  left: 261px;
+  top: 33px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .message-card {
-    width: 320px;
-    height: 128px;
-    left: 35px;
-    top: 248px;
+  width: 320px;
+  height: 128px;
+  left: 35px;
+  top: 248px;
 }
 
 .message-content {
-    left: 126px;
-    top: 58px; 
-    position: absolute;
-    color: black;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  left: 126px;
+  top: 58px;
+  position: absolute;
+  color: black;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .section-title {
-    width: 144px;
-    height: 36px;
-    left: 35px;
-    position: absolute;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    color: black;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  width: 144px;
+  height: 36px;
+  left: 35px;
+  position: absolute;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: black;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .more-link {
-    left: 327px;
-    position: absolute;
-    color: #a3a3a3;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    cursor: pointer;
+  left: 327px;
+  position: absolute;
+  color: #a3a3a3;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  cursor: pointer;
 }
 
 .post-list-container {
-    position: absolute;
-    top: 426px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding-bottom: 100px;
+  position: absolute;
+  top: 426px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 100px;
 }
 
 .post-card {
-    width: 320px;
-    height: 112px;
-    margin-left: 35px;
-    position: relative;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0px 0px 3px 1px rgba(136,136,136,0.25);
-    border: 0.5px solid #a3a3a3;
-    overflow: hidden;
-    flex-shrink: 0;
+  width: 320px;
+  height: 112px;
+  margin-left: 35px;
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
+  border: 0.5px solid #a3a3a3;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .post-title {
-    left: 20px;
-    top: 21px;
-    position: absolute;
-    color: black;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  left: 20px;
+  top: 21px;
+  position: absolute;
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .post-time {
-    left: 287px;
-    top: 18px;
-    position: absolute;
-    color: #a3a3a3;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  left: 287px;
+  top: 18px;
+  position: absolute;
+  color: #a3a3a3;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .post-author {
-    left: 23px;
-    top: 72px;
-    position: absolute;
-    color: #a3a3a3;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  left: 23px;
+  top: 72px;
+  position: absolute;
+  color: #a3a3a3;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .post-stat {
-    position: absolute;
-    top: 75px;
-    color: #a3a3a3;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  position: absolute;
+  top: 75px;
+  color: #a3a3a3;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .post-icon {
-    top: 73px;
-    position: absolute;
+  top: 73px;
+  position: absolute;
 }
 
 /* Bottom Nav - FIXED 위치로 변경 */
 .bottom-nav {
-    width: 100%;
-    max-width: 393px;
-    height: 80px;
-    background: white;
-    box-shadow: 0px -1px 6px 0px rgba(160,160,160,0.38);
-    overflow: hidden;
-    z-index: 9999;
-    position: fixed; /* absolute에서 fixed로 변경 */
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%); /* 중앙 정렬 */
+  width: 100%;
+  max-width: 393px;
+  height: 80px;
+  background: white;
+  box-shadow: 0px -1px 6px 0px rgba(160, 160, 160, 0.38);
+  overflow: hidden;
+  z-index: 9999;
+  position: fixed; /* absolute에서 fixed로 변경 */
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%); /* 중앙 정렬 */
 }
 
 .nav-item,
 .nav-item-active {
-    width: 80px;
-    height: 64px;
-    position: absolute;
-    cursor: pointer;
+  width: 80px;
+  height: 64px;
+  position: absolute;
+  cursor: pointer;
+}
+
+/* 홈 화면용 알림 드롭다운 스타일 */
+.home-noti-dropdown {
+  position: absolute;
+  /* 종 아이콘이 top: 56px 이므로 그 아래쪽에 위치 */
+  top: 90px;
+  right: 20px; /* 화면 오른쪽 여백 */
+  width: 280px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999; /* 다른 카드들 위에 뜨도록 높게 설정 */
+}
+
+/* 알림 항목 스타일 (기존 header.css와 동일한 스타일 사용) */
+.noti-empty {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
+
+.noti-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.noti-item:hover {
+  background-color: #f9f9f9;
+}
+
+.noti-item.unread {
+  background-color: #eef2ff;
+}
+
+.noti-item.read {
+  background-color: #fff;
+  opacity: 0.6;
+}
+
+.noti-msg {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.noti-date {
+  font-size: 11px;
+  color: #999;
+  margin-top: 4px;
 }

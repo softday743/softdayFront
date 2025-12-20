@@ -141,7 +141,13 @@ function App() {
       )}
       {screen === "home" && (
         <MainLayout active="home" onNavigate={setScreen}>
-          <Home onNavigate={setScreen} />
+          {/* [수정] Home에서도 화면 이동과 ID 설정을 동시에 할 수 있도록 함수 전달 */}
+          <Home
+            onNavigate={(screen, id) => {
+              if (id) setSelectedPostId(id); // 게시글 ID 저장
+              setScreen(screen); // 화면 전환
+            }}
+          />
         </MainLayout>
       )}
       {screen === "chatbot" && (
@@ -174,7 +180,6 @@ function App() {
       )}
       {screen === "search" && <Search onNavigate={setScreen} />}
       {screen === "createPost" && <CreatePost onNavigate={setScreen} />}
-
       {screen === "signup1" && (
         <SignUpStep1
           onNext={handleSendEmail} // API 호출 함수 전달
