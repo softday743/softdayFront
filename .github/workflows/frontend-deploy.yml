@@ -33,7 +33,7 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
+          key: ${{ secrets.EC2_KEY }}
           source: "dist/*" # 또는 "build/*" (자신의 빌드 폴더명)
           target: "/var/www/html"
           strip_components: 1 # 폴더 껍데기(dist)는 벗기고 내용물만 전송
