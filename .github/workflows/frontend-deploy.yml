@@ -2,7 +2,7 @@ name: Frontend Deploy to EC2
 
 on:
   push:
-    branches: ["main", "develop"] # 배포할 브랜치 이름 확인!
+    branches: ["main", "develop"]
 
 jobs:
   deploy:
@@ -17,23 +17,40 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18" # 프로젝트 버전에 맞게 수정
+          node-version: "18"
 
       # 3. 의존성 설치 및 빌드
       - name: Install Dependencies and Build
         run: |
           npm install
           npm run build
-          # 빌드 결과물이 'build' 폴더인지 'dist' 폴더인지 꼭 확인하세요!
-          # Vite를 쓰면 dist, CRA를 쓰면 build 입니다.
+          # 주의: Vite라면 'dist', CRA라면 'build' 폴더가 생성됩니다.
+          # 아래 단계에서 폴더명을 꼭 확인하세요!
 
-      # 4. EC2로 파일 전송 (SCP)
-      - name: Copy files to EC2
+      # 4. EC2로 파일 전송 (일단 임시 폴더로!)
+      - name: Copy files to EC2 (Temp)
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_KEY }}
-          source: "dist/*" # 또는 "build/*" (자신의 빌드 폴더명)
-          target: "/var/www/html"
-          strip_components: 1 # 폴더 껍데기(dist)는 벗기고 내용물만 전송
+          source: "dist/*" # 👈 여기! 본인 프로젝트가 build 폴더면 build/* 로 수정 필수!
+          target: "/home/ubuntu/frontend-temp"
+          strip_components: 1
+
+      # 5. 진짜 위치로 이동 (Sudo 권한 사용)
+      - name: Move files to Nginx folder
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            # 기존 파일 깔끔하게 지우기
+            sudo rm -rf /var/www/html/*
+            
+            # 임시 폴더에서 Nginx 폴더로 이동 (관리자 권한)
+            sudo mv /home/ubuntu/frontend-temp/* /var/www/html/
+            
+            # 임시 폴더 껍데기 삭제
+            rm -rf /home/ubuntu/frontend-temp
