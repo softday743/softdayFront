@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"; // useState, useEffect 추가
 import api from "../api/axiosConfig"; // api 추가
 import "./home.css";
+import axios from "axios";
 
 export function Home({ onNavigate }) {
   // [추가] 알림 관련 상태 관리
   const [hasUnread, setHasUnread] = useState(false);
   const [showNotiList, setShowNotiList] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [formData, setFormData] = useState({ name: "" });
 
   // [추가] 1. 초기 알림 상태 확인 (빨간 원 표시용)
   useEffect(() => {
@@ -72,6 +74,22 @@ export function Home({ onNavigate }) {
       onNavigate("postDetail", noti.targetId);
     }
   };
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem("accessToken");
+      if (token) {
+        try {
+          const response = await api.get("/user/me");
+          const data = response.data;
+          setFormData({ name: data.name || "사용자" });
+        } catch (error) {
+          console.error("Failed to fetch profile:", error);
+        }
+      }
+    };
+    fetchProfile();
+  }, []);
 
   return (
     <div className="home-container">
@@ -155,7 +173,7 @@ export function Home({ onNavigate }) {
           )}
 
           {/* Greeting */}
-          <div className="home-greeting">00님 안녕하세요</div>
+          <div className="home-greeting">{formData.name}님 안녕하세요</div>
         </div>
 
         {/* (이하 기존 코드 동일: Stress Check In Card, Today's Message 등) */}
