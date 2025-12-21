@@ -27,14 +27,17 @@ import { Community } from './components/Community'
 import { PostDetail } from './components/PostDetail'
 import { Search } from './components/Search'
 import { CreatePost } from './components/CreatePost'
-import { Folder } from './components/Folder'
+import { Statistics } from './components/Statistics'
 import { Chatbot } from './components/Chatbot'
 import { Profile } from './components/Profile'
+import { Notification } from './components/Notification'
 
 import { MainLayout } from './components/MainLayout'
 
 function App() {
   const [screen, setScreen] = useState('splash');
+  const [userName, setUserName] = useState('');
+  const [hasCheckedIn, setHasCheckedIn] = useState(false);
 
   const containerStyle = {
     width: '100%',
@@ -61,7 +64,7 @@ function App() {
       )}
       {screen === 'home' && (
         <MainLayout active="home" onNavigate={setScreen}>
-            <Home onNavigate={setScreen} />
+            <Home onNavigate={setScreen} userName={userName} hasCheckedIn={hasCheckedIn} />
         </MainLayout>
       )}
       {screen === 'chatbot' && (
@@ -71,7 +74,7 @@ function App() {
       )}
       {screen === 'folder' && (
         <MainLayout active="folder" onNavigate={setScreen}>
-            <Folder onNavigate={setScreen} />
+            <Statistics />
         </MainLayout>
       )}
       {screen === 'profile' && (
@@ -85,13 +88,16 @@ function App() {
         </MainLayout>
       )}
       {screen === 'postDetail' && (
-        <PostDetail onNavigate={setScreen} />
+        <PostDetail onBack={() => setScreen('community')} />
       )}
       {screen === 'search' && (
         <Search onNavigate={setScreen} />
       )}
       {screen === 'createPost' && (
         <CreatePost onNavigate={setScreen} />
+      )}
+      {screen === 'notification' && (
+        <Notification onBack={() => setScreen('home')} />
       )}
       {screen === 'signup1' && (
         <SignUpStep1 
@@ -122,6 +128,10 @@ function App() {
             onBack={() => setScreen('onboarding')} 
             onFindId={() => setScreen('findIdEmail')}
             onFindPw={() => setScreen('findPwInput')}
+            onLogin={(id) => {
+              setUserName(id);
+              setScreen('home');
+            }}
         />
       )}
       {screen === 'profileSetup' && (
@@ -133,15 +143,21 @@ function App() {
       {screen === 'survey' && (
         <StressSurvey 
             onNext={() => setScreen('calculating')} 
-            onBack={() => setScreen('profileSetup')}
+            onBack={() => {
+              setHasCheckedIn(true);
+              setScreen('home');
+            }}
         />
       )}
       {screen === 'calculating' && (
-        <Calculating onFinished={() => setScreen('result')} />
+        <Calculating onFinished={() => setScreen('result')} userName={userName || '사용자'} />
       )}
       {screen === 'result' && (
         <StressResult 
-            onConfirm={() => setScreen('preference')} 
+            onConfirm={() => {
+              setHasCheckedIn(true);
+              setScreen('home');
+            }} 
             onBack={() => setScreen('survey')}
         />
       )}
@@ -152,7 +168,7 @@ function App() {
         />
       )}
       {screen === 'signupComplete' && (
-        <SignupComplete onNext={() => setScreen('serviceAuth')} />
+        <SignupComplete onNext={() => setScreen('serviceAuth')} userName={userName || '사용자'} />
       )}
       {screen === 'serviceAuth' && (
         <ServiceNotification 
@@ -168,8 +184,8 @@ function App() {
       )}
       {screen === 'marketingAuth' && (
         <MarketingNotification 
-          onAllow={() => setScreen('onboarding')}
-          onDeny={() => setScreen('onboarding')}
+          onAllow={() => setScreen('login')}
+          onDeny={() => setScreen('login')}
         />
       )}
       {screen === 'findIdEmail' && (

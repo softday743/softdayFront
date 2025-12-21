@@ -1,75 +1,102 @@
 .post-detail-container {
     width: 100%;
-    max-width: 393px;
     height: 100%;
     position: relative;
     background: white;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    overflow: hidden; /* Wrapper handles layout, inner div handles scroll */
 }
 
-.pd-header {
+.pd-scroll-area {
     width: 100%;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    background: white;
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 120px; /* Ensure content isn't hidden behind input */
+}
+
+/* Header */
+.pd-back-arrow {
+    position: absolute;
+    left: 22px;
+    top: 61px;
+    cursor: pointer;
     z-index: 10;
-    margin-top: 40px; /* Safe Area */
 }
 
 .pd-header-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 55px;
+    width: 176px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 16px;
     font-weight: 600;
     font-family: 'Pretendard';
     color: black;
 }
 
-.pd-scroll-area {
-    flex: 1;
-    overflow-y: auto;
-    padding: 0 20px;
-    padding-bottom: 100px;
+.pd-menu-dots {
+    position: absolute;
+    right: 20px; /* Adjusted from left: 355px for flexibility */
+    top: 61px;
+    cursor: pointer;
 }
 
-.pd-author-section {
+/* Post Content */
+.pd-avatar-circle {
+    position: absolute;
+    left: 27px;
+    top: 120px;
+}
+
+.pd-avatar-emoji {
+    position: absolute;
+    left: 27px;
+    top: 127px;
+    width: 40px;
+    height: 20px;
     display: flex;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.pd-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 12px;
-}
-
-.pd-author-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
 }
 
 .pd-category-badge {
-    width: 50px;
+    position: absolute;
+    left: 77px;
+    top: 119px;
+    width: 56px;
     height: 16px;
-    background: #d4d4d8; /* zinc-300 */
-    border-radius: 20px;
+    background: #cffafe; /* cyan-100 */
+    border-radius: 24px;
+    border: 1px solid #2dd4bf; /* teal-400 */
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.pd-category-text {
     font-size: 10px;
     font-weight: 600;
     font-family: 'Pretendard';
+    color: black;
 }
 
-.pd-author-name {
+.pd-author {
+    position: absolute;
+    left: 80px;
+    top: 138px;
+    width: 80px;
+    height: 24px;
+    display: flex;
+    align-items: center;
     font-size: 10px;
     font-weight: 600;
     font-family: 'Pretendard';
@@ -77,129 +104,153 @@
 }
 
 .pd-title {
+    position: absolute;
+    left: 34px;
+    top: 179px;
+    width: 320px; /* Adjusted width */
     font-size: 20px;
     font-weight: 600;
     font-family: 'Pretendard';
     color: black;
-    margin-bottom: 12px;
 }
 
 .pd-content {
+    position: absolute;
+    left: 34px;
+    top: 227px;
+    width: 320px; /* Adjusted width */
     font-size: 16px;
-    font-weight: 600; /* Regular in snippet looks bold? */
+    font-weight: 600;
     font-family: 'Pretendard';
     color: black;
-    margin-bottom: 40px;
     line-height: 1.5;
 }
 
-.pd-time {
+/* Meta Data */
+.pd-eye-icon {
+    position: absolute;
+    left: 303px;
+    top: 331px;
+}
+
+.pd-view-count {
+    position: absolute;
+    left: 321px;
+    top: 332px;
     font-size: 12px;
     font-weight: 600;
     font-family: 'Pretendard';
-    color: #a3a3a3; /* neutral-400 */
-    margin-bottom: 20px;
+    color: #a3a3a3;
 }
 
-.pd-stats-bar {
+.pd-date {
+    position: absolute;
+    left: 34px;
+    top: 331px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: #a3a3a3;
+}
+
+/* Action Bar */
+.pd-action-bar {
+    position: absolute;
+    /* Frame 2954: left -48px? This seems to be relative to something else or full width */
+    left: 0;
     width: 100%;
+    top: 367px;
     height: 64px;
-    border-top: 1px solid #d4d4d8;
-    border-bottom: 1px solid #d4d4d8;
+    background: white;
+    border-top: 1px solid #d4d4d4;
+    border-bottom: 1px solid #d4d4d4;
     display: flex;
     align-items: center;
-    padding: 0 10px;
-    gap: 20px;
+    justify-content: space-around; /* Distribute items */
+    padding: 0 40px;
+    box-sizing: border-box;
 }
 
-.pd-stat-item {
+/* Adjusting action bar items to match design manually if justify-around isn't precise enough, 
+   but justify-around is safer for responsiveness.
+   The user provided absolute positions inside the frame:
+   Heart: 103px, Like text: 130px
+   Message: 227px, Comment text: 255px
+   Bookmark: 338px, Save text: 362px
+   
+   Let's try to map these relative to the container for better CSS.
+*/
+
+.pd-action-item {
     display: flex;
     align-items: center;
     gap: 6px;
+    cursor: pointer;
 }
 
-.pd-stat-item span {
+.pd-action-text {
     font-size: 16px;
     font-weight: 600;
     font-family: 'Pretendard';
     color: #a3a3a3;
 }
 
-.pd-empty-comments {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 60px;
-    gap: 10px;
+/* Comments Section Placeholder */
+.pd-empty-comment-icon {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 491px;
 }
 
-.pd-empty-text {
+.pd-empty-comment-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 549px;
     font-size: 12px;
     font-weight: 600;
     font-family: 'Pretendard';
     color: #a3a3a3;
+    text-align: center;
 }
 
-.pd-view-count {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 10px;
-}
-
-.pd-view-count span {
-    font-size: 12px;
-    font-weight: 600;
-    color: #a3a3a3;
-}
-
-.pd-bottom-bar {
-    position: absolute;
-    width: 100%; /* Or 360px centered */
+/* Bottom Comment Input */
+.pd-comment-input-container {
+    position: absolute; /* Relative to wrapper container */
+    bottom: 20px; /* Positioned at standard bottom nav height */
     left: 50%;
     transform: translateX(-50%);
-    padding: 0 20px;
-    z-index: 20;
-    transition: bottom 0.3s ease;
-}
-
-.pd-input-container {
-    width: 100%;
+    width: 360px; /* w-96 roughly */
     height: 56px;
     background: white;
     border-radius: 30px;
-    border: 1px solid #d4d4d8;
     box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.13);
+    border: 1px solid #d4d4d4;
     display: flex;
     align-items: center;
-    padding: 0 16px;
-    position: relative;
-    max-width: 360px;
+    padding: 0 20px;
+    z-index: 50;
 }
 
-.pd-anon-toggle {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-right: 12px;
-}
-
-.pd-check-icon {
+.pd-checkbox {
     width: 16px;
     height: 16px;
-    background: #27272a; /* zinc-800 */
+    background: #f59e0b; /* amber-500 */
     border-radius: 2px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    cursor: pointer;
 }
 
-.pd-anon-toggle span {
+.pd-anonymous-text {
     font-size: 12px;
     font-weight: 700;
     font-family: 'Pretendard';
-    color: #a3a3a3;
+    color: #f59e0b; /* amber-500 */
+    margin-right: 12px;
 }
 
 .pd-input-placeholder {
@@ -208,95 +259,24 @@
     font-weight: 600;
     font-family: 'Pretendard';
     color: #d6d3d1; /* stone-300 */
-    cursor: text;
+    background: transparent;
+    border: none;
+    outline: none;
 }
 
 .pd-submit-btn {
     width: 48px;
     height: 28px;
-    background: #d4d4d8;
-    border-radius: 20px;
+    background: #f9fafb; /* gray-50 */
+    border-radius: 24px;
+    border: 1.2px solid #e5e5e5;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 10px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+    justify-content: center;
     cursor: pointer;
 }
 
-.pd-keyboard-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 336px; /* Approx keyboard height */
-    background: #f2f2f2;
-    z-index: 50;
-    /* Normally we'd use a real image or HTML, placeholder styling for now */
-}
-
-.pd-comment-card {
-    width: 100%;
-    background: white;
-    border-radius: 16px;
-    border: 1px solid #d4d4d8;
-    box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.13);
-    padding: 20px;
-    margin-top: 20px;
-    position: relative;
-}
-
-.pd-warning-text {
-    position: absolute;
-    top: -25px;
-    left: 20px;
-    color: #ef4444; /* red-500 */
-    font-size: 10px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-}
-
-.pd-comment-body {
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: #a3a3a3;
-    margin-bottom: 40px;
-}
-
-.pd-comment-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.pd-meta-author {
-    font-size: 12px;
-    font-weight: 700;
-    font-family: 'Pretendard';
-    color: #a3a3a3;
-}
-
-.pd-comment-icon {
-    width: 16px;
-    height: 16px;
-    background: #27272a;
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.pd-comment-btn {
-    width: 48px;
-    height: 28px;
-    background: #d4d4d8;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.pd-submit-text {
     font-size: 10px;
     font-weight: 600;
     font-family: 'Pretendard';

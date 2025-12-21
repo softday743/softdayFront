@@ -23,7 +23,7 @@
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    top: 20%; 
+    top: 30%; 
     object-fit: contain;
 }
 
@@ -35,21 +35,19 @@
     left: 50% !important;
     transform: translateX(-50%);
     position: absolute !important;
-    top: 55% !important;
+    top: 50% !important;
 }
 
 .onboarding-inner .design-component-instance-node {
     left: 50% !important;
     transform: translateX(-50%);
     position: absolute !important;
-    top: 65% !important; /* Adjusted spacing */
+    top: 60% !important; /* Adjusted spacing */
 }
 
 .onboarding-inner .button-2 {
     left: 50% !important;
     transform: translateX(-50%);
     position: absolute !important;
-    top: 75% !important; /* Adjusted spacing */
-    background-color: transparent; /* Assuming 'Look around' might be secondary */
-    border: 1px solid #ddd;
+    top: 70% !important; /* Adjusted spacing */
 }
