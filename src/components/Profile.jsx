@@ -10,9 +10,9 @@ import { ProfileSettings } from './ProfileSettings';
 export function Profile({ onNavigate }) {
     const [view, setView] = useState('main'); // 'main' | 'edit' | 'myPosts' | 'contentPreference' | 'liked' | 'saved' | 'settings'
     
-    // Main View Data (Using dummy data for now, ideally fetched or passed)
+    // Main View Data (Using dummy data for now)
     const [formData, setFormData] = useState({
-        name: '이소민',
+        name: '00',
         job: '대리',
         year: '3년차',
         industry: '마케팅'
@@ -29,67 +29,73 @@ export function Profile({ onNavigate }) {
     return (
         <div className="profile-container">
             {/* User Name */}
-            <div className="profile-greeting">{formData.name}님</div>
+            <div className="profile-user-name">{formData.name}님</div>
 
             {/* Settings Icon */}
-            <div className="settings-icon" onClick={() => setView('settings')}>
+            <div className="profile-settings-icon" onClick={() => setView('settings')}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12.0002 15.5C13.9332 15.5 15.5002 13.933 15.5002 12C15.5002 10.067 13.9332 8.5 12.0002 8.5C10.0672 8.5 8.50024 10.067 8.50024 12C8.50024 13.933 10.0672 15.5 12.0002 15.5Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M19.4 15C19.6366 14.5442 19.9822 14.1643 20.4079 13.8924C20.8336 13.6205 21.3263 13.4646 21.8443 13.4377C21.8967 13.4357 21.949 13.4299 22.0007 13.4206L22.0911 12.9157C22.1158 12.7782 22.1281 12.6391 22.1281 12C22.1281 11.3609 22.1158 11.2217 22.0911 11.0843L22.0007 10.5794C21.949 10.5701 21.8967 10.5642 21.8443 10.5623C21.3263 10.5353 20.8336 10.3794 20.4079 10.1076C19.9822 9.83569 19.6366 9.45571 19.4 8.99997C19.2319 8.67926 19.1444 8.32684 19.1444 7.9696C19.1444 7.61235 19.2319 7.25994 19.4 6.93922L19.4925 6.46788C19.4526 6.34005 19.4074 6.21366 19.3571 6.08906L19.006 5.21639C18.966 5.11674 18.9224 5.01825 18.8754 4.9211C18.5771 4.30155 18.156 3.75053 17.6385 3.30312C17.121 2.8557 16.5181 2.52157 15.8679 2.32185C15.3675 2.16912 14.8354 2.1388 14.3216 2.23377L13.8242 2.32567C13.6826 2.35183 13.5385 2.36502 13.394 2.36502C12.875 2.36502 12.3667 2.21325 11.9365 1.92985C11.5063 1.64644 11.1746 1.24479 10.9856 0.77884L10.7937 0.306024C10.6728 0.23961 10.548 0.177699 10.4194 0.120612L9.51908 1.94726C9.41626 1.90159 9.31174 1.86153 9.20572 1.82736C8.53326 1.60959 7.81057 1.56455 7.11322 1.69695C6.41586 1.82936 5.76951 2.13437 5.24151 2.58046C4.71352 3.02656 4.3232 3.59737 4.11145 4.23351C3.94851 4.72314 3.91617 5.23933 4.01755 5.7324L4.11581 6.20817C4.14321 6.34091 4.1571 6.47605 4.1571 6.61159C4.1571 7.13529 4.00416 7.64795 3.71836 8.08207C3.43256 8.51619 3.02758 8.85108 2.55767 9.04166L2.08051 9.23518C2.01353 9.35624 1.95109 9.48008 1.89354 9.60655L1.5173 10.4331C1.47432 10.5276 1.43673 10.6234 1.40474 10.7204C1.20176 11.3734 1.15783 12.0673 1.27756 12.7381C1.3973 13.4089 1.67694 14.0351 2.08992 14.5583C2.40767 14.961 2.80802 15.2951 3.26787 15.5414C3.71261 15.7533 4.18434 15.8643 4.65866 15.8643C4.8028 15.8643 4.94676 15.8504 5.08945 15.8225L5.56845 15.7291C6.06456 15.6325 6.57724 15.6793 7.04279 15.8633C7.50833 16.0474 7.90623 16.3607 8.18667 16.7645L8.47146 17.1747C8.53982 17.2941 8.60197 17.4165 8.65768 17.5418L9.02102 18.3582C9.06253 18.4514 9.09882 18.5457 9.12971 18.641C9.32559 19.2706 9.36709 19.9392 9.24996 20.5855C9.13283 21.2319 8.86088 21.8349 8.46011 22.3385C7.94056 22.9912 7.23419 23.4682 6.42589 23.6841L12.0002 23.6841C12.0002 23.6841 23 23.6841 23 12C23 6.47715 18.5228 2 13 2L13.8242 2.32567" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#656565" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M18.7273 14.7273C18.6063 15.0015 18.5702 15.3056 18.6236 15.6005C18.6771 15.8954 18.8177 16.1676 19.0273 16.3818L19.0818 16.4364C19.2509 16.6052 19.385 16.8057 19.4765 17.0265C19.568 17.2472 19.6151 17.4838 19.6151 17.7227C19.6151 17.9617 19.568 18.1983 19.4765 18.419C19.385 18.6397 19.2509 18.8402 19.0818 19.0091C18.913 19.1781 18.7124 19.3122 18.4917 19.4037C18.271 19.4952 18.0344 19.5423 17.7955 19.5423C17.5565 19.5423 17.3199 19.4952 17.0992 19.4037C16.8785 19.3122 16.678 19.1781 16.5091 19.0091L16.4545 18.9545C16.2403 18.745 15.9682 18.6044 15.6733 18.5509C15.3784 18.4974 15.0742 18.5335 14.8 18.6545C14.5311 18.7698 14.3018 18.9611 14.1403 19.205C13.9788 19.4489 13.8921 19.7347 13.8909 20.0273V20.1818C13.8909 20.664 13.6994 21.1265 13.3584 21.4675C13.0174 21.8084 12.5549 22 12.0727 22C11.5905 22 11.1281 21.8084 10.7871 21.4675C10.4461 21.1265 10.2545 20.664 10.2545 20.1818V20.1C10.2475 19.7991 10.1501 19.5073 9.97501 19.2625C9.79991 19.0176 9.55521 18.8312 9.27273 18.7273C8.99853 18.6063 8.69437 18.5702 8.39947 18.6236C8.10456 18.6771 7.83244 18.8177 7.61818 19.0273L7.56364 19.0818C7.39478 19.2509 7.19425 19.385 6.97353 19.4765C6.7528 19.568 6.51621 19.6151 6.27727 19.6151C6.03834 19.6151 5.80174 19.568 5.58102 19.4765C5.36029 19.385 5.15977 19.2509 4.99091 19.0818C4.82186 18.913 4.68775 18.7124 4.59626 18.4917C4.50476 18.271 4.45766 18.0344 4.45766 17.7955C4.45766 17.5565 4.50476 17.3199 4.59626 17.0992C4.68775 16.8785 4.82186 16.678 4.99091 16.5091L5.04545 16.4545C5.25503 16.2403 5.39562 15.9682 5.4491 15.6733C5.50257 15.3784 5.46647 15.0742 5.34545 14.8C5.23022 14.5311 5.03887 14.3018 4.79497 14.1403C4.55107 13.9788 4.26526 13.8921 3.97273 13.8909H3.81818C3.33597 13.8909 2.87351 13.6994 2.53253 13.3584C2.19156 13.0174 2 12.5549 2 12.0727C2 11.5905 2.19156 11.1281 2.53253 10.7871C2.87351 10.4461 3.33597 10.2545 3.81818 10.2545H3.9C4.2009 10.2475 4.49273 10.1501 4.73754 9.97501C4.98236 9.79991 5.16883 9.55521 5.27273 9.27273C5.39374 8.99853 5.42984 8.69437 5.37637 8.39947C5.3229 8.10456 5.18231 7.83244 4.97273 7.61818L4.91818 7.56364C4.74913 7.39478 4.61503 7.19425 4.52353 6.97353C4.43203 6.7528 4.38493 6.51621 4.38493 6.27727C4.38493 6.03834 4.43203 5.80174 4.52353 5.58102C4.61503 5.36029 4.74913 5.15977 4.91818 4.99091C5.08704 4.82186 5.28757 4.68775 5.50829 4.59626C5.72901 4.50476 5.96561 4.45766 6.20455 4.45766C6.44348 4.45766 6.68008 4.50476 6.9008 4.59626C7.12152 4.68775 7.32205 4.82186 7.49091 4.99091L7.54545 5.04545C7.75971 5.25503 8.03183 5.39562 8.32674 5.4491C8.62164 5.50257 8.9258 5.46647 9.2 5.34545H9.27273C9.54161 5.23022 9.77093 5.03887 9.93245 4.79497C10.094 4.55107 10.1807 4.26526 10.1818 3.97273V3.81818C10.1818 3.33597 10.3734 2.87351 10.7144 2.53253C11.0553 2.19156 11.5178 2 12 2C12.4822 2 12.9447 2.19156 13.2856 2.53253C13.6266 2.87351 13.8182 3.33597 13.8182 3.81818V3.9C13.8193 4.19253 13.906 4.47834 14.0676 4.72224C14.2291 4.96614 14.4584 5.15749 14.7273 5.27273C15.0015 5.39374 15.3056 5.42984 15.6005 5.37637C15.8954 5.3229 16.1676 5.18231 16.3818 4.97273L16.4364 4.91818C16.6052 4.74913 16.8057 4.61503 17.0265 4.52353C17.2472 4.43203 17.4838 4.38493 17.7227 4.38493C17.9617 4.38493 18.1983 4.43203 18.419 4.52353C18.6397 4.61503 18.8402 4.74913 19.0091 4.91818C19.1781 5.08704 19.3122 5.28757 19.4037 5.50829C19.4952 5.72901 19.5423 5.96561 19.5423 6.20455C19.5423 6.44348 19.4952 6.68008 19.4037 6.9008C19.3122 7.12152 19.1781 7.32205 19.0091 7.49091L18.9545 7.54545C18.745 7.75971 18.6044 8.03183 18.5509 8.32674C18.4974 8.62164 18.5335 8.9258 18.6545 9.2V9.27273C18.7698 9.54161 18.9611 9.77093 19.205 9.93245C19.4489 10.094 19.7347 10.1807 20.0273 10.1818H20.1818C20.664 10.1818 21.1265 10.3734 21.4675 10.7144C21.8084 11.0553 22 11.5178 22 12C22 12.4822 21.8084 12.9447 21.4675 13.2856C21.1265 13.6266 20.664 13.8182 20.1818 13.8182H20.1C19.8075 13.8193 19.5217 13.906 19.2778 14.0676C19.0339 14.2291 18.8425 14.4584 18.7273 14.7273Z" stroke="#656565" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             </div>
 
             {/* Profile Info Card */}
-            <div className="info-card" onClick={() => setView('edit')}>
-                <div className="card-title">프로필 정보</div>
-                <div className="info-details">
-                    {formData.year ? formData.year : ''}<br/>
-                    {formData.job ? formData.job : ''}<br/>
-                    {formData.industry ? formData.industry : ''}
-                </div>
-                <div className="edit-text-btn">수정하기</div>
-                <div className="edit-arrow-icon">
+            <div className="profile-info-card">
+                <div className="profile-card-title">프로필 정보</div>
+                
+                {/* Tags Labels */}
+                <div className="profile-tag-label tag-pos-1">🍦 직급</div>
+                <div className="profile-tag-label tag-pos-2">🍦 연차</div>
+                <div className="profile-tag-label tag-pos-3">🍦 산업 분야</div>
+
+                {/* Tags Values */}
+                <div className="profile-tag-value tag-pos-1">{formData.job}</div>
+                <div className="profile-tag-value tag-pos-2">{formData.year}</div>
+                <div className="profile-tag-value tag-pos-3">{formData.industry}</div>
+
+                <div className="profile-edit-link" onClick={() => setView('edit')}>
+                    수정하기 
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.75 13.5L11.25 9L6.75 4.5" stroke="#DADADA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 </div>
             </div>
 
-            {/* Grid Cards */}
-            <div className="grid-card card-mypost" onClick={() => setView('myPosts')}>
-                <div className="grid-card-title">내가 쓴 글</div>
-                <div className="more-text-btn">자세히 보기</div>
-                <div className="more-arrow-icon">
+            {/* Menu Cards */}
+            <div className="profile-menu-card menu-pos-1">
+                <div className="profile-menu-title">내가 쓴 글</div>
+                <div className="profile-menu-more" onClick={() => setView('myPosts')}>
+                    자세히 보기
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.75 13.5L11.25 9L6.75 4.5" stroke="#DADADA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 </div>
             </div>
 
-            <div className="grid-card card-content" onClick={() => setView('contentPreference')}>
-                <div className="grid-card-title">콘텐츠</div>
-                <div className="more-text-btn">자세히 보기</div>
-                <div className="more-arrow-icon">
+            <div className="profile-menu-card menu-pos-2">
+                <div className="profile-menu-title">콘텐츠</div>
+                <div className="profile-menu-more" onClick={() => setView('contentPreference')}>
+                    자세히 보기
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.75 13.5L11.25 9L6.75 4.5" stroke="#DADADA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 </div>
             </div>
 
-            <div className="grid-card card-like" onClick={() => setView('liked')}>
-                <div className="grid-card-title">좋아요</div>
-                <div className="more-text-btn">자세히 보기</div>
-                <div className="more-arrow-icon">
+            <div className="profile-menu-card menu-pos-3">
+                <div className="profile-menu-title">좋아요</div>
+                <div className="profile-menu-more" onClick={() => setView('liked')}>
+                    자세히 보기
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.75 13.5L11.25 9L6.75 4.5" stroke="#DADADA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 </div>
             </div>
 
-            <div className="grid-card card-save" onClick={() => setView('saved')}>
-                <div className="grid-card-title">저장</div>
-                <div className="more-text-btn">자세히 보기</div>
-                <div className="more-arrow-icon">
+            <div className="profile-menu-card menu-pos-4">
+                <div className="profile-menu-title">저장</div>
+                <div className="profile-menu-more" onClick={() => setView('saved')}>
+                    자세히 보기
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.75 13.5L11.25 9L6.75 4.5" stroke="#DADADA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>

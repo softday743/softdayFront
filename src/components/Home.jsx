@@ -25,7 +25,7 @@ export function Home({ onNavigate, userName = '사용자', hasCheckedIn = false 
 
                 {/* Stress Check-in Card */}
                 {!hasCheckedIn ? (
-                    <div className="stress-checkin-card" onClick={() => onNavigate && onNavigate('survey')}>
+                    <div className="stress-checkin-card" onClick={() => onNavigate && onNavigate('stressCheckIn')}>
                         <div className="checkin-date">12월 9일(화)</div>
                         <div className="checkin-emoji">☺️</div>
                         <div className="checkin-link">오늘의 기분을 기록해 볼까요?</div>

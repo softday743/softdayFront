@@ -25,6 +25,7 @@ import { FindPwComplete } from './components/FindPwComplete'
 import { Home } from './components/Home'
 import { Community } from './components/Community'
 import { PostDetail } from './components/PostDetail'
+import { StressCheckIn } from './components/StressCheckIn'
 import { Search } from './components/Search'
 import { CreatePost } from './components/CreatePost'
 import { Statistics } from './components/Statistics'
@@ -74,7 +75,7 @@ function App() {
       )}
       {screen === 'folder' && (
         <MainLayout active="folder" onNavigate={setScreen}>
-            <Statistics />
+            <Statistics hasCheckedIn={hasCheckedIn} onNavigate={setScreen} />
         </MainLayout>
       )}
       {screen === 'profile' && (
@@ -98,6 +99,24 @@ function App() {
       )}
       {screen === 'notification' && (
         <Notification onBack={() => setScreen('home')} />
+      )}
+      {screen === 'stressCheckIn' && (
+        <StressCheckIn 
+            onBack={() => setScreen('home')} 
+            onComplete={() => {
+                setHasCheckedIn(true);
+                setScreen('home');
+            }} 
+        />
+      )}
+      {screen === 'stressCheckInStats' && (
+        <StressCheckIn 
+            onBack={() => setScreen('statistics')} 
+            onComplete={() => {
+                setHasCheckedIn(true);
+                setScreen('statistics'); // Or refresh statistics
+            }} 
+        />
       )}
       {screen === 'signup1' && (
         <SignUpStep1 

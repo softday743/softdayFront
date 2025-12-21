@@ -1,12 +1,16 @@
 import React from 'react';
 import './statistics.css';
 
-export function Statistics() {
+export function Statistics({ hasCheckedIn, onNavigate }) {
     return (
         <div className="statistics-container">
             {/* Header */}
-            <div className="stat-header-title">오전 9시에 스트레스가 가장 높아요</div>
-            <div className="stat-header-sub">✅ 오늘의 기분이 기록되었어요</div>
+            <div className="stat-header-title">
+                {hasCheckedIn ? '오전 9시에 스트레스가 가장 높아요' : '오늘의 스트레스를 확인해보세요'}
+            </div>
+            <div className="stat-header-sub">
+                {hasCheckedIn ? '✅ 오늘의 기분이 기록되었어요' : '✅ 아직 오늘의 기록이 없어요'}
+            </div>
 
             {/* Date Selector (Top Right) */}
             <div className="stat-date-selector">
@@ -14,12 +18,19 @@ export function Statistics() {
             </div>
 
             {/* Mood Card */}
-            <div className="stat-mood-card">
-                <div className="stat-mood-date">12월 9일(화)</div>
-                <div className="stat-mood-emoji">😐</div>
-                <div className="stat-mood-score">3점</div>
-                <div className="stat-mood-reason">업무과다, 수면 부족</div>
-            </div>
+            {!hasCheckedIn ? (
+                <div className="stat-mood-card" onClick={() => onNavigate && onNavigate('stressCheckInStats')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                    <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '10px' }}>오늘의 기분을 기록해 볼까요?</div>
+                    <div style={{ fontSize: '40px' }}>☺️</div>
+                </div>
+            ) : (
+                <div className="stat-mood-card">
+                    <div className="stat-mood-date">12월 9일(화)</div>
+                    <div className="stat-mood-emoji">😐</div>
+                    <div className="stat-mood-score">3점</div>
+                    <div className="stat-mood-reason">업무과다, 수면 부족</div>
+                </div>
+            )}
 
             {/* Stress Index Graph */}
             <div className="stat-graph-title">스트레스 지수 추이 그래프</div>

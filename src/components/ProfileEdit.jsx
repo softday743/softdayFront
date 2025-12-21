@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './profile.css';
+import React, { useState, useEffect } from 'react';
+import './profile-edit.css';
 
 export function ProfileEdit({ onBack }) {
     const [formData, setFormData] = useState({
@@ -8,77 +8,115 @@ export function ProfileEdit({ onBack }) {
         year: '3년차',
         industry: '마케팅'
     });
-    const [showUnsavedModal, setShowUnsavedModal] = useState(false);
+    const [initialData, setInitialData] = useState(null);
+    const [showPopup, setShowPopup] = useState(false);
 
-    const handleInputChange = (field, value) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
-    };
+    useEffect(() => {
+        // Simulating data fetch or initial load
+        setInitialData({
+            name: '이소민',
+            job: '대리',
+            year: '3년차',
+            industry: '마케팅'
+        });
+    }, []);
 
-    const handleSave = () => {
-        // Save logic here (API call etc.)
-        console.log('Saved:', formData);
-        onBack();
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleBack = () => {
-        // If dirty, show modal (simplified for now to always go back or show modal logic if needed)
-        // For this refactor, let's keep it simple or strictly copy logic.
-        // Assuming no dirty check logic transfer for this immediate step unless requested.
-        onBack();
+        const isDirty = JSON.stringify(formData) !== JSON.stringify(initialData);
+        if (isDirty) {
+            setShowPopup(true);
+        } else {
+            onBack();
+        }
+    };
+
+    const handleSave = () => {
+        // Save logic here
+        // setInitialData(formData); // Update initial data to prevent popup
+        onBack(); // Go back after save
     };
 
     return (
-        <div className="profile-container">
-            <div className="edit-header-title">프로필 정보 수정</div>
-            <div className="edit-back-arrow" onClick={handleBack}>
+        <div className="profile-edit-container">
+            {/* Header */}
+            <div className="pe-back-arrow" onClick={handleBack}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             </div>
+            <div className="pe-header-title">프로필 정보 수정</div>
 
-            <div className="edit-label label-name">이름</div>
-            <div className="edit-input-wrapper input-name">
+            {/* Name */}
+            <div className="pe-label pe-label-name">이름</div>
+            <div className="pe-input-container pe-input-name">
                 <input 
                     type="text" 
-                    className="edit-input" 
+                    name="name" 
+                    className="pe-input" 
                     value={formData.name} 
-                    onChange={(e) => handleInputChange('name', e.target.value)} 
+                    onChange={handleChange} 
                 />
             </div>
 
-            <div className="edit-label label-job">직급</div>
-            <div className="edit-input-wrapper input-job">
+            {/* Job */}
+            <div className="pe-label pe-label-job">직급</div>
+            <div className="pe-input-container pe-input-job">
                 <input 
                     type="text" 
-                    className="edit-input" 
+                    name="job" 
+                    className="pe-input" 
                     value={formData.job} 
-                    onChange={(e) => handleInputChange('job', e.target.value)} 
+                    onChange={handleChange} 
                 />
             </div>
 
-            <div className="edit-label label-year">연차</div>
-            <div className="edit-input-wrapper input-year">
+            {/* Year */}
+            <div className="pe-label pe-label-year">연차</div>
+            <div className="pe-input-container pe-input-year">
                 <input 
                     type="text" 
-                    className="edit-input" 
+                    name="year" 
+                    className="pe-input" 
                     value={formData.year} 
-                    onChange={(e) => handleInputChange('year', e.target.value)} 
+                    onChange={handleChange} 
                 />
             </div>
 
-            <div className="edit-label label-industry">산업 분야</div>
-            <div className="edit-input-wrapper input-industry">
+            {/* Industry */}
+            <div className="pe-label pe-label-industry">산업 분야</div>
+            <div className="pe-input-container pe-input-industry">
                 <input 
                     type="text" 
-                    className="edit-input" 
+                    name="industry" 
+                    className="pe-input" 
                     value={formData.industry} 
-                    onChange={(e) => handleInputChange('industry', e.target.value)} 
+                    onChange={handleChange} 
                 />
             </div>
 
-            <div className="edit-save-btn" onClick={handleSave}>
-                <div className="edit-save-text">저장</div>
-            </div>
+            {/* Save Button */}
+            <div className="pe-save-btn" onClick={handleSave}>저장</div>
+
+            {/* Unsaved Changes Popup */}
+            {showPopup && (
+                <div className="pe-overlay">
+                    <div className="pe-popup">
+                        <div className="pe-popup-text">
+                            수정 사항이 저장되지 않았어요.<br/>
+                            계속 진행하시겠습니까?
+                        </div>
+                        <div className="pe-popup-btn-group">
+                            <div className="pe-popup-btn yes" onClick={onBack}>예</div>
+                            <div className="pe-popup-btn no" onClick={() => setShowPopup(false)}>아니오</div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

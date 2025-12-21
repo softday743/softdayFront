@@ -1,0 +1,165 @@
+.profile-edit-container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 384px;
+    margin: 0 auto;
+}
+
+/* Header */
+.pe-header-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 55px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+}
+
+.pe-back-arrow {
+    position: absolute;
+    left: 21px;
+    top: 61px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Form Fields */
+.pe-label {
+    position: absolute;
+    left: 32px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+}
+
+.pe-input-container {
+    position: absolute;
+    left: 32px;
+    width: 320px; /* w-80 */
+    height: 56px; /* h-14 */
+    background: #f5f5f5; /* neutral-100 */
+    border-radius: 10px;
+    border: 1px solid #d6d3d1; /* stone-300 */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.pe-input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    padding: 0 18px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: #404040; /* neutral-700 */
+    outline: none;
+}
+
+/* Positioning */
+.pe-label-name { top: 140px; }
+.pe-input-name { top: 179px; }
+
+.pe-label-job { top: 254px; }
+.pe-input-job { top: 293px; }
+
+.pe-label-year { top: 368px; }
+.pe-input-year { top: 407px; }
+
+.pe-label-industry { top: 482px; }
+.pe-input-industry { top: 521px; }
+
+/* Save Button */
+.pe-save-btn {
+    position: absolute;
+    left: 31px;
+    top: 670px;
+    width: 320px;
+    height: 56px;
+    background: #fef3c7; /* amber-100 */
+    border-radius: 10px;
+    border: 1px solid #f59e0b; /* amber-500 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+    cursor: pointer;
+}
+
+/* Popup Overlay */
+.pe-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(214, 211, 209, 0.2); /* stone-300/20 */
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pe-popup {
+    width: 288px; /* w-72 */
+    height: 192px; /* h-48 */
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.pe-popup-text {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    line-height: 1.5;
+    margin-bottom: 30px;
+    padding-top: 10px;
+}
+
+.pe-popup-btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+.pe-popup-btn {
+    width: 112px; /* w-28 */
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    cursor: pointer;
+}
+
+.pe-popup-btn.yes {
+    background: #f9fafb; /* gray-50 */
+    border: 1px solid #d6d3d1; /* zinc-300 */
+    color: black;
+}
+
+.pe-popup-btn.no {
+    background: #fef3c7; /* amber-100 */
+    border: 1px solid #f59e0b; /* amber-500 */
+    color: black;
+}
