@@ -1,22 +1,26 @@
+/* Existing styles */
 .post-detail-container {
     width: 100%;
     height: 100%;
+    background-color: white;
     position: relative;
-    background: white;
-    overflow: hidden; /* Wrapper handles layout, inner div handles scroll */
+    max-width: 384px;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 .pd-scroll-area {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 70px); /* Subtract comment input height */
     overflow-y: auto;
-    padding-bottom: 120px; /* Ensure content isn't hidden behind input */
+    position: relative;
+    padding-bottom: 20px;
 }
 
 /* Header */
 .pd-back-arrow {
     position: absolute;
-    left: 22px;
+    left: 21px;
     top: 61px;
     cursor: pointer;
     z-index: 10;
@@ -27,11 +31,6 @@
     left: 50%;
     transform: translateX(-50%);
     top: 55px;
-    width: 176px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 16px;
     font-weight: 600;
     font-family: 'Pretendard';
@@ -40,199 +39,301 @@
 
 .pd-menu-dots {
     position: absolute;
-    right: 20px; /* Adjusted from left: 355px for flexibility */
+    right: 21px;
     top: 61px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Report Menu Dropdown */
+.pd-menu-dropdown {
+    position: absolute;
+    right: 21px;
+    top: 85px;
+    width: 112px; /* w-28 */
+    height: 64px; /* h-16 */
+    background: #f4f4f5; /* zinc-100 */
+    border-radius: 5px;
+    border: 1.32px solid #e4e4e7; /* outline */
+    z-index: 20;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.pd-menu-item {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: black;
+    cursor: pointer;
+}
+.pd-menu-item:hover {
+    background: #e4e4e7;
+}
+
+/* Report Reason Category List */
+.pd-reason-list {
+    position: absolute;
+    right: 21px; /* Aligned relative to where menu was, or fixed position */
+    top: 90px;
+    width: 128px; /* w-32 */
+    height: 192px; /* h-48 */
+    background: #f4f4f5;
+    border-radius: 5px;
+    border: 1.32px solid #e4e4e7;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+    z-index: 20;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.pd-reason-item {
+    width: 100%;
+    height: 30px; /* Divide height by items approx */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: black;
+    cursor: pointer;
+    border-bottom: 1px solid #e4e4e7;
+}
+.pd-reason-item:last-child {
+    border-bottom: none;
+}
+.pd-reason-item:hover {
+    background: #e4e4e7;
+}
+
+/* Overlay */
+.pd-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(214, 211, 209, 0.2); /* stone-300 with opacity */
+    z-index: 30;
+}
+
+/* Confirm Popup */
+.pd-confirm-popup {
+    position: absolute;
+    left: 50%;
+    top: 312px;
+    transform: translateX(-50%);
+    width: 288px; /* w-72 */
+    height: 192px; /* h-48 */
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pd-confirm-title {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    color: black;
+}
+
+.pd-confirm-desc {
+    margin-top: 15px; /* Spacing */
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+    text-align: center;
+}
+
+.pd-confirm-actions {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 23px;
+}
+
+.pd-confirm-btn {
+    width: 112px; /* w-28 */
+    height: 44px; /* h-11 */
+    background: #f9fafb; /* gray-50 */
+    border: 1px solid #d6d3d1; /* stone-300 */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
     cursor: pointer;
 }
 
-/* Post Content */
+/* Complete Popup */
+.pd-complete-popup {
+    position: absolute;
+    left: 50%;
+    top: 357px;
+    transform: translateX(-50%);
+    width: 208px; /* w-52 */
+    height: 80px; /* h-20 */
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pd-complete-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: black;
+}
+
+/* ... Existing styles ... */
 .pd-avatar-circle {
     position: absolute;
     left: 27px;
     top: 120px;
 }
-
 .pd-avatar-emoji {
     position: absolute;
     left: 27px;
     top: 127px;
     width: 40px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
     font-size: 20px;
     font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
 }
-
 .pd-category-badge {
     position: absolute;
     left: 77px;
     top: 119px;
-    width: 56px;
-    height: 16px;
-    background: #cffafe; /* cyan-100 */
-    border-radius: 24px;
-    border: 1px solid #2dd4bf; /* teal-400 */
+    padding: 2px 8px;
+    background: #cffafe;
+    border: 1px solid #2dd4bf;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
-
 .pd-category-text {
     font-size: 10px;
     font-weight: 600;
-    font-family: 'Pretendard';
     color: black;
 }
-
 .pd-author {
     position: absolute;
     left: 80px;
     top: 138px;
-    width: 80px;
-    height: 24px;
-    display: flex;
-    align-items: center;
     font-size: 10px;
     font-weight: 600;
-    font-family: 'Pretendard';
     color: black;
 }
-
 .pd-title {
     position: absolute;
     left: 34px;
     top: 179px;
-    width: 320px; /* Adjusted width */
-    font-size: 20px;
+    font-size: 20px; /* xl */
     font-weight: 600;
-    font-family: 'Pretendard';
     color: black;
 }
-
 .pd-content {
     position: absolute;
     left: 34px;
     top: 227px;
-    width: 320px; /* Adjusted width */
-    font-size: 16px;
+    font-size: 16px; /* base */
     font-weight: 600;
-    font-family: 'Pretendard';
     color: black;
-    line-height: 1.5;
 }
-
-/* Meta Data */
-.pd-eye-icon {
-    position: absolute;
-    left: 303px;
-    top: 331px;
-}
-
-.pd-view-count {
-    position: absolute;
-    left: 321px;
-    top: 332px;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: #a3a3a3;
-}
-
 .pd-date {
     position: absolute;
     left: 34px;
     top: 331px;
     font-size: 12px;
     font-weight: 600;
-    font-family: 'Pretendard';
     color: #a3a3a3;
 }
-
-/* Action Bar */
+.pd-eye-icon {
+    position: absolute;
+    left: 303px;
+    top: 331px;
+}
+.pd-view-count {
+    position: absolute;
+    left: 321px;
+    top: 332px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #a3a3a3;
+}
 .pd-action-bar {
     position: absolute;
-    /* Frame 2954: left -48px? This seems to be relative to something else or full width */
-    left: 0;
-    width: 100%;
+    left: -48px; /* Based on HTML but needs centering or adjustment */
+    /* Adjusting to fit container logic */
+    left: 50%;
+    transform: translateX(-50%);
     top: 367px;
+    width: 350px; /* Adjusted width */
     height: 64px;
     background: white;
-    border-top: 1px solid #d4d4d4;
-    border-bottom: 1px solid #d4d4d4;
+    border: 1px solid #d4d4d8;
+    border-radius: 10px;
     display: flex;
     align-items: center;
-    justify-content: space-around; /* Distribute items */
-    padding: 0 40px;
-    box-sizing: border-box;
+    justify-content: space-around;
 }
-
-/* Adjusting action bar items to match design manually if justify-around isn't precise enough, 
-   but justify-around is safer for responsiveness.
-   The user provided absolute positions inside the frame:
-   Heart: 103px, Like text: 130px
-   Message: 227px, Comment text: 255px
-   Bookmark: 338px, Save text: 362px
-   
-   Let's try to map these relative to the container for better CSS.
-*/
-
 .pd-action-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     cursor: pointer;
 }
-
 .pd-action-text {
     font-size: 16px;
     font-weight: 600;
-    font-family: 'Pretendard';
     color: #a3a3a3;
 }
-
-/* Comments Section Placeholder */
 .pd-empty-comment-icon {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 171px;
     top: 491px;
 }
-
 .pd-empty-comment-text {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 155px;
     top: 549px;
     font-size: 12px;
     font-weight: 600;
-    font-family: 'Pretendard';
     color: #a3a3a3;
-    text-align: center;
 }
-
-/* Bottom Comment Input */
 .pd-comment-input-container {
-    position: absolute; /* Relative to wrapper container */
-    bottom: 20px; /* Positioned at standard bottom nav height */
+    position: absolute;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 360px; /* w-96 roughly */
+    width: 350px;
     height: 56px;
     background: white;
     border-radius: 30px;
-    box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.13);
-    border: 1px solid #d4d4d4;
+    border: 1px solid #d4d4d8;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.13);
     display: flex;
     align-items: center;
-    padding: 0 20px;
-    z-index: 50;
+    padding: 0 15px;
 }
-
 .pd-checkbox {
     width: 16px;
     height: 16px;
@@ -241,44 +342,34 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 6px;
-    cursor: pointer;
 }
-
 .pd-anonymous-text {
+    margin-left: 6px;
     font-size: 12px;
     font-weight: 700;
-    font-family: 'Pretendard';
-    color: #f59e0b; /* amber-500 */
-    margin-right: 12px;
+    color: #f59e0b;
 }
-
 .pd-input-placeholder {
     flex: 1;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: #d6d3d1; /* stone-300 */
-    background: transparent;
     border: none;
     outline: none;
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #a3a3a3;
 }
-
 .pd-submit-btn {
     width: 48px;
     height: 28px;
-    background: #f9fafb; /* gray-50 */
+    background: #f9fafb;
+    border: 1px solid #e5e5e5;
     border-radius: 24px;
-    border: 1.2px solid #e5e5e5;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
 }
-
 .pd-submit-text {
     font-size: 10px;
     font-weight: 600;
-    font-family: 'Pretendard';
     color: black;
 }

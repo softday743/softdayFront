@@ -26,34 +26,39 @@ export function ProfileSettings({ onBack }) {
     if (view === 'notification') {
         return (
             <div className="pst-container">
-                {/* Header */}
-                <div className="pst-back-arrow" onClick={() => setView('main')}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                </div>
-                <div className="pst-header-title">알림</div>
-                
-                <div className="pst-section-title pst-noti-service-title">서비스 알림</div>
-                
-                <div className="pst-noti-item pst-noti-item-1">
-                    <div className="pst-noti-label">게시판 알림</div>
-                    <Switch isOn={toggles.board} onClick={() => handleToggle('board')} />
-                </div>
-                <div className="pst-noti-item pst-noti-item-2">
-                    <div className="pst-noti-label">통계 알림</div>
-                    <Switch isOn={toggles.stats} onClick={() => handleToggle('stats')} />
-                </div>
-                <div className="pst-noti-item pst-noti-item-3">
-                    <div className="pst-noti-label">챗봇 알림</div>
-                    <Switch isOn={toggles.chatbot} onClick={() => handleToggle('chatbot')} />
+                {/* Header Container */}
+                <div className="pst-header-wrapper">
+                    <div className="pst-back-arrow" onClick={() => setView('main')}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                    </div>
+                    <div className="pst-header-title">알림</div>
                 </div>
 
-                <div className="pst-section-title pst-noti-marketing-title">마케팅 알림</div>
+                {/* Content Container (Normal Flow) */}
+                <div className="pst-noti-container">
+                    <div className="pst-section-title">서비스 알림</div>
+                    
+                    <div className="pst-noti-item">
+                        <div className="pst-noti-label">게시판 알림</div>
+                        <Switch isOn={toggles.board} onClick={() => handleToggle('board')} />
+                    </div>
+                    <div className="pst-noti-item">
+                        <div className="pst-noti-label">통계 알림</div>
+                        <Switch isOn={toggles.stats} onClick={() => handleToggle('stats')} />
+                    </div>
+                    <div className="pst-noti-item">
+                        <div className="pst-noti-label">챗봇 알림</div>
+                        <Switch isOn={toggles.chatbot} onClick={() => handleToggle('chatbot')} />
+                    </div>
 
-                <div className="pst-noti-item pst-noti-item-4">
-                    <div className="pst-noti-label">이벤트/프로모션</div>
-                    <Switch isOn={toggles.marketing} onClick={() => handleToggle('marketing')} />
+                    <div className="pst-section-title pst-section-marketing">마케팅 알림</div>
+
+                    <div className="pst-noti-item">
+                        <div className="pst-noti-label">이벤트/프로모션</div>
+                        <Switch isOn={toggles.marketing} onClick={() => handleToggle('marketing')} />
+                    </div>
                 </div>
             </div>
         );
@@ -61,13 +66,15 @@ export function ProfileSettings({ onBack }) {
 
     return (
         <div className="pst-container">
-            {/* Header */}
-            <div className="pst-back-arrow" onClick={onBack}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+            {/* Header Container */}
+            <div className="pst-header-wrapper">
+                <div className="pst-back-arrow" onClick={onBack}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                </div>
+                <div className="pst-header-title">설정</div>
             </div>
-            <div className="pst-header-title">설정</div>
 
             <div className="pst-menu-list">
                 <div className="pst-menu-row" onClick={() => setView('notification')}>알림</div>
