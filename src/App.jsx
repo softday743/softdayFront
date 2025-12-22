@@ -34,25 +34,52 @@ import { Profile } from './components/Profile'
 import { Notification } from './components/Notification'
 
 import { MainLayout } from './components/MainLayout'
+import { StorePopup } from './components/StorePopup'
+
+// Landing Page Style & Assets
+import './landing.css'
+import logoHeader from './assets/logo_header.png'
+import btnTryApp from './assets/btn_try_app.png'
+import badgeAppStore from './assets/badge_appstore.png'
+import badgeGooglePlay from './assets/badge_googleplay.png'
 
 function App() {
   const [screen, setScreen] = useState('splash');
   const [userName, setUserName] = useState('');
   const [hasCheckedIn, setHasCheckedIn] = useState(false);
+  const [showStorePopup, setShowStorePopup] = useState(false);
 
-  const containerStyle = {
-    width: '100%',
-    maxWidth: '393px',
-    height: '100%',
-    maxHeight: '852px',
-    overflow: 'hidden',
-    position: 'relative',
-    boxShadow: '0 0 20px rgba(0,0,0,0.1)',
-    backgroundColor: '#ffffff'
-  };
+  // Styles moved to landing.css
 
   return (
-    <div style={containerStyle}>
+    <div className="landing-container">
+       <div className="landing-left">
+          <img src={logoHeader} alt="Softday Logo" className="landing-logo" />
+          <h1 className="landing-title">
+             바쁜 하루 속 내 마음을 돌보는 시간
+             <span className="highlight">일로 지친 마음을 챙기는 소프트데이</span>
+          </h1>
+          <div className="landing-cta-container">
+             <img src={btnTryApp} alt="앱으로 사용해보기" className="btn-try-app" />
+             <div className="store-badges">
+                <img 
+                   src={badgeGooglePlay} 
+                   alt="Google Play" 
+                   className="store-badge" 
+                   onClick={() => setShowStorePopup(true)}
+                />
+                <img 
+                   src={badgeAppStore} 
+                   alt="App Store" 
+                   className="store-badge" 
+                   onClick={() => setShowStorePopup(true)}
+                />
+             </div>
+          </div>
+       </div>
+
+       <div className="landing-right">
+          <div className="mobile-frame-wrapper">
       {screen === 'splash' && (
         <Splash onClick={() => setScreen('onboarding')} />
       )}
@@ -249,6 +276,9 @@ function App() {
             onTabId={() => setScreen('findIdEmail')}
         />
       )}
+          </div>
+       </div>
+       {showStorePopup && <StorePopup onClose={() => setShowStorePopup(false)} />}
     </div>
   )
 }
