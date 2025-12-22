@@ -26,6 +26,18 @@ export const SignUpStep2 = ({ onNext, onBack }) => {
         이메일을 받지 못했나요?
       </div>
 
+      {/* Placeholder for verification input lines */}
+      <div className="verification-lines">
+        {/* Repeated lines for visual match */}
+        <img className="line-item" alt="Line" src={line} />
+        <img className="line-item" alt="Line" src={line} />
+        <img className="line-item" alt="Line" src={line} />
+        <img className="line-item" alt="Line" src={line} />
+        <img className="line-item" alt="Line" src={line} />
+      </div>
+
+      <div className="header-text">인증번호를 입력해주세요</div>
+
       <div
         className="arrow-left"
         onClick={onBack}
@@ -42,7 +54,6 @@ export const SignUpStep2 = ({ onNext, onBack }) => {
         >
           <div className="email-modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-title">이메일을 받지 못했나요?</div>
-
             <div
               className="modal-option"
               onClick={() => {
@@ -52,18 +63,16 @@ export const SignUpStep2 = ({ onNext, onBack }) => {
             >
               인증번호 다시 받기
             </div>
-
             <div
               className="modal-option"
               onClick={() => {
-                // Handle email change logic
+                // Handle email change logic - go back to signup step 1
                 setShowModal(false);
                 onBack();
               }}
             >
               이메일 주소 변경하기
             </div>
-
             <button
               className="modal-button-close"
               onClick={() => setShowModal(false)}

@@ -38,7 +38,7 @@ export function ProfileEdit({ onBack }) {
   const handleSave = () => {
     // Save logic here
     // setInitialData(formData); // Update initial data to prevent popup
-    onBack();
+    onBack(); // Go back after save
   };
 
   return (

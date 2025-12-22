@@ -1,224 +1,229 @@
 .pc-container {
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    position: relative;
-    max-width: 384px;
-    margin: 0 auto;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  position: relative;
+  max-width: 384px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 /* Header */
 .pc-header-title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 55px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 55px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 .pc-back-arrow {
-    position: absolute;
-    left: 21px;
-    top: 61px;
-    cursor: pointer;
-    z-index: 10;
+  position: absolute;
+  left: 21px;
+  top: 61px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 /* Title */
 .pc-main-title {
-    position: absolute;
-    left: 32px;
-    top: 130px;
-    font-size: 20px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  position: absolute;
+  left: 32px;
+  top: 130px;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 /* Checklist Items */
 .pc-checklist-item {
-    position: absolute;
-    left: 32px;
-    width: 320px; /* w-80 */
-    height: 56px; /* h-14 */
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    border: 1px solid;
-    transition: all 0.2s;
+  position: absolute;
+  left: 32px;
+  width: 320px; /* w-80 */
+  height: 56px; /* h-14 */
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid;
+  transition: all 0.2s;
 }
 
 .pc-checklist-item.inactive {
-    top: 203px;
-    background-color: #f9fafb; /* gray-50 */
-    border-color: #d4d4d8; /* zinc-300 */
+  top: 203px;
+  background-color: #f9fafb; /* gray-50 */
+  border-color: #d4d4d8; /* zinc-300 */
 }
 
 .pc-checklist-item.active {
-    background-color: #fffbeb; /* amber-50 */
-    border-color: #eab308; /* yellow-500 */
+  background-color: #fffbeb; /* amber-50 */
+  border-color: #eab308; /* yellow-500 */
 }
 
 /* Item Content */
 .pc-checkbox {
-    width: 28px;
-    height: 28px;
-    border-radius: 5px;
-    margin-left: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pc-checklist-item.inactive .pc-checkbox {
-    background-color: #f3f4f6; /* gray-100/200? HTML says #C1C1C1 fill, stroke #CDCDCD */
-    background: #f4f4f5; /* zinc-100 */
-    border: 1px solid #d4d4d8; 
+  background-color: #f3f4f6; /* gray-100/200? HTML says #C1C1C1 fill, stroke #CDCDCD */
+  background: #f4f4f5; /* zinc-100 */
+  border: 1px solid #d4d4d8;
 }
 /* HTML SVGs show specific fills. Let's use SVG in JSX for accuracy, CSS for layout */
 
 .pc-item-text {
-    margin-left: 18px; /* 62 - (16+28) = 18 */
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  margin-left: 18px; /* 62 - (16+28) = 18 */
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 /* Other Type Link */
 .pc-other-link {
-    position: absolute;
-    left: 33px;
-    top: 398px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #a3a3a3; /* neutral-400 */
-    text-decoration: underline;
-    cursor: pointer;
+  position: absolute;
+  left: 33px;
+  top: 398px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #a3a3a3; /* neutral-400 */
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /* Submit Button */
 .pc-submit-btn {
-    position: absolute;
-    left: 32px;
-    top: 473px;
-    width: 320px;
-    height: 56px;
-    background-color: #fef3c7; /* amber-100 */
-    border: 1px solid #f59e0b; /* amber-500 */
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 600;
-    color: black;
-    cursor: pointer;
+  position: absolute;
+  left: 32px;
+  top: 473px;
+  width: 320px;
+  height: 56px;
+  background-color: #fef3c7; /* amber-100 */
+  border: 1px solid #f59e0b; /* amber-500 */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+  cursor: pointer;
 }
 
 /* Feedback Popup Overlay */
 .pc-popup-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(214, 211, 209, 0.4); /* stone-300/20? HTML says stone-300/20. Visual looks darker maybe? */
-    backdrop-filter: blur(1px);
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    214,
+    211,
+    209,
+    0.4
+  ); /* stone-300/20? HTML says stone-300/20. Visual looks darker maybe? */
+  backdrop-filter: blur(1px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pc-feedback-popup {
-    width: 288px; /* size-72 = 288px ?? HTML says 'size-72' which is w-72 h-72? usually w-72 is 288px. */
-    height: 288px;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.25);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 288px; /* size-72 = 288px ?? HTML says 'size-72' which is w-72 h-72? usually w-72 is 288px. */
+  height: 288px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pc-popup-title {
-    margin-top: 25px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 24px;
+  margin-top: 25px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
 }
 
 .pc-popup-input-area {
-    width: 240px; /* w-60 */
-    height: 128px; /* h-32 */
-    background: #f5f5f5; /* neutral-100 */
-    border-radius: 10px;
-    margin-top: 15px; /* Adjust spacing */
-    padding: 10px;
-    border: none;
-    resize: none;
-    font-family: 'Pretendard';
-    font-size: 14px;
+  width: 240px; /* w-60 */
+  height: 128px; /* h-32 */
+  background: #f5f5f5; /* neutral-100 */
+  border-radius: 10px;
+  margin-top: 15px; /* Adjust spacing */
+  padding: 10px;
+  border: none;
+  resize: none;
+  font-family: "Pretendard";
+  font-size: 14px;
 }
 .pc-popup-input-area::placeholder {
-    color: #a3a3a3;
-    font-weight: 600;
+  color: #a3a3a3;
+  font-weight: 600;
 }
 
 .pc-popup-btn-row {
-    position: absolute;
-    bottom: 20px; /* Adjust based on height */
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
+  position: absolute;
+  bottom: 20px; /* Adjust based on height */
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .pc-popup-cancel-btn {
-    width: 112px; /* w-28 */
-    height: 44px; /* h-11 */
-    background: #f9fafb;
-    border: 1px solid #d4d4d8;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
+  width: 112px; /* w-28 */
+  height: 44px; /* h-11 */
+  background: #f9fafb;
+  border: 1px solid #d4d4d8;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .pc-popup-confirm-btn {
-    width: 112px;
-    height: 44px;
-    background: #fef3c7;
-    border: 1px solid #f59e0b;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
+  width: 112px;
+  height: 44px;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 /* Thank You Popup */
 .pc-thankyou-popup {
-    width: 208px; /* w-52 */
-    height: 80px; /* h-20 */
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 700;
+  width: 208px; /* w-52 */
+  height: 80px; /* h-20 */
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
 }

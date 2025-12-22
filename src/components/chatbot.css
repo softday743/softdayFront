@@ -1,188 +1,196 @@
 .chatbot-container {
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    position: relative;
-    background: white;
-    overflow: hidden; /* Or auto if scrolling needed, but user design looks fixed height */
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  position: relative;
+  background: white;
+  overflow: hidden; /* Or auto if scrolling needed, but user design looks fixed height */
 }
 
 .chatbot-header {
-    width: 144px;
-    height: 36px;
-    left: 32px;
-    top: 198px;
-    position: absolute;
-    display: flex;
-    justify-content: center; /* Actually user said justify-center but text-left usually? Stick to user */
-    align-items: center; /* Implicit */
-    color: black;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  width: 144px;
+  height: 36px;
+  left: 32px;
+  top: 198px;
+  position: absolute;
+  display: flex;
+  justify-content: center; /* Actually user said justify-center but text-left usually? Stick to user */
+  align-items: center; /* Implicit */
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 /* Common Chat Card Styles */
 .chat-card {
-    width: 320px;
-    height: 80px;
-    left: 32px;
-    position: absolute;
-    background: #F4F4F5; /* zinc-100 */
-    border-radius: 16px;
-    box-shadow: 0px 0px 3px 1px rgba(136,136,136,0.25);
-    outline: 0.5px solid #A3A3A3; /* neutral-400 */
-    outline-offset: -0.5px;
-    overflow: hidden;
+  width: 320px;
+  height: 80px;
+  left: 32px;
+  position: absolute;
+  background: #f4f4f5; /* zinc-100 */
+  border-radius: 16px;
+  box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
+  outline: 0.5px solid #a3a3a3; /* neutral-400 */
+  outline-offset: -0.5px;
+  overflow: hidden;
 }
 
-.card-1 { top: 245px; }
-.card-2 { top: 340px; }
-.card-3 { top: 435px; }
-.card-4 { top: 530px; }
+.card-1 {
+  top: 245px;
+}
+.card-2 {
+  top: 340px;
+}
+.card-3 {
+  top: 435px;
+}
+.card-4 {
+  top: 530px;
+}
 
 .card-title {
-    width: 144px;
-    height: 36px;
-    left: 37px;
-    top: 13px;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  width: 144px;
+  height: 36px;
+  left: 37px;
+  top: 13px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .card-desc {
-    width: 144px;
-    height: 36px;
-    left: 37px;
-    top: 42px;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #A3A3A3; /* neutral-400 */
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  width: 144px;
+  height: 36px;
+  left: 37px;
+  top: 42px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #a3a3a3; /* neutral-400 */
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .card-date {
-    width: 40px;
-    height: 24px;
-    left: 254px;
-    top: 13px;
-    position: absolute;
-    text-align: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  width: 40px;
+  height: 24px;
+  left: 254px;
+  top: 13px;
+  position: absolute;
+  text-align: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .card-delete {
-    width: 40px;
-    height: 24px;
-    left: 254px;
-    top: 48px;
-    position: absolute;
-    text-align: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  width: 40px;
+  height: 24px;
+  left: 254px;
+  top: 48px;
+  position: absolute;
+  text-align: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 /* Bot Info Card */
 .bot-info-card {
-    width: 320px;
-    height: 112px;
-    left: 34px;
-    top: 75px;
-    position: absolute;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0px 0px 3px 1px rgba(136,136,136,0.25);
-    outline: 0.5px solid #A3A3A3;
-    outline-offset: -0.5px;
-    overflow: hidden;
+  width: 320px;
+  height: 112px;
+  left: 34px;
+  top: 75px;
+  position: absolute;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
+  outline: 0.5px solid #a3a3a3;
+  outline-offset: -0.5px;
+  overflow: hidden;
 }
 
 .bot-name {
-    width: 144px;
-    height: 36px;
-    left: 114px;
-    top: 24px;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  width: 144px;
+  height: 36px;
+  left: 114px;
+  top: 24px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .bot-avatar {
-    width: 64px;
-    height: 64px;
-    left: 27px;
-    top: 24px;
-    position: absolute;
-    background: #D4D4D8; /* zinc-300 */
-    border-radius: 9999px;
+  width: 64px;
+  height: 64px;
+  left: 27px;
+  top: 24px;
+  position: absolute;
+  background: #d4d4d8; /* zinc-300 */
+  border-radius: 9999px;
 }
 
 .bot-desc {
-    left: 114px;
-    top: 59px;
-    position: absolute;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    color: #52525B; /* neutral-600 */
-    font-size: 12px;
-    font-weight: 700;
-    font-family: 'Nunito';
+  left: 114px;
+  top: 59px;
+  position: absolute;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #52525b; /* neutral-600 */
+  font-size: 12px;
+  font-weight: 700;
+  font-family: "Nunito";
 }
 
 /* Start Chat Button */
 .start-chat-btn {
-    width: 320px;
-    height: 64px;
-    left: 30px;
-    top: 656px;
-    position: absolute;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0px 0px 3px 1px rgba(136,136,136,0.25);
-    outline: 0.5px solid #A3A3A3;
-    outline-offset: -0.5px;
-    overflow: hidden;
+  width: 320px;
+  height: 64px;
+  left: 30px;
+  top: 656px;
+  position: absolute;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
+  outline: 0.5px solid #a3a3a3;
+  outline-offset: -0.5px;
+  overflow: hidden;
 }
 
 .start-chat-text {
-    width: 144px;
-    height: 36px;
-    left: 93px;
-    top: 16px;
-    position: absolute;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  width: 144px;
+  height: 36px;
+  left: 93px;
+  top: 16px;
+  position: absolute;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }

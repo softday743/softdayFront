@@ -26,7 +26,7 @@ export function ProfileContent({ onBack }) {
     setShowThankYouPopup(true);
     setTimeout(() => {
       setShowThankYouPopup(false);
-    }, 2000);
+    }, 2000); // Hide after 2 seconds
   };
 
   return (
@@ -99,7 +99,7 @@ export function ProfileContent({ onBack }) {
                     fill="#C1C1C1"
                     stroke="#CDCDCD"
                   />
-                </svg>
+                </svg> // Inactive state based on HTML
               )}
             </div>
             <div className="pc-item-text">{item.label}</div>

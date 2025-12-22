@@ -23,6 +23,10 @@ export const SignUpStep3 = ({ onNext, onBack }) => {
         <img className="icon" alt="Back" src={icon} />
       </div>
 
+      <div className="header-text">비밀번호를 입력해주세요</div>
+
+      <div className="sub-header">회원가입 마지막 절차예요!</div>
+
       <div className="label">비밀번호</div>
       <div className="input-container">
         <InputText

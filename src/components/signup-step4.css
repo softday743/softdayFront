@@ -1,63 +1,62 @@
 .signup-step4-container {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    position: relative;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  position: relative;
 }
 
 .signup-step4-container .arrow-left {
-    position: absolute;
-    top: 80px;
-    left: 15px;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+  position: absolute;
+  top: 80px;
+  left: 15px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
 
 .signup-step4-container .message-container {
-    position: absolute;
-    top: 150px;
-    left: 32px;
-    right: 32px;
-    text-align: left;
+  position: absolute;
+  top: 150px;
+  left: 32px;
+  right: 32px;
+  text-align: left;
 }
 
 .signup-step4-container .title {
-    color: #000000;
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 20px;
+  color: #000000;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
 .signup-step4-container .subtitle {
-    color: #000000;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 1.4;
+  color: #000000;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 .signup-step4-container .button-next {
-    all: unset;
-    background-color: #fef3c7; /* amber-100 */
-    border: 1px solid #f59e0b; /* amber-500 */
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 56px;
-    width: 330px;
-    cursor: pointer;
-    position: absolute;
-    bottom: 48px;
-    left: 50%;
-    transform: translateX(-50%);
+  all: unset;
+  background-color: #fef3c7; /* amber-100 */
+  border: 1px solid #f59e0b; /* amber-500 */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 330px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .signup-step4-container .button-text {
-    color: #000000;
-    font-size: 16px;
-    font-weight: 600;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
 }
-

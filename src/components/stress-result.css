@@ -1,114 +1,114 @@
 .stress-result-container {
-    background-color: #ffffff;
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .stress-result-container .arrow-left {
-    position: absolute;
-    top: 80px;
-    left: 15px;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    z-index: 10;
+  position: absolute;
+  top: 80px;
+  left: 15px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .stress-result-container .onbording-steps {
-    height: 6px;
-    left: 14px;
-    position: absolute;
-    top: 62px;
-    width: 364px;
-    display: flex;
-    gap: 5px;
+  height: 6px;
+  left: 14px;
+  position: absolute;
+  top: 62px;
+  width: 364px;
+  display: flex;
+  gap: 5px;
 }
 
 .stress-result-container .step {
-    background-color: #fed7aa; /* orange-200 */
-    border-radius: 10px;
-    height: 100%;
-    flex: 1;
+  background-color: #fed7aa; /* orange-200 */
+  border-radius: 10px;
+  height: 100%;
+  flex: 1;
 }
 
 .stress-result-container .step.active {
-    background-color: #f59e0b; /* amber-500 */
+  background-color: #f59e0b; /* amber-500 */
 }
 
 .stress-result-container .confused-face {
-    height: 63px;
-    width: 63px;
-    position: absolute;
-    top: 252px;
-    left: 50%;
-    transform: translateX(-50%);
+  height: 63px;
+  width: 63px;
+  position: absolute;
+  top: 252px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .stress-result-container .result-card {
-    background-color: #e6e6e6;
-    border-radius: 10px;
-    height: 164px;
-    width: 278px;
-    position: absolute;
-    top: 344px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  height: 164px;
+  width: 278px;
+  position: absolute;
+  top: 344px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .stress-result-container .description {
-    color: #000000;
-    font-size: 20px;
-    font-weight: 600;
-    position: absolute;
-    top: 50.94%;
-    width: 100%;
-    text-align: center;
+  color: #000000;
+  font-size: 20px;
+  font-weight: 600;
+  position: absolute;
+  top: 50.94%;
+  width: 100%;
+  text-align: center;
 }
 
 .stress-result-container .score {
-    color: #000000;
-    font-size: 40px;
-    font-weight: 600;
-    position: absolute;
-    top: 43.66%;
-    width: 100%;
-    text-align: center;
+  color: #000000;
+  font-size: 40px;
+  font-weight: 600;
+  position: absolute;
+  top: 43.66%;
+  width: 100%;
+  text-align: center;
 }
 
 .stress-result-container .button-confirm {
-    all: unset;
-    background-color: #fef3c7; /* amber-100 */
-    border: 1px solid #f59e0b; /* amber-500 */
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 56px;
-    width: 330px;
-    position: absolute;
-    bottom: 48px;
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
+  all: unset;
+  background-color: #fef3c7; /* amber-100 */
+  border: 1px solid #f59e0b; /* amber-500 */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 330px;
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
 }
 
 .stress-result-container .button-text {
-    color: #000000;
-    font-size: 16px;
-    font-weight: 600;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .stress-result-container .title {
-    color: #000000;
-    font-size: 16px;
-    font-weight: 600;
-    position: absolute;
-    top: 9.86%;
-    width: 100%;
-    text-align: center;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
+  position: absolute;
+  top: 9.86%;
+  width: 100%;
+  text-align: center;
 }

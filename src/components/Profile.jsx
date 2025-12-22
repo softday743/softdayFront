@@ -1,46 +1,38 @@
 import React, { useState } from "react";
-import "./profile.css";
-import { ProfileEdit } from "./ProfileEdit";
-import { ProfileMyActivity } from "./ProfileMyActivity";
-import { ProfileContent } from "./ProfileContent";
-import { ProfileLiked } from "./ProfileLiked";
-import { ProfileSaved } from "./ProfileSaved";
-import { ProfileSettings } from "./ProfileSettings";
+import "./profile-content.css";
 
-export function Profile({ onNavigate }) {
-  const [view, setView] = useState("main");
-  // 'main' | 'edit' | 'myPosts' | 'contentPreference' | 'liked' | 'saved' | 'settings'
+export function ProfileContent({ onBack }) {
+  const [preferences, setPreferences] = useState(["text", "audio"]); // Initial selections based on HTML example
+  const [showFeedbackPopup, setShowFeedbackPopup] = useState(false);
+  const [showThankYouPopup, setShowThankYouPopup] = useState(false);
+  const [feedbackText, setFeedbackText] = useState("");
 
-  // Dummy data (incoming 코드 기준)
-  const [formData] = useState({
-    name: "00",
-    job: "대리",
-    year: "3년차",
-    industry: "마케팅",
-  });
+  const items = [
+    { id: "video", label: "🎬 영상", top: 203 },
+    { id: "text", label: "📄 텍스트", top: 268 },
+    { id: "audio", label: "🎧 음성", top: 333 },
+  ];
 
-  /* ================== View Routing ================== */
-  if (view === "edit") return <ProfileEdit onBack={() => setView("main")} />;
-  if (view === "myPosts")
-    return <ProfileMyActivity onBack={() => setView("main")} />;
-  if (view === "contentPreference")
-    return <ProfileContent onBack={() => setView("main")} />;
-  if (view === "liked") return <ProfileLiked onBack={() => setView("main")} />;
-  if (view === "saved") return <ProfileSaved onBack={() => setView("main")} />;
-  if (view === "settings")
-    return <ProfileSettings onBack={() => setView("main")} />;
+  const togglePreference = (id) => {
+    if (preferences.includes(id)) {
+      setPreferences(preferences.filter((p) => p !== id));
+    } else {
+      setPreferences([...preferences, id]);
+    }
+  };
 
-  /* ================== Render: Profile Main ================== */
+  const handleFeedbackSubmit = () => {
+    setShowFeedbackPopup(false);
+    setShowThankYouPopup(true);
+    setTimeout(() => {
+      setShowThankYouPopup(false);
+    }, 2000); // Hide after 2 seconds
+  };
+
   return (
-    <div className="profile-container">
-      {/* User Name */}
-      <div className="profile-user-name">{formData.name}님</div>
-
-      {/* Settings Icon */}
-      <div
-        className="profile-settings-icon"
-        onClick={() => setView("settings")}
-      >
+    <div className="pc-container">
+      {/* Header */}
+      <div className="pc-back-arrow" onClick={onBack}>
         <svg
           width="24"
           height="24"
@@ -49,87 +41,121 @@ export function Profile({ onNavigate }) {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
-            stroke="#656565"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M18.7273 14.7273C18.6063 15.0015 18.5702 15.3056 18.6236 15.6005..."
-            stroke="#656565"
+            d="M19 12H5M5 12L12 19M5 12L12 5"
+            stroke="black"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
         </svg>
       </div>
+      <div className="pc-header-title">콘텐츠</div>
 
-      {/* Profile Info Card */}
-      <div className="profile-info-card">
-        <div className="profile-card-title">프로필 정보</div>
+      {/* Main Content */}
+      <div className="pc-main-title">🫶 선호하는 콘텐츠를 선택해주세요.</div>
 
-        {/* Labels */}
-        <div className="profile-tag-label tag-pos-1">🍦 직급</div>
-        <div className="profile-tag-label tag-pos-2">🍦 연차</div>
-        <div className="profile-tag-label tag-pos-3">🍦 산업 분야</div>
-
-        {/* Values */}
-        <div className="profile-tag-value tag-pos-1">{formData.job}</div>
-        <div className="profile-tag-value tag-pos-2">{formData.year}</div>
-        <div className="profile-tag-value tag-pos-3">{formData.industry}</div>
-
-        <div className="profile-edit-link" onClick={() => setView("edit")}>
-          수정하기
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+      {/* Checklist Items */}
+      {items.map((item) => {
+        const isActive = preferences.includes(item.id);
+        return (
+          <div
+            key={item.id}
+            className={`pc-checklist-item ${isActive ? "active" : "inactive"}`}
+            style={{ top: `${item.top}px` }}
+            onClick={() => togglePreference(item.id)}
           >
-            <path
-              d="M6.75 13.5L11.25 9L6.75 4.5"
-              stroke="#DADADA"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+            <div className="pc-checkbox">
+              {isActive ? (
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect width="28" height="28" rx="5" fill="#FD9800" />
+                  <path
+                    d="M20.1673 10.25L12.3757 18.0417L8.83398 14.5"
+                    stroke="#F6F6F6"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="0.5"
+                    y="0.5"
+                    width="27"
+                    height="27"
+                    rx="4.5"
+                    fill="#C1C1C1"
+                    stroke="#CDCDCD"
+                  />
+                </svg> // Inactive state based on HTML
+              )}
+            </div>
+            <div className="pc-item-text">{item.label}</div>
+          </div>
+        );
+      })}
+
+      {/* Other Type Link */}
+      <div className="pc-other-link" onClick={() => setShowFeedbackPopup(true)}>
+        다른 유형도 보고싶어요
+      </div>
+
+      {/* Submit Button */}
+      <div className="pc-submit-btn" onClick={onBack}>
+        완료
+      </div>
+
+      {/* Feedback Popup */}
+      {showFeedbackPopup && (
+        <div className="pc-popup-overlay">
+          <div className="pc-feedback-popup">
+            <div className="pc-popup-title">
+              어떤 유형의 콘텐츠가 필요하신가요?
+              <br />
+              편하게 말씀해주세요.☺️
+            </div>
+            <textarea
+              className="pc-popup-input-area"
+              placeholder="의견을 입력해주세요"
+              value={feedbackText}
+              onChange={(e) => setFeedbackText(e.target.value)}
             />
-          </svg>
+            <div className="pc-popup-btn-row">
+              <div
+                className="pc-popup-cancel-btn"
+                onClick={() => setShowFeedbackPopup(false)}
+              >
+                취소
+              </div>
+              <div
+                className="pc-popup-confirm-btn"
+                onClick={handleFeedbackSubmit}
+              >
+                완료
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Menu Cards */}
-      <div className="profile-menu-card menu-pos-1">
-        <div className="profile-menu-title">내가 쓴 글</div>
-        <div className="profile-menu-more" onClick={() => setView("myPosts")}>
-          자세히 보기
+      {/* Thank You Popup */}
+      {showThankYouPopup && (
+        <div className="pc-popup-overlay">
+          <div className="pc-thankyou-popup">소중한 의견 감사해요!🫶</div>
         </div>
-      </div>
-
-      <div className="profile-menu-card menu-pos-2">
-        <div className="profile-menu-title">콘텐츠</div>
-        <div
-          className="profile-menu-more"
-          onClick={() => setView("contentPreference")}
-        >
-          자세히 보기
-        </div>
-      </div>
-
-      <div className="profile-menu-card menu-pos-3">
-        <div className="profile-menu-title">좋아요</div>
-        <div className="profile-menu-more" onClick={() => setView("liked")}>
-          자세히 보기
-        </div>
-      </div>
-
-      <div className="profile-menu-card menu-pos-4">
-        <div className="profile-menu-title">저장</div>
-        <div className="profile-menu-more" onClick={() => setView("saved")}>
-          자세히 보기
-        </div>
-      </div>
+      )}
     </div>
   );
 }
