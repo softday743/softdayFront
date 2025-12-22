@@ -70,6 +70,7 @@
 
 .tab-inactive .find-id-tab-text { color: #d6d3d1; /* stone-300 */ }
 .tab-inactive .find-id-tab-indicator { background: #d4d4d8; /* zinc-300 */ }
+.tab-inactive { cursor: default; pointer-events: none; }
 
 /* Main Content Area */
 .find-id-main-title {
@@ -264,4 +265,37 @@
     font-size: 20px;
     font-weight: 600;
     font-family: 'Pretendard';
+}
+
+/* Password Input Container - matching signup step sizing */
+.find-id-input-container-pw {
+    width: 320px !important; /* w-80 */
+    height: 56px;
+    left: 32px;
+    position: absolute;
+    background: #f5f5f5; /* neutral-100 */
+    border-radius: 10px;
+    border: 1px solid #d6d3d1; /* stone-300 */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+}
+
+/* Login link for password reset complete */
+.login-link {
+    width: 256px; /* w-64 */
+    height: 20px; /* h-5 */
+    left: 31px;
+    top: 289px;
+    position: absolute;
+    color: #a3a3a3; /* neutral-400 */
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    text-decoration: underline;
+    cursor: pointer;
 }

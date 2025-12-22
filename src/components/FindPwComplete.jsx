@@ -17,7 +17,7 @@ export function FindPwComplete({ onLogin, onTabId }) {
 
             {/* Tabs */}
             <div className="find-id-tabs">
-                <div className="find-id-tab tab-inactive" onClick={onTabId}>
+                <div className="find-id-tab tab-inactive">
                     <div className="find-id-tab-text">아이디</div>
                     <div className="find-id-tab-indicator"></div>
                 </div>
@@ -30,16 +30,10 @@ export function FindPwComplete({ onLogin, onTabId }) {
             <div className="password-reset-success-text">비밀번호가 재설정 되었어요<br/>로그인해주세요</div>
 
             <div 
-                className="find-id-action-btn btn-amber" 
-                style={{ 
-                    top: '500px', 
-                    left: '50%', 
-                    transform: 'translateX(-50%)', 
-                    width: '300px' 
-                }}
+                className="login-link" 
                 onClick={onLogin}
             >
-                <div>로그인 하러 가기</div>
+                로그인하러 가기
             </div>
         </div>
     );

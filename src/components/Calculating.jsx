@@ -3,7 +3,7 @@ import activeIndicator from "../assets/active-indicator.svg";
 import track from "../assets/track.svg";
 import "./calculating.css";
 
-export const Calculating = ({ onFinished }) => {
+export const Calculating = ({ onFinished, userName = '사용자' }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             onFinished();
@@ -20,7 +20,7 @@ export const Calculating = ({ onFinished }) => {
             </div>
 
             <div className="text-wrapper">
-                00님의 스트레스 수치를
+                {userName}님의 스트레스 수치를
                 <br />
                 계산하고 있어요
             </div>

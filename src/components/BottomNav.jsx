@@ -2,7 +2,7 @@ import React from 'react';
 import './home.css';
 
 export function BottomNav({ active, onNavigate }) {
-    const activeColor = "#6BA6FF";
+    const activeColor = "#FD9800"; // Orange
     const inactiveColor = "#959595";
 
     // Styles for the fixed container (Absolute positioning relative to parent app frame)

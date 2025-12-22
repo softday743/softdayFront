@@ -60,7 +60,8 @@
 
 .login-container .button-login {
     all: unset;
-    background-color: #c8c8c8;
+    background-color: #ffffff; /* white */
+    border: 1px solid #a3a3a3; /* neutral-400 */
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -70,6 +71,12 @@
     margin-left: 32px;
     margin-top: 17px;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-container .button-login.active {
+    background-color: #fef3c7; /* amber-100 */
+    border: 1px solid #f59e0b; /* amber-500 */
 }
 
 .login-container .button-text {

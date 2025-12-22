@@ -1,52 +1,29 @@
-import React, { useState } from "react"; // useState 포함
-import icon from "../assets/icon_arrow_left.svg"; // [중요] 이 줄이 있어야 에러가 안 납니다!
+import React, { useState } from "react";
+import icon from "../assets/icon_arrow_left.svg";
+import line from "../assets/line_dashed.svg"; // Using simplified asset
 import "./signup-step2.css";
 
-export const SignUpStep2 = ({ onVerify, onBack, email }) => {
-  const [code, setCode] = useState("");
+export const SignUpStep2 = ({ onNext, onBack }) => {
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="signup-step2-container">
-      <div className="header-text">인증번호를 입력해주세요</div>
+      <button className="button-next" onClick={onNext}>
+        <div className="button-text">다음</div>
+      </button>
 
       <div className="description">
-        ‘{email}’으로 보내드린
+        '이메일주소'으로 보내드린
         <br />
         인증번호를 입력해주세요.
       </div>
 
-      {/* 인증번호 입력 필드 */}
-      <input
-        style={{
-          position: "absolute",
-          top: "310px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "300px",
-          fontSize: "24px",
-          letterSpacing: "10px",
-          textAlign: "center",
-          border: "none",
-          borderBottom: "2px solid #ccc",
-          outline: "none",
-          background: "transparent",
-        }}
-        maxLength={6}
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        placeholder="123456"
-      />
-
-      <button className="button-next" onClick={() => onVerify(code)}>
-        <div className="button-text">다음</div>
-      </button>
-
       <div
         className="resend-text"
+        onClick={() => setShowModal(true)}
         style={{ cursor: "pointer" }}
-        onClick={onBack}
       >
-        이메일을 다시 입력하시겠습니까?
+        이메일을 받지 못했나요?
       </div>
 
       <div
@@ -54,9 +31,48 @@ export const SignUpStep2 = ({ onVerify, onBack, email }) => {
         onClick={onBack}
         style={{ cursor: "pointer" }}
       >
-        {/* 여기서 icon 변수를 사용하므로 상단 import 필수 */}
         <img className="icon" alt="Back" src={icon} />
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div
+          className="email-modal-overlay"
+          onClick={() => setShowModal(false)}
+        >
+          <div className="email-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-title">이메일을 받지 못했나요?</div>
+
+            <div
+              className="modal-option"
+              onClick={() => {
+                // Handle resend logic
+                setShowModal(false);
+              }}
+            >
+              인증번호 다시 받기
+            </div>
+
+            <div
+              className="modal-option"
+              onClick={() => {
+                // Handle email change logic
+                setShowModal(false);
+                onBack();
+              }}
+            >
+              이메일 주소 변경하기
+            </div>
+
+            <button
+              className="modal-button-close"
+              onClick={() => setShowModal(false)}
+            >
+              <div className="modal-button-text">다음</div>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

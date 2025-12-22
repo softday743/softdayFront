@@ -1,66 +1,45 @@
-import React, { useState, useEffect } from "react";
-import "./profile.css";
-import api from "../api/axiosConfig";
+import React, { useState } from "react";
+import "./profile-content.css";
 
 export function ProfileContent({ onBack }) {
-  const [selectedContentTypes, setSelectedContentTypes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [preferences, setPreferences] = useState(["text", "audio"]); // Initial selections based on HTML example
+  const [showFeedbackPopup, setShowFeedbackPopup] = useState(false);
+  const [showThankYouPopup, setShowThankYouPopup] = useState(false);
+  const [feedbackText, setFeedbackText] = useState("");
 
-  // 초기 데이터 로드
-  useEffect(() => {
-    const fetchPrefs = async () => {
-      try {
-        const response = await api.get("/user/me");
-        const prefs = response.data.preferences || {};
-        const activeTypes = [];
-        if (prefs.video) activeTypes.push("video");
-        if (prefs.text) activeTypes.push("text");
-        if (prefs.audio) activeTypes.push("audio");
-        setSelectedContentTypes(activeTypes);
-      } catch (error) {
-        console.error("Failed to load preferences", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPrefs();
-  }, []);
+  const items = [
+    { id: "video", label: "🎬 영상", top: 203 },
+    { id: "text", label: "📄 텍스트", top: 268 },
+    { id: "audio", label: "🎧 음성", top: 333 },
+  ];
 
-  const toggleContentType = (type) => {
-    if (selectedContentTypes.includes(type)) {
-      setSelectedContentTypes((prev) => prev.filter((t) => t !== type));
+  const togglePreference = (id) => {
+    if (preferences.includes(id)) {
+      setPreferences(preferences.filter((p) => p !== id));
     } else {
-      setSelectedContentTypes((prev) => [...prev, type]);
+      setPreferences([...preferences, id]);
     }
   };
 
-  const handleSave = async () => {
-    try {
-      await api.patch("/user/me", {
-        preferences: {
-          video: selectedContentTypes.includes("video"),
-          text: selectedContentTypes.includes("text"),
-          audio: selectedContentTypes.includes("audio"),
-        },
-      });
-      alert("콘텐츠 선호도가 저장되었습니다.");
-      onBack();
-    } catch (error) {
-      console.error("Save failed", error);
-      alert("저장에 실패했습니다.");
-    }
+  const handleFeedbackSubmit = () => {
+    setShowFeedbackPopup(false);
+    setShowThankYouPopup(true);
+    setTimeout(() => {
+      setShowThankYouPopup(false);
+    }, 2000);
   };
-
-  if (loading) return <div className="profile-container">Loading...</div>;
 
   return (
-    <div className="profile-container">
-      <div
-        className="edit-back-arrow"
-        onClick={onBack}
-        style={{ top: "24px", position: "absolute" }}
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <div className="pc-container">
+      {/* Header */}
+      <div className="pc-back-arrow" onClick={onBack}>
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             d="M19 12H5M5 12L12 19M5 12L12 5"
             stroke="black"
@@ -70,105 +49,113 @@ export function ProfileContent({ onBack }) {
           />
         </svg>
       </div>
-      <div
-        className="content-pref-header-title"
-        style={{ position: "relative", marginTop: "20px" }}
-      >
-        콘텐츠
-      </div>
-      <div
-        className="content-pref-subtitle"
-        style={{
-          position: "relative",
-          top: "auto",
-          left: "auto",
-          marginTop: "40px",
-          textAlign: "center",
-        }}
-      >
-        선호하는 콘텐츠를 선택해주세요.
-      </div>
+      <div className="pc-header-title">콘텐츠</div>
 
-      <div
-        className="content-pref-option-container"
-        style={{
-          position: "relative",
-          top: "auto",
-          left: "auto",
-          marginTop: "30px",
-          alignItems: "center",
-        }}
-      >
-        {["video", "text", "audio"].map((type) => (
+      {/* Main Content */}
+      <div className="pc-main-title">🫶 선호하는 콘텐츠를 선택해주세요.</div>
+
+      {/* Checklist Items */}
+      {items.map((item) => {
+        const isActive = preferences.includes(item.id);
+        return (
           <div
-            key={type}
-            className="content-pref-card"
-            onClick={() => toggleContentType(type)}
-            style={{
-              background: selectedContentTypes.includes(type)
-                ? "#e5e5e5"
-                : "#F6F6F6",
-            }}
+            key={item.id}
+            className={`pc-checklist-item ${isActive ? "active" : "inactive"}`}
+            style={{ top: `${item.top}px` }}
+            onClick={() => togglePreference(item.id)}
           >
-            <div className="content-pref-checkbox">
-              {selectedContentTypes.includes(type) ? (
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <rect
-                    x="0.5"
-                    y="0.5"
-                    width="27"
-                    height="27"
-                    rx="4.5"
-                    fill="#222"
-                    stroke="#222"
-                  />
+            <div className="pc-checkbox">
+              {isActive ? (
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect width="28" height="28" rx="5" fill="#FD9800" />
                   <path
-                    d="M7 14L11 18L21 8"
-                    stroke="white"
+                    d="M20.1673 10.25L12.3757 18.0417L8.83398 14.5"
+                    stroke="#F6F6F6"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                 </svg>
               ) : (
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <rect
                     x="0.5"
                     y="0.5"
                     width="27"
                     height="27"
                     rx="4.5"
-                    fill="#F6F6F6"
+                    fill="#C1C1C1"
                     stroke="#CDCDCD"
                   />
                 </svg>
               )}
             </div>
-            <div className="content-pref-text">
-              {type === "video"
-                ? "🖥️ 영상"
-                : type === "text"
-                ? "📄 텍스트"
-                : "🎧 음성"}
-            </div>
+            <div className="pc-item-text">{item.label}</div>
           </div>
-        ))}
+        );
+      })}
+
+      {/* Other Type Link */}
+      <div className="pc-other-link" onClick={() => setShowFeedbackPopup(true)}>
+        다른 유형도 보고싶어요
       </div>
 
-      <div
-        className="content-pref-complete-btn active"
-        onClick={handleSave}
-        style={{
-          position: "relative",
-          top: "auto",
-          left: "auto",
-          margin: "60px auto 0",
-        }}
-      >
-        <div className="content-pref-btn-text" style={{ color: "white" }}>
-          완료
-        </div>
+      {/* Submit Button */}
+      <div className="pc-submit-btn" onClick={onBack}>
+        완료
       </div>
+
+      {/* Feedback Popup */}
+      {showFeedbackPopup && (
+        <div className="pc-popup-overlay">
+          <div className="pc-feedback-popup">
+            <div className="pc-popup-title">
+              어떤 유형의 콘텐츠가 필요하신가요?
+              <br />
+              편하게 말씀해주세요.☺️
+            </div>
+            <textarea
+              className="pc-popup-input-area"
+              placeholder="의견을 입력해주세요"
+              value={feedbackText}
+              onChange={(e) => setFeedbackText(e.target.value)}
+            />
+            <div className="pc-popup-btn-row">
+              <div
+                className="pc-popup-cancel-btn"
+                onClick={() => setShowFeedbackPopup(false)}
+              >
+                취소
+              </div>
+              <div
+                className="pc-popup-confirm-btn"
+                onClick={handleFeedbackSubmit}
+              >
+                완료
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Thank You Popup */}
+      {showThankYouPopup && (
+        <div className="pc-popup-overlay">
+          <div className="pc-thankyou-popup">소중한 의견 감사해요!🫶</div>
+        </div>
+      )}
     </div>
   );
 }

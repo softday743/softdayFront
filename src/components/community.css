@@ -1,74 +1,114 @@
-/* Container matches Home */
 .community-container {
     width: 100%;
-    max-width: 393px;
     height: 100%;
+    background: #fef3c7; /* amber-50 */
     position: relative;
-    background: white;
     overflow: hidden;
 }
 
-/* Header with Tabs */
+/* Header Tabs */
 .community-header {
-    width: 384px; /* w-96 */
-    height: 48px; /* h-12 */
+    width: 100%;
+    height: 48px;
+    background: white;
+    box-shadow: 0px 1px 6px 0px rgba(186, 186, 186, 0.25);
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    background: white;
-    box-shadow: 0px 1px 6px 0px rgba(186,186,186,0.25);
     position: absolute;
     top: 46px;
-    left: 4.5px; /* Centered roughly */
+    left: 0;
     z-index: 10;
 }
 
 .tab-item {
+    width: 144px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 16px;
     font-weight: 600;
     font-family: 'Pretendard';
-    color: #a3a3a3; /* neutral-400 */
+    color: #a3a3a3;
     cursor: pointer;
-    line-height: 24px; /* Roughly h-9 centered */
+    margin-left: -26px;
+}
+
+.tab-item:first-child {
+    margin-left: -26px;
 }
 
 .tab-item.active {
     color: black;
 }
 
-/* Scroll Area */
+/* Scrollable Area */
 .community-scroll-area {
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    overflow-x: hidden;
-    position: relative;
-    background: white;
-    padding-top: 100px; /* Space for header + filter */
+    padding-top: 94px; /* Header height */
+    padding-bottom: 800px; /* Extremely large padding to force scroll */
 }
-.community-scroll-area::after {
-    content: "";
-    display: block;
-    height: 100px; /* Bottom padding for nav */
-    width: 100%;
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.page-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-family: 'Pretendard';
+    color: #a3a3a3;
+    cursor: pointer;
+}
+
+.page-btn.prev, .page-btn.next {
+    font-size: 18px;
+}
+
+.page-btn.active {
+    color: black;
+    font-weight: 700;
+}
+
+.page-btn:disabled {
+    color: #d4d4d4;
+    cursor: not-allowed;
 }
 
 /* Filter Section */
 .filter-section {
-    position: absolute;
-    top: 114px;
-    right: 20px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    z-index: 5;
+    justify-content: flex-end;
+    padding: 20px 16px 20px 0;
+    gap: 17px;
+}
+
+.filter-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 }
 
 .sort-dropdown {
     width: 48px;
     height: 24px;
-    background: #E5E5E5; /* neutral-200 */
+    background: #f9fafb; /* gray-50 */
     border-radius: 5px;
+    border: 1px solid #d4d4d4;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,70 +121,66 @@
     color: black;
 }
 
-/* Start New Card */
-.start-new-card {
-    width: 320px; /* w-80 */
-    height: 128px; /* h-32 */
-    margin: 40px auto 20px; /* Positioned visually */
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0px 0px 3px 1px rgba(136,136,136,0.25);
-    outline: 0.5px solid #a3a3a3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.start-new-text {
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
-}
-
 /* Post List */
 .community-post-list {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 16px;
+    gap: 25px;
+    padding: 0 0 20px 0;
 }
 
-/* Post Card - Adapted from absolute to responsive-ish relative */
+/* Post Card */
 .community-post-card {
-    width: 360px; /* Fit 393px screen comfortably */
-    height: 144px; /* h-36 */
+    width: 484px;
+    height: 160px;
+    margin-left: -67px;
     background: white;
     border-radius: 10px;
-    outline: 1px solid #d4d4d8; /* zinc-300 */
+    border: 0.5px solid #d4d4d4;
     position: relative;
-    overflow: hidden;
+    cursor: pointer;
 }
 
-/* Relative positioning within card based on visual gap analysis */
+.cp-header {
+    position: relative;
+    height: 43px;
+    padding: 14px 0 0 87px;
+}
+
 .cp-avatar {
     position: absolute;
-    left: 17px; /* 87 - 70 offset estimate */
+    left: 87px;
     top: 14px;
+    width: 29px;
+    height: 29px;
+}
+
+.cp-emoji {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Pretendard';
 }
 
 .cp-category-badge {
     position: absolute;
-    left: 57px; /* 127 - 70 */
+    left: 127px;
     top: 20px;
     width: 44px;
     height: 14px;
-    background: #d4d4d8;
+    background: #cffafe; /* cyan-100 */
     border-radius: 20px;
-    outline: 1px solid #d4d4d8;
+    border: 1px solid #2dd4bf; /* teal-400 */
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 .cp-category-text {
-    font-size: 10px;
+    font-size: 8px;
     font-weight: 600;
     font-family: 'Pretendard';
     color: black;
@@ -152,87 +188,110 @@
 
 .cp-author {
     position: absolute;
-    left: 107px; /* 177 - 70 */
+    left: 177px;
     top: 17px;
+    width: 56px;
+    height: 20px;
     font-size: 10px;
     font-weight: 600;
     font-family: 'Pretendard';
     color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cp-time {
     position: absolute;
-    left: 162px; /* 232 - 70 */
-    top: 21px;
+    left: 232px;
+    top: 20px;
+    width: 64px;
+    height: 10px;
     font-size: 10px;
     font-weight: 600;
     font-family: 'Pretendard';
     color: #a3a3a3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cp-title {
     position: absolute;
-    left: 61px; /* 131 - 70 */
+    left: 131px;
     top: 50px;
+    width: 160px;
+    height: 20px;
     font-size: 16px;
     font-weight: 600;
     font-family: 'Pretendard';
     color: black;
+    display: flex;
+    align-items: flex-start;
 }
 
 .cp-content {
     position: absolute;
-    left: 61px;
+    left: 131px;
     top: 78px;
+    width: 160px;
+    height: 20px;
     font-size: 14px;
     font-weight: 600;
     font-family: 'Pretendard';
     color: black;
+    display: flex;
+    align-items: flex-start;
 }
 
 .cp-footer {
     position: absolute;
-    top: 112px;
-    left: 61px;
+    left: 131px;
+    top: 128px;
     display: flex;
-    gap: 20px;
+    gap: 50px;
 }
 
 .cp-stat-item {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
 }
 
-.cp-stat-text {
+.cp-stat-item svg {
+    width: 18px;
+    height: 18px;
+}
+
+.cp-stat-item span {
     font-size: 12px;
     font-weight: 600;
     font-family: 'Pretendard';
     color: #a3a3a3;
 }
 
-/* Floating Action Button */
+.cp-stat-item span.has-count {
+    color: #ef4444; /* red-500 */
+}
+
+.cp-stat-item span.has-comments {
+    color: #14b8a6; /* teal-400 */
+}
+
+/* FAB Button */
 .fab-button {
     position: absolute;
     left: 316px;
-    top: 690px; /* Fixed position on screen or scroll area? */
-    /* User: "left-[331px] top-[706px]" inside parent? */
-    /* In scroll flow or fixed? Usually fixed. */
-    /* If fixed, bottom right. */
+    bottom: 92px; /* Adjusted based on bottom nav height */
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    z-index: 100;
 }
-/* Note: The user provided FAB inside valid "absolute" blocks. */
-/* I'll make it fixed to screen bottom right in Community.jsx usually, 
-   but here the user used absolute positioning on the canvas. */
-/* I'll rely on the updated JSX to place it or use fixed css. */
 
-/* Bottom Nav - Enforce fixed */
-.bottom-nav {
-    width: 100%;
-    max-width: 393px;
-    height: 80px;
+.fab-icon {
     position: absolute;
-    bottom: 0;
-    background: white;
-    box-shadow: 0px -1px 6px 0px rgba(160,160,160,0.38);
-    z-index: 9999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }

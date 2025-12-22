@@ -1,114 +1,66 @@
 import React, { useState, useEffect } from "react";
-import api from "../api/axiosConfig";
 import "./post-detail.css";
 
-export function PostDetail({ onNavigate, postId }) {
-  const [post, setPost] = useState(null);
-  const [commentText, setCommentText] = useState("");
-  const [isAnonymous, setIsAnonymous] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [replyToCommentId, setReplyToCommentId] = useState(null);
+export function PostDetail({ onBack }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [reportStep, setReportStep] = useState("none"); // 'none' | 'category' | 'confirm' | 'complete'
+  const [blockStep, setBlockStep] = useState("none"); // 'none' | 'confirm' | 'complete'
+  const [selectedReason, setSelectedReason] = useState("");
 
-  // [유지] 게시글 본문 삭제 권한 확인을 위해 내 정보는 계속 가져옵니다.
-  const [currentUser, setCurrentUser] = useState({ email: "", username: "" });
-
-  useEffect(() => {
-    if (postId) {
-      fetchPostDetail();
-      fetchCurrentUser();
-    }
-  }, [postId]);
-
-  const fetchCurrentUser = async () => {
-    try {
-      const response = await api.get("/user/me");
-      setCurrentUser({
-        email: response.data.email,
-        username: response.data.username,
-      });
-    } catch (error) {
-      console.error("유저 정보 로드 실패", error);
+  const handleMenuClick = () => {
+    setMenuOpen(!menuOpen);
+    if (reportStep !== "none" || blockStep !== "none") {
+      setReportStep("none");
+      setBlockStep("none");
     }
   };
 
-  const fetchPostDetail = async () => {
-    try {
-      setLoading(true);
-      const response = await api.get(`/board/${postId}`);
-      setPost(response.data);
-    } catch (error) {
-      console.error("상세 조회 실패", error);
-      alert("게시글을 불러오지 못했습니다.");
-      onNavigate("community");
-    } finally {
-      setLoading(false);
-    }
+  const handleReportStart = () => {
+    setReportStep("category");
+    setMenuOpen(false);
   };
 
-  const handleDeletePost = async () => {
-    if (!window.confirm("정말 이 게시글을 삭제하시겠습니까?")) return;
-    try {
-      await api.delete(`/board/${postId}`);
-      alert("게시글이 삭제되었습니다.");
-      onNavigate("community");
-    } catch (error) {
-      console.error("게시글 삭제 실패", error);
-      alert("삭제 권한이 없거나 오류가 발생했습니다.");
-    }
+  const handleCategorySelect = (reason) => {
+    setSelectedReason(reason);
+    setReportStep("confirm");
   };
 
-  const handleDeleteComment = async (commentId) => {
-    if (!window.confirm("댓글을 삭제하시겠습니까?")) return;
-    try {
-      await api.delete(`/board/comments/${commentId}`);
-      // 백엔드에서 권한 체크를 하므로 별도 에러 처리 없이 갱신
-      fetchPostDetail();
-    } catch (error) {
-      console.error("댓글 삭제 실패", error);
-      alert("삭제 실패");
-    }
+  const handleConfirmReport = () => {
+    setReportStep("complete");
+    setTimeout(() => setReportStep("none"), 2000);
   };
 
-  const handleSubmitComment = async () => {
-    if (!commentText.trim()) return;
-    try {
-      await api.post(`/board/${postId}/comment`, {
-        content: commentText,
-        parentId: replyToCommentId,
-        // 백엔드 필드명에 맞춰 전송
-        anonymous: isAnonymous,
-        isAnonymous: isAnonymous,
-      });
-
-      setCommentText("");
-      setIsAnonymous(false);
-      setReplyToCommentId(null);
-      fetchPostDetail();
-    } catch (error) {
-      console.error("댓글 등록 실패", error);
-      alert("댓글 등록에 실패했습니다.");
-    }
+  const handleCancelReport = () => {
+    setReportStep("none");
   };
 
-  const handleReplyClick = (commentId, authorName) => {
-    setReplyToCommentId(commentId);
-    setCommentText(`@${authorName} `);
+  const handleBlockStart = () => {
+    setBlockStep("confirm");
+    setMenuOpen(false);
   };
 
-  if (loading) return <div className="post-detail-container">Loading...</div>;
-  if (!post) return null;
+  const handleConfirmBlock = () => {
+    setBlockStep("complete");
+    setTimeout(() => setBlockStep("none"), 2000);
+  };
 
-  // 게시글 삭제 권한 확인 (이메일 비교 유지)
-  const isMyPost = currentUser.email && post.username === currentUser.email;
+  const handleCancelBlock = () => {
+    setBlockStep("none");
+  };
+
+  const isOverlayVisible =
+    reportStep === "confirm" ||
+    reportStep === "complete" ||
+    blockStep === "confirm" ||
+    blockStep === "complete";
 
   return (
     <div className="post-detail-container">
-      {/* 헤더 */}
-      <div className="pd-header">
-        <div
-          onClick={() => onNavigate("community")}
-          style={{ cursor: "pointer" }}
-        >
+      {isOverlayVisible && <div className="pd-overlay" />}
+
+      <div className="pd-scroll-area">
+        {/* Header */}
+        <div className="pd-back-arrow" onClick={onBack}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
               d="M19 12H5M5 12L12 19M5 12L12 5"
@@ -119,248 +71,148 @@ export function PostDetail({ onNavigate, postId }) {
             />
           </svg>
         </div>
-        <div className="pd-header-title">{post.category}</div>
 
-        {/* 게시글 삭제 버튼 */}
-        <div
-          style={{
-            minWidth: "40px",
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        >
-          {isMyPost && (
-            <div
-              onClick={handleDeletePost}
-              style={{
-                cursor: "pointer",
-                color: "#ff4444",
-                fontSize: "14px",
-                fontWeight: "600",
-                whiteSpace: "nowrap",
-              }}
-            >
-              삭제
+        <div className="pd-header-title">카테고리</div>
+
+        <div className="pd-menu-dots" onClick={handleMenuClick}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+              stroke="black"
+              strokeWidth="2"
+            />
+            <path
+              d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z"
+              stroke="black"
+              strokeWidth="2"
+            />
+            <path
+              d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z"
+              stroke="black"
+              strokeWidth="2"
+            />
+          </svg>
+        </div>
+
+        {menuOpen && (
+          <div className="pd-menu-dropdown">
+            <div className="pd-menu-item" onClick={handleReportStart}>
+              신고
             </div>
-          )}
-        </div>
-      </div>
+            <div className="pd-menu-item" onClick={handleBlockStart}>
+              차단
+            </div>
+          </div>
+        )}
 
-      <div className="pd-scroll-area">
-        {/* 작성자 정보 */}
-        <div className="pd-author-section">
-          <div className="pd-avatar">
+        {reportStep === "category" && (
+          <div className="pd-reason-list">
             <div
-              style={{
-                width: "100%",
-                height: "100%",
-                background: "#D9D9D9",
-                borderRadius: "50%",
-              }}
-            ></div>
+              className="pd-reason-item"
+              onClick={() => handleCategorySelect("스팸/부적절한 홍보")}
+            >
+              스팸/부적절한 홍보
+            </div>
+            <div
+              className="pd-reason-item"
+              onClick={() => handleCategorySelect("욕설/비하 발언")}
+            >
+              욕설/비하 발언
+            </div>
+            <div
+              className="pd-reason-item"
+              onClick={() => handleCategorySelect("음란물/유해 정보")}
+            >
+              음란물/유해 정보
+            </div>
+            <div
+              className="pd-reason-item"
+              onClick={() => handleCategorySelect("개인정보 노출")}
+            >
+              개인정보 노출
+            </div>
+            <div
+              className="pd-reason-item"
+              onClick={() => handleCategorySelect("기타")}
+            >
+              기타
+            </div>
           </div>
-          <div className="pd-author-info">
-            <div className="pd-category-badge">{post.category}</div>
-            <div className="pd-author-name">{post.username}</div>
-          </div>
-        </div>
+        )}
 
-        <div className="pd-title">{post.title}</div>
-        <div className="pd-content" style={{ whiteSpace: "pre-wrap" }}>
-          {post.content}
-        </div>
-        <div className="pd-time">
-          {new Date(post.createdAt).toLocaleString()}
-        </div>
-
-        <div className="pd-stats-bar">
-          <div className="pd-stat-item">
-            <span>좋아요 {post.likeCount}</span>
-          </div>
-          <div className="pd-stat-item">
-            <span>
-              댓글{" "}
-              {post.comments
-                ? post.comments.reduce(
-                    (acc, curr) =>
-                      acc + 1 + (curr.children ? curr.children.length : 0),
-                    0
-                  )
-                : 0}
-            </span>
-          </div>
-        </div>
-
-        {/* 댓글 목록 */}
-        {post.comments && post.comments.length > 0 ? (
-          post.comments.map((comment) => (
-            <div key={comment.id}>
-              <div className="pd-comment-card">
-                <div className="pd-comment-meta">
-                  <span className="pd-meta-author">{comment.username}</span>
-                  <div
-                    className="pd-time"
-                    style={{ fontSize: "10px", marginLeft: "auto" }}
-                  >
-                    {new Date(comment.createdAt).toLocaleDateString()}
-                  </div>
-                </div>
-                <div className="pd-comment-body">{comment.content}</div>
-
-                <div
-                  style={{ display: "flex", gap: "10px", marginTop: "-10px" }}
-                >
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      color: "#a3a3a3",
-                      cursor: "pointer",
-                    }}
-                    onClick={() =>
-                      handleReplyClick(comment.id, comment.username)
-                    }
-                  >
-                    답글 달기
-                  </div>
-
-                  {/* [핵심 수정] 백엔드가 보내준 isOwner가 true면 삭제 버튼 표시 */}
-                  {comment.isOwner && (
-                    <div
-                      style={{
-                        fontSize: "12px",
-                        color: "#ff4444",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => handleDeleteComment(comment.id)}
-                    >
-                      삭제
-                    </div>
-                  )}
-                </div>
+        {reportStep === "confirm" && (
+          <div className="pd-confirm-popup">
+            <div className="pd-confirm-title">신고 이유</div>
+            <div className="pd-confirm-desc">
+              신고 이유 상세 조건 안내
+              <br />
+              정말 신고하시겠습니까?
+            </div>
+            <div className="pd-confirm-actions">
+              <div className="pd-confirm-btn" onClick={handleCancelReport}>
+                취소
               </div>
-
-              {/* 대댓글 렌더링 */}
-              {comment.children && comment.children.length > 0 && (
-                <div
-                  style={{
-                    marginLeft: "40px",
-                    marginTop: "10px",
-                    borderLeft: "2px solid #e5e5e5",
-                    paddingLeft: "10px",
-                  }}
-                >
-                  {comment.children.map((reply) => (
-                    <div
-                      key={reply.id}
-                      className="pd-comment-card"
-                      style={{ backgroundColor: "#fafafa", marginTop: "8px" }}
-                    >
-                      <div className="pd-comment-meta">
-                        <span className="pd-meta-author">{reply.username}</span>
-                        <div
-                          className="pd-time"
-                          style={{ fontSize: "10px", marginLeft: "auto" }}
-                        >
-                          {new Date(reply.createdAt).toLocaleDateString()}
-                        </div>
-                      </div>
-                      <div className="pd-comment-body">{reply.content}</div>
-
-                      {/* [핵심 수정] 대댓글도 isOwner 확인 */}
-                      {reply.isOwner && (
-                        <div
-                          style={{
-                            fontSize: "12px",
-                            color: "#ff4444",
-                            cursor: "pointer",
-                            textAlign: "right",
-                            marginTop: "-10px",
-                          }}
-                          onClick={() => handleDeleteComment(reply.id)}
-                        >
-                          삭제
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div
+                className="pd-confirm-btn"
+                onClick={handleConfirmReport}
+                style={{ background: "#fef3c7", border: "1px solid #fcd34d" }}
+              >
+                확인
+              </div>
             </div>
-          ))
-        ) : (
-          <div className="pd-empty-comments">
-            <div className="pd-empty-text">첫 댓글을 남겨주세요</div>
           </div>
         )}
-        <div style={{ height: "80px" }}></div>
+
+        {reportStep === "complete" && (
+          <div className="pd-complete-popup">
+            <div className="pd-complete-text">신고가 완료되었어요.</div>
+          </div>
+        )}
+
+        {blockStep === "confirm" && (
+          <div className="pd-confirm-popup">
+            <div className="pd-confirm-title">차단 안내</div>
+            <div className="pd-confirm-desc">
+              차단 안내 사항
+              <br />
+              정말 차단하시겠습니까?
+            </div>
+            <div className="pd-confirm-actions">
+              <div className="pd-confirm-btn" onClick={handleCancelBlock}>
+                취소
+              </div>
+              <div
+                className="pd-confirm-btn"
+                onClick={handleConfirmBlock}
+                style={{ background: "#fef3c7", border: "1px solid #fcd34d" }}
+              >
+                확인
+              </div>
+            </div>
+          </div>
+        )}
+
+        {blockStep === "complete" && (
+          <div className="pd-complete-popup" style={{ width: "220px" }}>
+            <div className="pd-complete-text">차단이 완료되었어요.</div>
+          </div>
+        )}
+
+        {/* Static Post UI */}
+        <div className="pd-title">제목</div>
+        <div className="pd-content">내용</div>
       </div>
 
-      <div className="pd-bottom-bar" style={{ bottom: "20px" }}>
-        {replyToCommentId && (
-          <div
-            style={{
-              padding: "8px 16px",
-              background: "#f0f0f0",
-              fontSize: "12px",
-              color: "#666",
-              borderRadius: "10px 10px 0 0",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <span>답글 작성 중...</span>
-            <span
-              onClick={() => {
-                setReplyToCommentId(null);
-                setCommentText("");
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              ✕ 취소
-            </span>
-          </div>
-        )}
-        <div className="pd-input-container">
-          <div
-            className="pd-anon-toggle"
-            onClick={() => setIsAnonymous(!isAnonymous)}
-            style={{ cursor: "pointer" }}
-          >
-            <div
-              className="pd-check-icon"
-              style={{ background: isAnonymous ? "#27272a" : "#e5e5e5" }}
-            >
-              {isAnonymous && (
-                <svg width="10" height="10" viewBox="0 0 16 16" fill="none">
-                  <path
-                    d="M13.3332 4L5.99984 11.3333L2.6665 8"
-                    stroke="#FFFFFF"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              )}
-            </div>
-            <span>익명</span>
-          </div>
-          <input
-            className="pd-input-placeholder"
-            style={{
-              border: "none",
-              outline: "none",
-              width: "100%",
-              background: "transparent",
-            }}
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
-            placeholder={
-              replyToCommentId ? "답글을 입력하세요" : "댓글을 달아주세요"
-            }
-          />
-          <div className="pd-submit-btn" onClick={handleSubmitComment}>
-            등록
-          </div>
+      {/* Bottom Input */}
+      <div className="pd-comment-input-container">
+        <div className="pd-anonymous-text">익명</div>
+        <input
+          type="text"
+          className="pd-input-placeholder"
+          placeholder="댓글을 달아주세요"
+        />
+        <div className="pd-submit-btn">
+          <div className="pd-submit-text">댓글</div>
         </div>
       </div>
     </div>

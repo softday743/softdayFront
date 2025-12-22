@@ -1,7 +1,7 @@
 .splash-container {
     width: 393px;
     height: 852px;
-    background-color: #FFB200;
+    background: linear-gradient(to bottom, #fed7aa, #f59e0b);
     display: flex;
     justify-content: center;
     align-items: center;

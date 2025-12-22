@@ -5,16 +5,18 @@
     background: white;
     overflow: hidden;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .welcome-text-container {
     width: 309px;
-    left: 32px;
-    top: 145px;
-    position: absolute;
+    position: relative;
     justify-content: center;
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 .welcome-title {
@@ -23,6 +25,19 @@
     font-family: 'Pretendard';
     font-weight: 600;
     word-wrap: break-word;
+}
+
+.welcome-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.welcome-emoji {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
 .welcome-subtitle {
