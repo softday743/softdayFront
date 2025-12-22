@@ -1,6 +1,6 @@
 .chatbot-container {
     width: 100%;
-    max-width: 393px;
+    max-width: 100%;
     height: 100%;
     position: relative;
     background: white;
