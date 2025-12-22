@@ -2,19 +2,34 @@ import React, { useState } from "react";
 import icon from "../assets/icon_arrow_left.svg";
 import { InputText } from "./InputText";
 import "./login.css";
+import api from "../api/axiosConfig";
 
 export const Login = ({ onBack, onFindId, onFindPw, onLogin }) => {
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
   const isValid = id.length > 0 && password.length > 0;
 
-  const handleLogin = () => {
-    if (isValid && onLogin) {
-      // Test account: test / test123
-      // For demo purposes, accept any valid input
-      onLogin(id); // Pass the user ID
+  const handleLogin = async () => {
+    if (!isValid) return;
+
+    try {
+      // [API] 로그인 요청
+      const response = await api.post("/auth/login", {
+        email: email,
+        password: password,
+      });
+
+      // [로직] 토큰 저장
+      const { accessToken, username } = response.data; // 백엔드 응답 구조에 맞게 수정
+      localStorage.setItem("accessToken", accessToken);
+
+      alert("로그인 성공!");
+      if (onLogin) onLogin(username || email); // 유저 이름 부모 컴포넌트에 전달
+    } catch (error) {
+      console.error("Login failed", error);
+      alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
     }
   };
 
@@ -30,12 +45,12 @@ export const Login = ({ onBack, onFindId, onFindPw, onLogin }) => {
 
       <div className="text-wrapper">로그인</div>
 
-      <div className="label">아이디</div>
+      <div className="label">이메일</div>
       <InputText
         className="input-group"
-        text="아이디"
-        value={id}
-        onChange={(e) => setId(e.target.value)}
+        text="이메일"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
 
       <div className="label">비밀번호</div>

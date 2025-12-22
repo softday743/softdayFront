@@ -4,14 +4,41 @@ import { InputText } from "./InputText";
 import { EyeOff } from "./EyeOff";
 import { Eye } from "./Eye";
 import "./signup-step3.css";
+import api from "../api/axiosConfig";
 
-export const SignUpStep3 = ({ onNext, onBack }) => {
+export const SignUpStep3 = ({ onNext, onBack, data, setData }) => {
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
 
+  const handleNext = async () => {
+    if (password !== passwordConfirm) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    try {
+      // [API] 회원가입 요청
+      // data에는 Step1, Step2에서 입력받은 username, email 등이 들어있어야 함
+      const requestData = {
+        ...data,
+        password: password,
+      };
+
+      await api.post("/auth/signup", requestData);
+
+      alert("회원가입이 완료되었습니다!");
+      onNext(); // 성공 시 다음 단계(완료 화면)로 이동
+    } catch (error) {
+      console.error("Signup failed", error);
+      alert("회원가입 중 오류가 발생했습니다.");
+    }
+  };
+
   return (
     <div className="signup-step3-container">
-      <button className="button-next" onClick={onNext}>
+      <button className="button-next" onClick={handleNext}>
         <div className="button-text">회원가입</div>
       </button>
 
@@ -33,6 +60,8 @@ export const SignUpStep3 = ({ onNext, onBack }) => {
           className="input-group"
           text="비밀번호"
           type={showPassword1 ? "text" : "password"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <div
           className="eye-off-icon"
@@ -46,8 +75,10 @@ export const SignUpStep3 = ({ onNext, onBack }) => {
       <div className="input-container" style={{ marginTop: "15px" }}>
         <InputText
           className="input-group"
-          text="비밀번호 입력"
+          text="비밀번호 확인"
           type={showPassword2 ? "text" : "password"}
+          value={passwordConfirm}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
         />
         <div
           className="eye-off-icon"

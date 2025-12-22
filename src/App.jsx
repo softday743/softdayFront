@@ -43,6 +43,8 @@ import btnTryApp from "./assets/btn_try_app.png";
 import badgeAppStore from "./assets/badge_appstore.png";
 import badgeGooglePlay from "./assets/badge_googleplay.png";
 
+import api from "./api/axiosConfig";
+
 function App() {
   const [screen, setScreen] = useState(() => {
     // 'hasShownSplash' 값이 세션 스토리지에 있는지 확인
@@ -61,6 +63,20 @@ function App() {
   const [userName, setUserName] = useState("");
   const [hasCheckedIn, setHasCheckedIn] = useState(false);
   const [showStorePopup, setShowStorePopup] = useState(false);
+
+  // [추가] 회원가입 데이터를 단계별로 저장할 상태
+  const [signupData, setSignupData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    phoneNumber: "010-0000-0000", // 기본값 또는 추가 입력 필요
+  });
+
+  // 게시글 상세 화면으로 이동하는 함수
+  const goToPostDetail = (postId) => {
+    setSelectedPostId(postId);
+    setScreen("postDetail");
+  };
 
   // Styles moved to landing.css
 
@@ -133,11 +149,17 @@ function App() {
           )}
           {screen === "community" && (
             <MainLayout active="community" onNavigate={setScreen}>
-              <Community onNavigate={setScreen} />
+              <Community
+                onNavigate={setScreen}
+                onPostClick={goToPostDetail} // [수정] 상세 페이지 이동 함수 전달
+              />
             </MainLayout>
           )}
           {screen === "postDetail" && (
-            <PostDetail onBack={() => setScreen("community")} />
+            <PostDetail
+              postId={selectedPostId} // [수정] 선택된 게시글 ID 전달
+              onBack={() => setScreen("community")}
+            />
           )}
           {screen === "search" && <Search onNavigate={setScreen} />}
           {screen === "createPost" && <CreatePost onNavigate={setScreen} />}
@@ -164,6 +186,8 @@ function App() {
           )}
           {screen === "signup1" && (
             <SignUpStep1
+              data={signupData} // [추가] 데이터 전달
+              setData={setSignupData} // [추가] 상태 변경 함수 전달
               onNext={() => setScreen("signup2")}
               onBack={() => setScreen("onboarding")}
             />
@@ -176,7 +200,9 @@ function App() {
           )}
           {screen === "signup3" && (
             <SignUpStep3
-              onNext={() => setScreen("signup4")}
+              data={signupData} // [추가]
+              setData={setSignupData} // [추가]
+              onNext={() => setScreen("signup4")} // 여기서 API 호출 예정
               onBack={() => setScreen("signup2")}
             />
           )}

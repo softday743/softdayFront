@@ -1,11 +1,31 @@
 import React, { useState, useEffect } from "react";
 import "./post-detail.css";
+import api from "../api/axiosConfig";
 
-export function PostDetail({ onBack }) {
+export function PostDetail({ onBack, postId }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [reportStep, setReportStep] = useState("none"); // 'none', 'category', 'confirm', 'complete'
   const [blockStep, setBlockStep] = useState("none"); // 'none', 'confirm', 'complete'
   const [selectedReason, setSelectedReason] = useState("");
+
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // [API] 상세 조회
+  useEffect(() => {
+    const fetchPostDetail = async () => {
+      if (!postId) return;
+      try {
+        const response = await api.get(`/board/${postId}`);
+        setPost(response.data);
+      } catch (error) {
+        console.error("Failed to fetch post detail", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPostDetail();
+  }, [postId]);
 
   const handleMenuClick = () => {
     setMenuOpen(!menuOpen);
@@ -59,6 +79,9 @@ export function PostDetail({ onBack }) {
     blockStep === "confirm" ||
     blockStep === "complete";
 
+  if (loading) return <div>Loading...</div>;
+  if (!post) return <div>게시글을 찾을 수 없습니다.</div>;
+
   return (
     <div className="post-detail-container">
       {/* Overlay for modals */}
@@ -83,7 +106,7 @@ export function PostDetail({ onBack }) {
             />
           </svg>
         </div>
-        <div className="pd-header-title">카테고리</div>
+        <div className="pd-header-title">{post.category}</div>
         <div className="pd-menu-dots" onClick={handleMenuClick}>
           <svg
             width="24"
@@ -243,12 +266,14 @@ export function PostDetail({ onBack }) {
         <div className="pd-category-badge">
           <div className="pd-category-text">직장생활</div>
         </div>
-        <div className="pd-author">작성자 정보</div>
+        <div className="pd-author">{post.username}</div>
 
-        <div className="pd-title">제목</div>
-        <div className="pd-content">내용</div>
+        <div className="pd-title">{post.title}</div>
+        <div className="pd-content">{post.content}</div>
 
-        <div className="pd-date">2025. 12. 20. 18:30</div>
+        <div className="pd-date">
+          {new Date(post.createdAt).toLocaleString()}
+        </div>
 
         <div className="pd-eye-icon">
           <svg
@@ -274,7 +299,7 @@ export function PostDetail({ onBack }) {
             />
           </svg>
         </div>
-        <div className="pd-view-count">조회수 24</div>
+        <div className="pd-view-count">조회수 {post.viewCount}</div>
 
         {/* Action Bar */}
         <div className="pd-action-bar">

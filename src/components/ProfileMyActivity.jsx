@@ -1,72 +1,92 @@
 import React, { useState } from "react";
 import "./profile-my-activity.css";
+import api from "../api/axiosConfig";
 
 export function ProfileMyActivity({ onBack }) {
   const [activeTab, setActiveTab] = useState("posts"); // 'posts' | 'comments'
+  const [myPosts, setMyPosts] = useState([]);
+  const [myComments, setMyComments] = useState([]);
 
-  // Dummy Data
-  const [myPosts, setMyPosts] = useState([
-    {
-      id: 1,
-      title: "제목",
-      content: "내용",
-      category: "직장생활",
-      author: "작성자 정보",
-      time: "시간(ex, n분 전)",
-      likeCount: 2,
-      commentCount: 1,
-      viewCount: "조회수",
-      icon: "🖥️",
-    },
-    {
-      id: 2,
-      title: "제목",
-      content: "내용",
-      category: "인간관계",
-      author: "작성자 정보",
-      time: "시간(ex, n분 전)",
-      likeCount: "좋아요",
-      commentCount: "댓글",
-      viewCount: "조회수",
-      icon: "👥",
-    },
-    {
-      id: 3,
-      title: "제목",
-      content: "내용",
-      category: "취미/여가",
-      author: "작성자 정보",
-      time: "시간(ex, n분 전)",
-      likeCount: "좋아요",
-      commentCount: "댓글",
-      viewCount: "조회수",
-      icon: "💭",
-    },
-  ]);
+  // // Dummy Data
+  // const [myPosts, setMyPosts] = useState([
+  //   {
+  //     id: 1,
+  //     title: "제목",
+  //     content: "내용",
+  //     category: "직장생활",
+  //     author: "작성자 정보",
+  //     time: "시간(ex, n분 전)",
+  //     likeCount: 2,
+  //     commentCount: 1,
+  //     viewCount: "조회수",
+  //     icon: "🖥️",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "제목",
+  //     content: "내용",
+  //     category: "인간관계",
+  //     author: "작성자 정보",
+  //     time: "시간(ex, n분 전)",
+  //     likeCount: "좋아요",
+  //     commentCount: "댓글",
+  //     viewCount: "조회수",
+  //     icon: "👥",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "제목",
+  //     content: "내용",
+  //     category: "취미/여가",
+  //     author: "작성자 정보",
+  //     time: "시간(ex, n분 전)",
+  //     likeCount: "좋아요",
+  //     commentCount: "댓글",
+  //     viewCount: "조회수",
+  //     icon: "💭",
+  //   },
+  // ]);
 
-  const [myComments, setMyComments] = useState([
-    {
-      id: 1,
-      content: "내용",
-      author: "작성자 정보",
-      date: "2025. 12. 20. 19:02",
-      icon: "🍦",
-    },
-    {
-      id: 2,
-      content: "내용",
-      author: "작성자 정보",
-      date: "2025. 12. 20. 19:02",
-      icon: "🍦",
-    },
-    {
-      id: 3,
-      content: "내용",
-      author: "작성자 정보",
-      date: "2025. 12. 20. 19:02",
-      icon: "🍦",
-    },
-  ]);
+  // const [myComments, setMyComments] = useState([
+  //   {
+  //     id: 1,
+  //     content: "내용",
+  //     author: "작성자 정보",
+  //     date: "2025. 12. 20. 19:02",
+  //     icon: "🍦",
+  //   },
+  //   {
+  //     id: 2,
+  //     content: "내용",
+  //     author: "작성자 정보",
+  //     date: "2025. 12. 20. 19:02",
+  //     icon: "🍦",
+  //   },
+  //   {
+  //     id: 3,
+  //     content: "내용",
+  //     author: "작성자 정보",
+  //     date: "2025. 12. 20. 19:02",
+  //     icon: "🍦",
+  //   },
+  // ]);
+
+  useEffect(() => {
+    const fetchActivity = async () => {
+      try {
+        if (activeTab === "posts") {
+          const response = await api.get("/user/posts");
+          setMyPosts(response.data);
+        } else {
+          const response = await api.get("/user/comments");
+          setMyComments(response.data);
+        }
+      } catch (error) {
+        console.error("Fetch failed", error);
+      }
+    };
+    fetchActivity();
+  }, [activeTab]);
 
   return (
     <div className="pma-container">

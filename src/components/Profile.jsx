@@ -6,17 +6,24 @@ import { ProfileContent } from "./ProfileContent";
 import { ProfileLiked } from "./ProfileLiked";
 import { ProfileSaved } from "./ProfileSaved";
 import { ProfileSettings } from "./ProfileSettings";
+import api from "../api/axiosConfig";
 
 export function Profile({ onNavigate }) {
   const [view, setView] = useState("main"); // 'main' | 'edit' | 'myPosts' | 'contentPreference' | 'liked' | 'saved' | 'settings'
-
-  // Main View Data (Using dummy data for now)
   const [formData, setFormData] = useState({
-    name: "00",
-    job: "대리",
-    year: "3년차",
-    industry: "마케팅",
+    name: "",
+    job: "",
+    year: "",
+    industry: "",
   });
+
+  // // Main View Data (Using dummy data for now)
+  // const [formData, setFormData] = useState({
+  //   name: "00",
+  //   job: "대리",
+  //   year: "3년차",
+  //   industry: "마케팅",
+  // });
 
   if (view === "edit") return <ProfileEdit onBack={() => setView("main")} />;
   if (view === "myPosts")
@@ -27,6 +34,19 @@ export function Profile({ onNavigate }) {
   if (view === "saved") return <ProfileSaved onBack={() => setView("main")} />;
   if (view === "settings")
     return <ProfileSettings onBack={() => setView("main")} />;
+
+  // [API] 내 정보 조회
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get("/user/me");
+        setFormData(response.data);
+      } catch (error) {
+        console.error("Failed to fetch profile", error);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   /* ================== Render: Profile Main ================== */
   return (
