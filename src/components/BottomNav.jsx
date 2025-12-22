@@ -5,42 +5,45 @@ export function BottomNav({ active, onNavigate }) {
     const activeColor = "#FD9800"; // Orange
     const inactiveColor = "#959595";
 
-    // Styles for the fixed container (Absolute positioning relative to parent app frame)
+    // Styles for the fixed container (Flexbox for responsiveness)
     const containerStyle = {
         width: '100%', 
         height: '80px',
         backgroundColor: 'white',
         boxShadow: '0px -1px 6px 0px rgba(160,160,160,0.38)',
-        overflow: 'hidden',
-        position: 'absolute', // Changed from fixed to absolute to align with App container
+        position: 'absolute', 
         bottom: 0,
         left: 0,
-        zIndex: 9999
+        zIndex: 9999,
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        paddingBottom: '10px', /* Lift icons slightly if needed */
+        boxSizing: 'border-box'
     };
 
-    // Common style for nav items
+    // Style for nav items (Flex item)
     const itemStyle = {
-        width: '80px',
-        height: '64px',
-        position: 'absolute',
-        top: '-4px', // From user snippet: top-[-4px]
-        background: 'white',
-        cursor: 'pointer'
-        // outline: '1px solid #eee' // Optional debugging
+        flex: 1,
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        cursor: 'pointer',
+        background: 'transparent',
     };
 
-    // Inner icon wrapper style (centering the SVG as per user snippet coordinates)
+    // Inner icon wrapper (keep SVGs as is)
     const iconWrapperStyle = {
-        position: 'absolute',
-        left: '27.94px',
-        top: '18.93px'
+        width: '28px',
+        height: '28px'
     };
 
     return (
         <div style={containerStyle}>
             
-            {/* Item 1: Home (Left 9px) */}
-            <div style={{ ...itemStyle, left: '9px' }} onClick={() => onNavigate('home')}>
+            {/* Item 1: Home */}
+            <div style={itemStyle} onClick={() => onNavigate('home')}>
                 <div style={iconWrapperStyle}>
                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.1398 23.6593V15.3221C10.1398 14.6912 10.1398 14.3757 10.2625 14.1347C10.3706 13.9227 10.5429 13.7503 10.7549 13.6423C10.9959 13.5195 11.3114 13.5195 11.9424 13.5195H15.097C15.728 13.5195 16.0435 13.5195 16.2845 13.6423C16.4965 13.7503 16.6688 13.9227 16.7768 14.1347C16.8996 14.3757 16.8996 14.6912 16.8996 15.3221V23.6593M12.413 3.11383L4.77173 9.05702C4.26094 9.4543 4.00555 9.65294 3.82156 9.9017C3.65858 10.1221 3.53716 10.3703 3.46329 10.6342C3.37988 10.9322 3.37988 11.2557 3.37988 11.9028V20.054C3.37988 21.316 3.37988 21.947 3.62548 22.429C3.84151 22.853 4.18622 23.1977 4.6102 23.4137C5.09221 23.6593 5.72319 23.6593 6.98515 23.6593H20.0542C21.3162 23.6593 21.9472 23.6593 22.4292 23.4137C22.8532 23.1977 23.1979 22.853 23.4139 22.429C23.6595 21.947 23.6595 21.316 23.6595 20.054V11.9028C23.6595 11.2557 23.6595 10.9322 23.5761 10.6342C23.5022 10.3703 23.3808 10.1221 23.2178 9.9017C23.0338 9.65294 22.7784 9.4543 22.2676 9.05702L14.6264 3.11383C14.2306 2.80597 14.0327 2.65204 13.8141 2.59287C13.6213 2.54066 13.4181 2.54066 13.2252 2.59287C13.0067 2.65204 12.8088 2.80597 12.413 3.11383Z" 
@@ -49,8 +52,8 @@ export function BottomNav({ active, onNavigate }) {
                 </div>
             </div>
 
-            {/* Item 2 (Checklist): Left 84.58px -> Community */}
-            <div style={{ ...itemStyle, left: '84.58px' }} onClick={() => onNavigate('community')}>
+            {/* Item 2: Community */}
+            <div style={itemStyle} onClick={() => onNavigate('community')}>
                 <div style={iconWrapperStyle}>
                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12.393 4.50653H8.78778C6.89484 4.50653 5.94837 4.50653 5.22536 4.87492C4.58938 5.19896 4.07232 5.71603 3.74827 6.352C3.37988 7.07501 3.37988 8.02148 3.37988 9.91442V18.2516C3.37988 20.1445 3.37988 21.091 3.74827 21.814C4.07232 22.45 4.58938 22.9671 5.22536 23.2911C5.94837 23.6595 6.89484 23.6595 8.78778 23.6595H17.1249C19.0179 23.6595 19.9644 23.6595 20.6874 23.2911C21.3233 22.9671 21.8404 22.45 22.1645 21.814C22.5328 21.091 22.5328 20.1445 22.5328 18.2516V14.6463M14.6463 19.1529H7.88646M16.8996 14.6463H7.88646M22.6695 4.36984C23.9895 5.68979 23.9895 7.82985 22.6695 9.14979C21.3496 10.4697 19.2095 10.4697 17.8896 9.14979C16.5696 7.82985 16.5696 5.68979 17.8896 4.36984C19.2095 3.0499 21.3496 3.0499 22.6695 4.36984Z" 
@@ -59,8 +62,8 @@ export function BottomNav({ active, onNavigate }) {
                 </div>
             </div>
 
-            {/* Item 3 (Globe/Chatbot): Left 159.21px -> Chatbot */}
-            <div style={{ ...itemStyle, left: '159.21px' }} onClick={() => onNavigate('chatbot')}>
+            {/* Item 3: Chatbot */}
+            <div style={itemStyle} onClick={() => onNavigate('chatbot')}>
                 <div style={iconWrapperStyle}>
                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.1392 15.773C10.1392 15.773 11.618 17.4629 14.0825 17.4629C16.547 17.4629 18.0257 15.773 18.0257 15.773M17.1808 10.1398H17.192M10.9842 10.1398H10.9955M14.0825 22.5328C19.3714 22.5328 23.659 18.2453 23.659 12.9564C23.659 7.66742 19.3714 3.37988 14.0825 3.37988C8.79354 3.37988 4.50601 7.66742 4.50601 12.9564C4.50601 14.0267 4.68159 15.056 5.00553 16.017C5.12743 16.3787 5.18838 16.5595 5.19938 16.6984C5.21023 16.8356 5.20203 16.9318 5.16808 17.0652C5.13371 17.2002 5.05783 17.3407 4.90607 17.6216L3.06327 21.0325C2.80041 21.5191 2.66898 21.7624 2.69839 21.9501C2.72401 22.1136 2.82026 22.2576 2.96157 22.3438C3.12381 22.4428 3.39885 22.4144 3.94893 22.3575L9.7185 21.7611C9.89322 21.743 9.98058 21.734 10.0602 21.7371C10.1385 21.7401 10.1938 21.7474 10.2702 21.765C10.3478 21.7829 10.4455 21.8205 10.6408 21.8958C11.7089 22.3073 12.8693 22.5328 14.0825 22.5328ZM17.7441 10.1398C17.7441 10.4509 17.4919 10.7031 17.1808 10.7031C16.8696 10.7031 16.6174 10.4509 16.6174 10.1398C16.6174 9.82864 16.8696 9.57643 17.1808 9.57643C17.4919 9.57643 17.7441 9.82864 17.7441 10.1398ZM11.5475 10.1398C11.5475 10.4509 11.2953 10.7031 10.9842 10.7031C10.6731 10.7031 10.4209 10.4509 10.4209 10.1398C10.4209 9.82864 10.6731 9.57643 10.9842 9.57643C11.2953 9.57643 11.5475 9.82864 11.5477 10.1398Z" 
@@ -69,8 +72,8 @@ export function BottomNav({ active, onNavigate }) {
                 </div>
             </div>
 
-            {/* Item 4 (Folder): Left 235.75px */}
-            <div style={{ ...itemStyle, left: '235.75px' }} onClick={() => onNavigate('folder')}>
+            {/* Item 4: Folder */}
+            <div style={itemStyle} onClick={() => onNavigate('folder')}>
                 <div style={iconWrapperStyle}>
                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.1398 7.88646H5.18251C4.55153 7.88646 4.23604 7.88646 3.99504 8.00926C3.78305 8.11727 3.61069 8.28963 3.50268 8.50162C3.37988 8.74262 3.37988 9.05811 3.37988 9.68909V21.8569C3.37988 22.4878 3.37988 22.8033 3.50268 23.0443C3.6107 23.2563 3.78305 23.4287 3.99504 23.5367C4.23604 23.6595 4.55153 23.6595 5.18251 23.6595H10.1398M10.1398 23.6595H16.8996M10.1398 23.6595L10.1398 5.18251C10.1398 4.55153 10.1398 4.23604 10.2625 3.99504C10.3706 3.78305 10.5429 3.6107 10.7549 3.50268C10.9959 3.37988 11.3114 3.37988 11.9424 3.37988L15.097 3.37988C15.728 3.37988 16.0435 3.37988 16.2845 3.50268C16.4965 3.61069 16.6688 3.78305 16.7768 3.99602C16.8996 4.23702 16.8996 4.55251 16.8996 5.18349V23.6605M16.8996 12.394H21.8569C22.4878 12.394 22.8033 12.394 23.0443 12.5168C23.2563 12.6248 23.4287 12.7972 23.5367 13.0092C23.6595 13.2502 23.6595 13.5657 23.6595 14.1966V21.8578C23.6595 22.4888 23.6595 22.8043 23.5367 23.0453C23.4287 23.2573 23.2563 23.4297 23.0443 23.5377C22.8033 23.6605 22.4878 23.6605 21.8569 23.6605H16.8996" 
@@ -79,8 +82,8 @@ export function BottomNav({ active, onNavigate }) {
                 </div>
             </div>
 
-            {/* Item 5 (Profile): Left 310.37px */}
-            <div style={{ ...itemStyle, left: '310.37px' }} onClick={() => onNavigate('profile')}>
+            {/* Item 5: Profile */}
+            <div style={itemStyle} onClick={() => onNavigate('profile')}>
                 <div style={iconWrapperStyle}>
                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M22.5327 23.6605C22.5327 22.0882 22.5327 21.302 22.3386 20.6623C21.9017 19.222 20.7746 18.0949 19.3343 17.658C18.6946 17.4639 17.9084 17.4639 16.3361 17.4639H10.7029C9.13059 17.4639 8.34444 17.4639 7.70473 17.658C6.26443 18.0949 5.13731 19.222 4.7004 20.6623C4.50635 21.302 4.50635 22.0882 4.50635 23.6605M18.5894 8.45076C18.5894 11.2508 16.3195 13.5207 13.5195 13.5207C10.7195 13.5207 8.4496 11.2508 8.4496 8.45076C8.4496 5.65073 10.7195 3.38086 13.5195 3.38086C16.3195 3.38086 18.5894 5.65073 18.5894 8.45076Z" 
