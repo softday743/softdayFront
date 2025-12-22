@@ -1,13 +1,16 @@
 .button {
     all: unset;
     align-items: center;
-    background-color: #ffbf1d;
+    background-color: #fef3c7; /* amber-100 */
+    border: 1px solid #f59e0b; /* amber-500 */
     border-radius: 10px;
     box-sizing: border-box;
     display: flex;
-    height: 48px;
+    height: 56px; /* h-14 */
     justify-content: center;
-    width: 329px;
+    width: 320px; /* w-80 */
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .button .text-wrapper {

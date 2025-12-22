@@ -17,14 +17,14 @@
 }
 
 .calculating-container .step {
-    background-color: #d9d9d9;
+    background-color: #fed7aa; /* orange-200 */
     border-radius: 10px;
     height: 100%;
     flex: 1;
 }
 
 .calculating-container .step.active {
-    background-color: #3d3d3d;
+    background-color: #f59e0b; /* amber-500 */
 }
 
 .calculating-container .text-wrapper {
@@ -39,10 +39,10 @@
 }
 
 .calculating-container .circular {
-    height: 37px;
-    width: 37px;
+    height: 80px;
+    width: 80px;
     position: absolute;
-    top: 376px;
+    top: 340px;
     left: 50%; /* Centered horizontally */
     transform: translateX(-50%);
 }
@@ -62,9 +62,14 @@
     position: absolute;
     top: 0;
     left: 0;
+    opacity: 0.3;
 }
 
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from { 
+        transform: rotate(0deg); 
+    }
+    to { 
+        transform: rotate(360deg); 
+    }
 }

@@ -1,32 +1,30 @@
 import React, { useState } from "react";
 import iconArrow from "../assets/icon_arrow_left.svg";
-import iconVideo from "../assets/icon-video.svg";
-import iconText from "../assets/icon-text.svg";
-import iconAudio from "../assets/icon-audio.svg";
+import iconVideo from "../assets/icon-video-new.png";
+import iconText from "../assets/icon-text-new.png";
+import iconAudio from "../assets/icon-audio-new.png";
 import "./content-preference.css";
 
 export const ContentPreference = ({ onComplete, onBack }) => {
   const [selected, setSelected] = useState([]);
 
   const toggleSelection = (type) => {
-    if (selected.includes(type)) {
-      setSelected(selected.filter((item) => item !== type));
-    } else {
-      setSelected([...selected, type]);
-    }
+    setSelected((prev) =>
+      prev.includes(type)
+        ? prev.filter((item) => item !== type)
+        : [...prev, type]
+    );
   };
 
-  // [추가된 함수] 데이터를 올바른 포맷으로 변환하여 부모에게 전달
+  // ✅ incoming UI 유지 + 백엔드 포맷 변환
   const handleComplete = () => {
-    // selected 배열(예: ['video', 'audio'])을
-    // 백엔드가 기대하는 객체 형태(예: { video: true, text: false, audio: true })로 변환
     const finalPreferences = {
       video: selected.includes("video"),
       text: selected.includes("text"),
       audio: selected.includes("audio"),
     };
 
-    onComplete(finalPreferences); // 변환된 데이터 전달
+    onComplete(finalPreferences);
   };
 
   return (
@@ -37,12 +35,6 @@ export const ContentPreference = ({ onComplete, onBack }) => {
         <div className="step active" />
       </div>
 
-      <p className="question-text">
-        마지막 질문!
-        <br />
-        선호하는 콘텐츠 타입은 무엇인가요?
-      </p>
-
       <div
         className={`checklist-item ${
           selected.includes("video") ? "selected" : ""
@@ -51,11 +43,35 @@ export const ContentPreference = ({ onComplete, onBack }) => {
       >
         <div
           className={`checkbox ${selected.includes("video") ? "checked" : ""}`}
-        />
+        >
+          {selected.includes("video") && (
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              <path
+                d="M14.1673 4.25L6.37565 12.0417L2.83398 8.5"
+                stroke="#F6F6F6"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
+        </div>
         <div className="icon-wrapper">
           <img src={iconVideo} alt="Video" />
         </div>
-        <div className="label">🖥 영상</div>
+        <div className="label">영상</div>
       </div>
 
       <div
@@ -67,11 +83,13 @@ export const ContentPreference = ({ onComplete, onBack }) => {
       >
         <div
           className={`checkbox ${selected.includes("text") ? "checked" : ""}`}
-        />
+        >
+          {selected.includes("text") && <svg /* 동일 */ />}
+        </div>
         <div className="icon-wrapper">
           <img src={iconText} alt="Text" />
         </div>
-        <div className="label">📄 텍스트</div>
+        <div className="label">텍스트</div>
       </div>
 
       <div
@@ -83,23 +101,26 @@ export const ContentPreference = ({ onComplete, onBack }) => {
       >
         <div
           className={`checkbox ${selected.includes("audio") ? "checked" : ""}`}
-        />
+        >
+          {selected.includes("audio") && <svg /* 동일 */ />}
+        </div>
         <div className="icon-wrapper">
           <img src={iconAudio} alt="Audio" />
         </div>
-        <div className="label">🎧 음성</div>
+        <div className="label">음성</div>
       </div>
 
-      <button className="button-complete" onClick={handleComplete}>
-        <div className="button-text">완료</div>
-      </button>
+      {selected.length > 0 && (
+        <button className="button-complete" onClick={handleComplete}>
+          <div className="button-text">완료</div>
+        </button>
+      )}
 
       <div
         className="arrow-left"
         onClick={onBack}
         style={{ cursor: "pointer" }}
       >
-        {/* Navigation back not strictly defined in flow but good to have ui element */}
         <img className="icon" alt="Back" src={iconArrow} />
       </div>
 

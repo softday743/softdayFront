@@ -17,14 +17,14 @@
 }
 
 .content-preference-container .step {
-    background-color: #d9d9d9;
+    background-color: #fed7aa; /* orange-200 */
     border-radius: 10px;
     height: 100%;
     flex: 1;
 }
 
 .content-preference-container .step.active {
-    background-color: #3d3d3d;
+    background-color: #f59e0b; /* amber-500 */
 }
 
 .content-preference-container .question-text {
@@ -44,8 +44,8 @@
 }
 
 .content-preference-container .checklist-item {
-    background-color: #f6f6f6;
-    border: 1px solid #cdcdcd;
+    background-color: #fafafa; /* neutral-50 */
+    border: 1px solid #d4d4d8; /* zinc-300 */
     border-radius: 10px;
     height: 55px;
     width: 197px;
@@ -57,11 +57,12 @@
     align-items: center;
     cursor: pointer;
     overflow: hidden;
+    transition: all 0.3s ease;
 }
 
 .content-preference-container .checklist-item.selected {
-    border-color: #3d3d3d; /* Highlight selection */
-    background-color: #e0e0e0;
+    border: 1px solid #eab308; /* yellow-500 */
+    background-color: #fffbeb; /* amber-50 */
 }
 
 .content-preference-container .checkbox {
@@ -70,11 +71,14 @@
     height: 28px;
     width: 28px;
     margin-left: 16px;
-    background-color: #ffffff;
+    background-color: #DADADA; /* gray default */
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 .content-preference-container .checkbox.checked {
-    background-color: #3d3d3d;
+    background-color: #FD9800; /* orange */
+    border-color: #FD9800;
 }
 
 .content-preference-container .icon-wrapper {
@@ -100,7 +104,8 @@
 
 .content-preference-container .button-complete {
     all: unset;
-    background-color: #c8c8c8;
+    background-color: #fef3c7; /* amber-100 */
+    border: 1px solid #f59e0b; /* amber-500 */
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -108,8 +113,9 @@
     height: 56px;
     width: 330px;
     position: absolute;
-    left: 31px;
-    bottom: 120px; /* Adjusted based on 607px top */
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 48px;
     cursor: pointer;
 }
 
@@ -125,6 +131,7 @@
     position: absolute;
     top: 80px;
     left: 15px;
+    cursor: pointer;
 }
 
 .content-preference-container .icon {

@@ -48,7 +48,8 @@
 
 .signup-step1-container .button-next {
     all: unset;
-    background-color: #c8c8c8;
+    background-color: #fef3c7; /* amber-100 */
+    border: 1px solid #f59e0b; /* amber-500 */
     border-radius: 10px;
     display: flex;
     align-items: center;

@@ -1,5 +1,5 @@
 import React from "react";
-import face from "../assets/confused-face.svg";
+import face from "../assets/confused-emoji.png";
 import icon from "../assets/icon_arrow_left.svg";
 import "./stress-result.css";
 

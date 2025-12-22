@@ -19,7 +19,7 @@ export const SignUpStep4 = ({ onNext, onBack }) => {
             </div>
             
             <button className="button-next" onClick={onNext}>
-                <div style={{ color: '#000000', fontSize: '16px', fontWeight: '600' }}>다음</div>
+                <div className="button-text">다음</div>
             </button>
         </div>
     );

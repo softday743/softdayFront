@@ -1,329 +1,28 @@
-/* Profile Container */
 .profile-container {
   width: 100%;
-  height: 100vh; /* 화면 전체 높이 사용 */
+  height: 100%;
+  background-color: #fffbeb; /* amber-50 */
   position: relative;
-  background: #fafafa;
-
-  /* [핵심 수정] 내용이 길면 스크롤이 되도록 설정 */
+  max-width: 384px;
+  margin: 0 auto;
   overflow-y: auto;
-
-  /* [핵심 수정] 하단 네비게이션 바에 버튼이 가려지지 않도록 여백 추가 */
-  padding-bottom: 120px;
+  overflow-x: hidden;
+  padding-bottom: 200px; /* Space for Bottom Nav */
 }
 
-.mypost-comment-list-container {
-  position: absolute;
-  top: 210px; /* Adjust based on filters */
-  left: 0;
-  width: 100%;
-  height: calc(100% - 210px);
-  overflow-y: auto;
-  padding-bottom: 80px;
-  background: #fafafa;
-}
-
-.mypost-comment-card {
-  width: 350px;
-  margin: 0 auto 12px auto;
-  background: white;
-  border-radius: 10px;
-  border: 1px solid #e5e5e5;
-  padding: 20px;
-  position: relative;
-  box-sizing: border-box;
-}
-
-.comment-card-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.comment-user-avatar {
-  width: 27px;
-  height: 27px;
-  border-radius: 50%;
-  background: #d9d9d9;
-  margin-right: 12px;
-}
-
-.comment-user-info {
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
-}
-
-.comment-content {
-  font-size: 14px;
-  font-weight: 600;
-  color: black;
-  margin-bottom: 16px;
-  line-height: 1.4;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-.comment-time {
-  font-size: 12px;
-  font-weight: 600;
-  color: #a3a3a3;
-}
-
-.comment-arrow-icon {
-  position: absolute;
-  right: 20px;
-  top: 25px; /* Aligned with header/content area roughly */
-}
-
-.comment-more-btn {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  padding: 5px;
-  cursor: pointer;
-}
-
-.comment-action-menu {
-  position: absolute;
-  right: 40px;
-  top: 15px;
-  width: 60px;
-  background: #f5f5f5; /* neutral-100 */
-  border: 1px solid #d4d4d4;
-  border-radius: 5px;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.comment-action-item {
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: black;
-  cursor: pointer;
-}
-
-.comment-action-item:first-child {
-  border-bottom: 1px solid #e5e5e5;
-  background: #e5e5e5; /* Light highlighted top item */
-}
-
-.comment-action-item:last-child {
-  background: #f5f5f5;
-}
-
-.mypost-empty-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 100px;
-}
-
-/* ================== Content Preference View ================== */
-.content-pref-header-title {
-  position: absolute;
-  top: 55px;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-
-.content-pref-subtitle {
-  position: absolute;
-  top: 130px;
-  left: 32px;
-  width: 320px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 600;
-  color: black;
-}
-
-.content-pref-option-container {
-  position: absolute;
-  top: 203px;
-  left: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.content-pref-card {
-  width: 320px;
-  height: 56px;
-  background: #f5f5f5; /* neutral-100 */
-  border-radius: 10px;
-  border: 1px solid #d6d3d1; /* outline-stone-300 */
-  position: relative;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding-left: 16px;
-}
-
-.content-pref-card.selected {
-  /* Style changes if needed for the container itself, 
-       but mostly handled by the checkbox SVG changes */
-}
-
-.content-pref-checkbox {
-  width: 28px;
-  height: 28px;
-  margin-right: 18px;
-}
-
-.content-pref-text {
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-
-.content-pref-other-link {
-  position: absolute;
-  top: 408px; /* Adjusted based on 3 items height + gap */
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 600;
-  color: #a3a3a3; /* neutral-400 */
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.content-pref-complete-btn {
-  position: absolute;
-  top: 473px;
-  left: 32px;
-  width: 320px;
-  height: 56px;
-  background: #d6d3d1; /* stone-300 default/disabled */
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: default;
-}
-
-.content-pref-complete-btn.active {
-  background: black;
-  cursor: pointer;
-}
-
-.content-pref-btn-text {
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-
-.content-pref-complete-btn.active .content-pref-btn-text {
-  color: white;
-}
-
-/* Other Type Modal */
-.other-type-modal-card {
-  width: 320px;
-  background: white;
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.other-type-modal-title {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  text-align: center;
-}
-
-.other-type-modal-desc {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 20px;
-  text-align: center;
-  line-height: 1.4;
-}
-
-.other-type-input-area {
-  width: 100%;
-  height: 120px;
-  background: #f9f9f9;
-  border: 1px solid #e5e5e5;
-  border-radius: 10px;
-  padding: 12px;
-  font-size: 14px;
-  resize: none;
-  margin-bottom: 20px;
-  outline: none;
-}
-
-.other-type-btn-row {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-}
-
-.other-type-btn {
-  flex: 1;
-  height: 48px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.other-type-btn.cancel {
-  background: #f5f5f5;
-  color: #666;
-}
-
-.other-type-btn.submit {
-  background: black;
-  color: white;
-}
-
-.other-complete-icon {
-  margin-bottom: 16px;
-}
-
-/* Common Styles */
-.font-pretendard {
-  font-family: "Pretendard", sans-serif;
-}
-
-/* ================== Profile Main ================== */
-
-/* User Greeting */
-.profile-greeting {
+/* User Name */
+.profile-user-name {
   position: absolute;
   left: 27px;
   top: 88px;
   font-size: 24px;
   font-weight: 600;
+  font-family: "Pretendard";
   color: black;
 }
 
 /* Settings Icon */
-.settings-icon {
+.profile-settings-icon {
   position: absolute;
   left: 341px;
   top: 94px;
@@ -332,1031 +31,142 @@
   cursor: pointer;
 }
 
-/* Info Card */
-.info-card {
+/* Profile Info Card */
+.profile-info-card {
   position: absolute;
-  width: 320px;
-  height: 176px;
-  left: 28px;
+  left: 24px; /* Aligned with 'My Posts' start */
   top: 135px;
+  width: 336px; /* Aligned with 'Contents' end (24+160+16+160 = 360 - 24 = 336) */
+  height: 176px; /* h-44 */
   background: white;
   border-radius: 16px;
   box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
-  border: 0.5px solid #a3a3a3;
+  border: 1px solid #eab308; /* yellow-500 */
   overflow: hidden;
 }
 
-.card-title {
+.profile-card-title {
   position: absolute;
-  top: 14px;
-  left: 21px;
-  width: 144px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  left: 17px;
+  top: 10px;
   font-size: 16px;
   font-weight: 600;
+  font-family: "Pretendard";
   color: black;
 }
 
-.info-details {
+.profile-edit-link {
   position: absolute;
-  top: 94px;
-  left: 21px;
-  width: 144px;
-  height: 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-  line-height: 24px;
-}
-
-.edit-text-btn {
-  position: absolute;
-  left: 262px;
-  top: 146px;
-  width: 48px;
-  height: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #d6d3d1; /* stone-300 */
+  right: 17px; /* 320 - 262 - 48 = ~10px padding from right */
+  top: 149px;
   font-size: 10px;
   font-weight: 600;
+  font-family: "Pretendard";
+  color: #d6d3d1; /* stone-300 */
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
-.edit-arrow-icon {
+/* Tags in Info Card */
+.profile-tag-label {
   position: absolute;
-  left: 310px;
-  top: 141px;
-  cursor: pointer;
+  width: 96px; /* w-24 */
+  height: 24px;
+  background: #f9fafb; /* gray-50 */
+  border-radius: 10px;
+  border: 1px solid #d6d3d1; /* stone-300 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: black;
+  top: 45px;
 }
 
-/* Grid Cards */
-.grid-card {
+.profile-tag-value {
   position: absolute;
-  width: 160px;
-  height: 128px;
+  width: 96px; /* w-24 */
+  height: 64px; /* h-16 */
+  background: #fffbeb; /* amber-50 */
+  border-radius: 10px;
+  border: 1px solid #fdba74; /* orange-300 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  top: 75px;
+}
+
+/* Tag Positioning */
+/* Card width 336px. Item width 96px. 3 Items = 288px. Remaining 48px.
+   Space evenly (4 gaps of 12px): 12, 120, 228 */
+.tag-pos-1 {
+  left: 12px;
+}
+.tag-pos-2 {
+  left: 120px;
+}
+.tag-pos-3 {
+  left: 228px;
+}
+
+/* Menu Cards Grid */
+.profile-menu-card {
+  position: absolute;
+  width: 160px; /* w-40 */
+  height: 128px; /* h-32 */
   background: white;
   border-radius: 16px;
   box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
-  border: 0.5px solid #a3a3a3;
+  border: 1px solid #eab308; /* yellow-500 */
   overflow: hidden;
   cursor: pointer;
 }
 
-.card-mypost {
-  left: 24px;
-  top: 323px;
-}
-.card-content {
-  left: 200px;
-  top: 323px;
-}
-.card-like {
-  left: 24px;
-  top: 472px;
-}
-.card-save {
-  left: 200px;
-  top: 472px;
-}
-
-.grid-card-title {
+.profile-menu-title {
   position: absolute;
   left: 19px;
   top: 9px;
-  width: 144px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 16px;
   font-weight: 600;
+  font-family: "Pretendard";
   color: black;
 }
 
-.more-text-btn {
+.profile-menu-more {
   position: absolute;
   left: 91px;
   top: 107px;
-  width: 48px;
-  height: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: "Pretendard";
   color: #d6d3d1;
-  font-size: 10px;
-  font-weight: 600;
-}
-
-.more-arrow-icon {
-  position: absolute;
-  left: 139px;
-  top: 102px;
-}
-
-/* ================== Profile Edit ================== */
-
-.edit-header-title {
-  position: absolute;
-  left: 128px;
-  top: 55px;
-  width: 144px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-
-.edit-back-arrow {
-  position: absolute;
-  left: 21px;
-  top: 61px;
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  z-index: 50;
-}
-
-.edit-label {
-  position: absolute;
-  left: 32px;
-  width: 208px;
-  height: 32px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
+  gap: 2px;
 }
 
-.label-name {
-  top: 140px;
-}
-.label-job {
-  top: 254px;
-}
-.label-year {
-  top: 368px;
-}
-.label-industry {
-  top: 482px;
-}
-
-.edit-input-wrapper {
-  position: absolute;
-  left: 32px;
-  width: 320px;
-  height: 56px;
-  background: #f5f5f5;
-  border-radius: 10px;
-  border: 1px solid #d6d3d1;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-
-.input-name {
-  top: 179px;
-}
-.input-job {
-  top: 293px;
-}
-.input-year {
-  top: 407px;
-}
-.input-industry {
-  top: 521px;
-}
-
-.edit-input {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: none;
-  padding-left: 18px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #404040;
-  font-family: "Pretendard", sans-serif;
-  outline: none;
-}
-
-.edit-save-btn {
-  position: absolute;
-  left: 31px;
-  top: 670px; /* 버튼 위치 */
-  width: 320px;
-  height: 56px;
-
-  /* [핵심 수정] 버튼이 잘 보이도록 배경색을 검은색으로 변경 */
-  background: #000000;
-
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  /* [핵심 수정] 다른 요소 위에 뜨도록 순서 지정 */
-  z-index: 10;
-}
-
-/* 3. 텍스트 수정: 검은 버튼 위에 흰 글씨 */
-.edit-save-text {
-  font-size: 16px;
-  font-weight: 600;
-
-  /* [핵심 수정] 글자색을 흰색으로 변경 */
-  color: #ffffff;
-}
-
-/* ================== Modal ================== */
-
-.modal-overlay {
-  position: absolute;
-  left: -11px;
-  top: -16px;
-  width: 420px;
-  height: 120vh;
-  background: rgba(214, 211, 209, 0.2);
-  z-index: 50;
-  backdrop-filter: blur(1px);
-}
-
-.modal-card {
-  position: absolute;
-  width: 288px;
-  height: 192px;
-  left: 48px;
-  top: 312px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-  z-index: 51;
-}
-
-.modal-message {
-  position: absolute;
-  top: 46px;
-  left: 14px;
-  width: 260px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-  line-height: 24px;
-}
-
-.modal-btn-container {
-  position: absolute;
-  top: 139px;
-  width: 100%;
-  display: flex;
-}
-
-.modal-btn-yes {
-  position: absolute;
-  left: 23px;
-  top: 139px;
-  width: 112px;
-  height: 44px;
-  background: #e5e5e5;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.modal-btn-no {
-  position: absolute;
-  left: 151px;
-  top: 139px;
-  width: 112px;
-  height: 44px;
-  background: #f59e0b; /* amber-500 */
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.modal-btn-text {
-  font-size: 14px;
-  font-weight: 600;
-  color: black;
-}
-
-/* ================== My Posts (List View) ================== */
-
-.mypost-header-title {
-  position: absolute;
-  left: 128px;
-  top: 55px;
-  width: 136px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-
-.mypost-tab-container {
-  position: absolute;
-  top: 114px;
-  width: 100%;
-  height: 48px;
-  display: flex;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.mypost-tab {
-  width: 50%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.mypost-tab.active {
-  color: black;
-}
-
-.mypost-tab.inactive {
-  color: #d6d3d1;
-}
-
-.mypost-tab-indicator {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background-color: black;
-}
-
-.mypost-tab-indicator-inactive {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background-color: #d4d4d8;
-  display: none; /* Usually hidden unless specifically wanted */
-}
-.mypost-tab.inactive .mypost-tab-indicator-inactive {
-  display: block;
-}
-
-/* Filters */
-.mypost-filter-line {
-  position: absolute;
-  top: 178px;
-  left: 15px;
-  display: flex;
-  gap: 8px;
-  width: 360px;
-  justify-content: space-between;
-}
-
-.mypost-filter-btn {
-  width: 48px;
-  height: 28px;
-  background: #e5e5e5;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: black;
-  cursor: pointer;
-}
-
-/* Post List */
-.mypost-list-container {
-  position: absolute;
-  top: 220px;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 220px);
-  overflow-y: auto;
-  padding-bottom: 100px; /* space for bottom nav */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-}
-
-.mypost-card {
-  width: 330px;
-  height: 144px;
-  background: white;
-  border-radius: 10px;
-  outline: 1px solid #d4d4d8;
-  position: relative;
-  flex-shrink: 0;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.mypost-card-category-wrapper {
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  width: 50px;
-  height: 14px;
-  background: #d4d4d8;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.mypost-card-category {
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
-}
-
-.mypost-card-title {
-  position: absolute;
-  left: 20px;
-  top: 50px;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 200px;
-}
-
-.mypost-card-content {
-  position: absolute;
-  left: 20px;
-  top: 78px;
-  font-size: 14px;
-  font-weight: 600;
-  color: black;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 250px;
-}
-
-.mypost-card-time {
-  position: absolute;
-  right: 20px;
-  top: 21px;
-  font-size: 10px;
-  font-weight: 600;
-  color: #a3a3a3;
-}
-
-.mypost-card-footer {
-  position: absolute;
-  bottom: 14px;
-  left: 20px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.mypost-stat-group {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.mypost-empty-text {
-  position: absolute;
-  top: 262px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 600;
-  color: #a3a3a3;
-}
-
-/* ================== Edit Post View ================== */
-
-/* Simple styles for Edit View header & content */
-.editpost-title-input {
-  position: absolute;
-  top: 168px;
-  left: 25px;
-  width: 340px;
-  font-size: 20px;
-  font-weight: 600;
-  color: black;
-  border: none;
-  outline: none;
-  background: transparent;
-}
-
-.editpost-content-area {
-  position: absolute;
-  top: 230px;
-  left: 25px;
-  width: 340px;
-  height: 240px;
-  font-size: 14px;
-  font-weight: 600;
-  color: black;
-  border: none;
-  outline: none;
-  background: transparent;
-  resize: none;
-}
-
-/* ================== Settings View ================== */
-
-.settings-header-title {
-  position: absolute;
-  top: 55px;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-
-.settings-list-container {
-  position: absolute;
-  top: 115px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.settings-item {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 56px;
-  background: white;
-  border: 1px solid #d6d3d1;
-  display: flex;
-  align-items: center;
-  padding-left: 45px;
-  box-sizing: border-box;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 700;
-  color: #404040;
-}
-
-.settings-divider {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 16px;
-  background: #e5e5e5; /* neutral-200 */
-}
-
-.settings-logout {
-  position: absolute;
-  top: 393px;
-  left: 33px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #a3a3a3;
-  cursor: pointer;
-}
-
-/* Settings Notification */
-.settings-section-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: black;
-  margin-top: 30px;
-  margin-bottom: 15px;
-  padding-left: 24px;
-}
-
-.settings-toggle-item {
-  width: 100%;
-  height: 56px;
-  background: white;
-  border: 1px solid #d6d3d1;
-  margin-top: -1px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  box-sizing: border-box;
-  font-size: 16px;
-  font-weight: 700;
-  color: #404040;
-}
-
-/* ================== Liked View ================== */
-
-.liked-header-title {
-  position: absolute;
-  top: 55px;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-
-.liked-tab-container {
-  position: absolute;
-  top: 114px;
-  left: 0;
-  width: 100%;
-  height: 48px;
-  display: flex;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.liked-tab {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: #a3a3a3;
-  cursor: pointer;
-  position: relative;
-}
-
-.liked-tab.active {
-  color: black;
-}
-
-.liked-tab-indicator {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background: black;
-}
-
-.liked-tab-indicator-inactive {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background: #e5e5e5;
-}
-
-.liked-filter-line {
-  position: absolute;
-  top: 178px;
-  left: 15px;
-  width: 100%;
-  display: flex;
-  gap: 6px;
-}
-
-.liked-filter-btn {
-  height: 28px;
-  background: #e5e5e5;
-  border-radius: 5px;
-  padding: 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: black;
-  cursor: pointer;
-}
-
-.liked-filter-dropdown-btn {
-  width: 256px; /* Approx w-64 */
-  height: 28px;
-  background: #e5e5e5;
-  border-radius: 5px;
-  position: relative;
-  cursor: pointer;
-}
-
-.liked-filter-dropdown-icon {
-  position: absolute;
-  right: 8px;
-  top: 5px;
-}
-
-.liked-list-container {
-  position: absolute;
-  top: 220px;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 220px);
-  overflow-y: auto;
-  padding-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-/* Liked Data Card Styles - Matching new snippet */
-.liked-card {
-  width: 350px; /* Adjusted to fit layout */
-  height: 144px; /* h-36 */
-  background: white;
-  border: 1px solid #d4d4d8; /* outline-zinc-300 */
-  border-radius: 10px;
-  position: relative;
-  cursor: pointer;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.liked-card-cat-badge {
-  position: absolute;
-  top: 20px;
-  left: 17px;
-  padding: 2px 8px;
-  background: #d4d4d8; /* zinc-300 */
-  border-radius: 20px;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.liked-author-info {
-  position: absolute;
-  top: 17px;
-  left: 177px;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
-}
-
-.liked-author-avatar {
-  position: absolute;
-  top: 14px;
-  left: 87px;
-  width: 29px;
-  height: 29px;
-}
-
-.liked-card-title {
-  position: absolute;
-  top: 50px;
-  left: 21px; /* approx 131-110 shift relative to container */
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-
-.liked-card-time {
-  position: absolute;
-  top: 21px;
-  right: 20px;
-  font-size: 10px;
-  font-weight: 600;
-  color: #a3a3a3;
-}
-
-.liked-card-content {
-  position: absolute;
-  top: 78px;
-  left: 21px;
-  font-size: 14px;
-  font-weight: 600;
-  color: black;
-  width: 280px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.liked-card-footer {
-  position: absolute;
-  bottom: 14px; /* approx 112px from top */
-  left: 21px;
-  display: flex;
-  gap: 15px;
-}
-
-.liked-stat {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  color: #a3a3a3;
-  font-weight: 600;
-}
-
-/* ================== Saved View ================== */
-
-.saved-header-title {
-  position: absolute;
-  top: 55px;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-
-.saved-tab-container {
-  position: absolute;
-  top: 114px;
-  left: 0;
-  width: 100%;
-  height: 48px;
-  display: flex;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.saved-tab {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: #a3a3a3;
-  cursor: pointer;
-  position: relative;
-}
-
-.saved-tab.active {
-  color: black;
-}
-
-.saved-tab-indicator {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background: black;
-}
-
-.saved-tab-indicator-inactive {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background: #e5e5e5;
-}
-
-.saved-filter-line {
-  position: absolute;
-  top: 178px;
+/* Menu Positioning */
+/* Left Column: 24px, Right Column: 200px (gap ~16px) */
+/* Rows: 323px, 472px */
+.menu-pos-1 {
   left: 24px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  z-index: 5;
-  gap: 10px;
-}
-
-.saved-filter-btn {
-  height: 28px;
-  background: #e5e5e5;
-  border-radius: 5px;
-  padding: 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: black;
-  cursor: pointer;
-  position: relative;
-  min-width: 48px;
-}
-
-.saved-list-container {
-  position: absolute;
-  top: 220px;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 220px);
-  overflow-y: auto;
-  padding-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.saved-empty-text {
-  position: absolute;
-  top: 42px; /* Relative to list container */
-  width: 100%;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 600;
-  color: #a3a3a3;
-}
-
-.saved-card {
-  width: 320px;
-  background: white;
-  border: 1px solid #d6d3d1;
-  border-radius: 10px;
-  padding: 16px 20px;
-  position: relative;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  min-height: 144px;
-}
-
-.saved-card-cat-badge {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 20px;
-  padding: 0 8px;
-  background: #d6d3d1;
-  border-radius: 20px;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
-  margin-bottom: 10px;
-  align-self: flex-start;
-}
-
-.saved-card-title {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: black;
-}
-
-.saved-card-content {
-  font-size: 14px;
-  color: black;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  margin-bottom: 30px;
-}
-
-.saved-card-footer {
-  position: absolute;
-  bottom: 14px;
-  left: 16px;
-  display: flex;
-  gap: 15px;
-}
-
-.saved-stat {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  color: #a3a3a3;
-}
-
-.saved-filter-dropdown {
-  position: absolute;
-  top: 32px;
-  left: 0;
-  width: 80px;
-  background: white;
-  border: 1px solid #d6d3d1;
-  border-radius: 5px;
-  z-index: 10;
-  overflow: hidden;
-}
-
-.saved-filter-option {
-  padding: 8px 10px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  color: black;
-}
-.saved-filter-option:hover {
-  background: #f5f5f5;
-}
+  top: 323px;
+} /* My Posts */
+.menu-pos-2 {
+  left: 200px;
+  top: 323px;
+} /* Contents */
+.menu-pos-3 {
+  left: 24px;
+  top: 472px;
+} /* Likes */
+.menu-pos-4 {
+  left: 200px;
+  top: 472px;
+} /* Saved */

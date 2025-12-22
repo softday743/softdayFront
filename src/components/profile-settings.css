@@ -1,0 +1,137 @@
+.pst-container {
+    width: 100%;
+    min-height: 100%; /* Changed to min-height for scrolling */
+    background-color: white;
+    position: relative;
+    max-width: 384px;
+    margin: 0 auto;
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-bottom: 50px;
+}
+
+/* Header */
+.pst-header-wrapper {
+    width: 100%;
+    height: 100px; /* Approx header height */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: 55px;
+    background: white;
+}
+
+.pst-header-title {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Pretendard';
+    color: black;
+}
+
+.pst-back-arrow {
+    position: absolute;
+    left: 21px;
+    top: 61px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Menu List (Main Settings) */
+.pst-menu-list {
+    width: 100%;
+    margin-top: 15px; /* Adjust spacing from header */
+    display: flex;
+    flex-direction: column;
+}
+
+.pst-menu-row {
+    width: 100%;
+    height: 54px;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    padding-left: 24px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #404040;
+    cursor: pointer;
+    background: white;
+}
+
+.pst-logout {
+    margin-top: 60px; /* Space from menu */
+    margin-left: 33px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #a3a3a3;
+    cursor: pointer;
+}
+
+/* Notification Settings View */
+.pst-noti-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.pst-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+    padding-left: 35px;
+    margin-bottom: 20px;
+}
+
+/* Adjust margin for marketing section */
+.pst-section-marketing {
+    margin-top: 50px;
+}
+
+.pst-noti-item {
+    width: 100%;
+    height: 56px;
+    background: white;
+    border-bottom: 1px solid #d6d3d1;
+    display: flex;
+    align-items: center;
+    position: relative; /* For absolute positioning of switch inside */
+    padding: 0 0 0 45px;
+}
+
+.pst-noti-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #404040;
+}
+
+/* Toggle Switch (CSS Implementation) */
+.pst-switch {
+    width: 51px;
+    height: 31px;
+    border-radius: 15.5px;
+    position: absolute; /* Keep absolute within relative item to fix position */
+    left: 300px; /* Fixed horizontal position */
+    /* top is auto (centered by flex align-items usually, or use top 50% transform) */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pst-switch.on { background-color: #34C759; }
+.pst-switch.off { background-color: #E5E5EA; }
+
+.pst-switch-handle {
+    width: 27px;
+    height: 27px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15), 0px 3px 1px rgba(0, 0, 0, 0.06);
+}
+
+.pst-switch.on .pst-switch-handle { transform: translateX(20px); }
+.pst-switch.off .pst-switch-handle { transform: translateX(0); }
