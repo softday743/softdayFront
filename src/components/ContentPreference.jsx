@@ -9,22 +9,11 @@ export const ContentPreference = ({ onComplete, onBack }) => {
   const [selected, setSelected] = useState([]);
 
   const toggleSelection = (type) => {
-    setSelected((prev) =>
-      prev.includes(type)
-        ? prev.filter((item) => item !== type)
-        : [...prev, type]
-    );
-  };
-
-  // ✅ incoming UI 유지 + 백엔드 포맷 변환
-  const handleComplete = () => {
-    const finalPreferences = {
-      video: selected.includes("video"),
-      text: selected.includes("text"),
-      audio: selected.includes("audio"),
-    };
-
-    onComplete(finalPreferences);
+    if (selected.includes(type)) {
+      setSelected(selected.filter((item) => item !== type));
+    } else {
+      setSelected([...selected, type]);
+    }
   };
 
   return (
@@ -34,6 +23,12 @@ export const ContentPreference = ({ onComplete, onBack }) => {
         <div className="step active" />
         <div className="step active" />
       </div>
+
+      <p className="question-text">
+        마지막 질문!
+        <br />
+        선호하는 콘텐츠 타입은 무엇인가요?
+      </p>
 
       <div
         className={`checklist-item ${
@@ -84,7 +79,29 @@ export const ContentPreference = ({ onComplete, onBack }) => {
         <div
           className={`checkbox ${selected.includes("text") ? "checked" : ""}`}
         >
-          {selected.includes("text") && <svg /* 동일 */ />}
+          {selected.includes("text") && (
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              <path
+                d="M14.1673 4.25L6.37565 12.0417L2.83398 8.5"
+                stroke="#F6F6F6"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
         </div>
         <div className="icon-wrapper">
           <img src={iconText} alt="Text" />
@@ -102,7 +119,29 @@ export const ContentPreference = ({ onComplete, onBack }) => {
         <div
           className={`checkbox ${selected.includes("audio") ? "checked" : ""}`}
         >
-          {selected.includes("audio") && <svg /* 동일 */ />}
+          {selected.includes("audio") && (
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              <path
+                d="M14.1673 4.25L6.37565 12.0417L2.83398 8.5"
+                stroke="#F6F6F6"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
         </div>
         <div className="icon-wrapper">
           <img src={iconAudio} alt="Audio" />
@@ -111,7 +150,7 @@ export const ContentPreference = ({ onComplete, onBack }) => {
       </div>
 
       {selected.length > 0 && (
-        <button className="button-complete" onClick={handleComplete}>
+        <button className="button-complete" onClick={onComplete}>
           <div className="button-text">완료</div>
         </button>
       )}
@@ -121,6 +160,7 @@ export const ContentPreference = ({ onComplete, onBack }) => {
         onClick={onBack}
         style={{ cursor: "pointer" }}
       >
+        {/* Navigation back not strictly defined in flow but good to have ui element */}
         <img className="icon" alt="Back" src={iconArrow} />
       </div>
 

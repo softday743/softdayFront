@@ -7,6 +7,7 @@ export function CreatePost({ onNavigate }) {
   const [category, setCategory] = useState("직장 생활");
   const [isAnonymous, setIsAnonymous] = useState(true);
 
+  // Max length constant
   const MAX_LENGTH = 500;
 
   const handleContentChange = (e) => {
@@ -18,7 +19,7 @@ export function CreatePost({ onNavigate }) {
 
   const handleComplete = () => {
     if (!title.trim() || !content.trim()) return;
-    // incoming 코드 기준: API 호출 없음
+    // Here you would normally submit the post data to backend
     onNavigate("community");
   };
 
@@ -38,7 +39,7 @@ export function CreatePost({ onNavigate }) {
       </div>
 
       <div className="cp-input-area">
-        {/* Category */}
+        {/* Category Selection */}
         <div className="cp-category-row">
           <div className="cp-category-label">카테고리</div>
           <div className="cp-category-options">
@@ -69,7 +70,7 @@ export function CreatePost({ onNavigate }) {
           </div>
         </div>
 
-        {/* Title */}
+        {/* Title Input */}
         <div className="cp-title-wrapper">
           <input
             type="text"
@@ -80,13 +81,14 @@ export function CreatePost({ onNavigate }) {
           />
         </div>
 
-        {/* Content */}
+        {/* Content Input */}
         <div className="cp-content-wrapper">
           <textarea
             className="cp-content-input"
             placeholder="내용 작성 공간&#13;&#10;내용 작성 시 주의 사항"
             value={content}
             onChange={handleContentChange}
+            // maxLength is handled by onChange logic for better UX control
           />
           <div className="cp-char-count-wrapper">
             <span
@@ -100,12 +102,13 @@ export function CreatePost({ onNavigate }) {
           </div>
         </div>
 
+        {/* Error Message if limit reached */}
         {isLimitReached && (
           <div className="cp-error-msg">500이내로 입력해주세요.</div>
         )}
       </div>
 
-      {/* Anonymous */}
+      {/* Bottom Toolbar (Anonymous) */}
       <div
         className="cp-bottom-toolbar"
         onClick={() => setIsAnonymous(!isAnonymous)}

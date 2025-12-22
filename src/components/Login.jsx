@@ -12,8 +12,9 @@ export const Login = ({ onBack, onFindId, onFindPw, onLogin }) => {
 
   const handleLogin = () => {
     if (isValid && onLogin) {
-      // demo / UI 기준 로그인
-      onLogin(id);
+      // Test account: test / test123
+      // For demo purposes, accept any valid input
+      onLogin(id); // Pass the user ID
     }
   };
 
@@ -65,7 +66,7 @@ export const Login = ({ onBack, onFindId, onFindPw, onLogin }) => {
         <span onClick={onFindId} style={{ cursor: "pointer" }}>
           아이디 찾기
         </span>
-        &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
         <span onClick={onFindPw} style={{ cursor: "pointer" }}>
           비밀번호 찾기
         </span>

@@ -1,375 +1,375 @@
 /* Existing styles */
 .post-detail-container {
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    position: relative;
-    max-width: 384px;
-    margin: 0 auto;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  position: relative;
+  max-width: 384px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .pd-scroll-area {
-    width: 100%;
-    height: calc(100% - 70px); /* Subtract comment input height */
-    overflow-y: auto;
-    position: relative;
-    padding-bottom: 20px;
+  width: 100%;
+  height: calc(100% - 70px); /* Subtract comment input height */
+  overflow-y: auto;
+  position: relative;
+  padding-bottom: 20px;
 }
 
 /* Header */
 .pd-back-arrow {
-    position: absolute;
-    left: 21px;
-    top: 61px;
-    cursor: pointer;
-    z-index: 10;
+  position: absolute;
+  left: 21px;
+  top: 61px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .pd-header-title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 55px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 55px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 .pd-menu-dots {
-    position: absolute;
-    right: 21px;
-    top: 61px;
-    cursor: pointer;
-    z-index: 10;
+  position: absolute;
+  right: 21px;
+  top: 61px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 /* Report Menu Dropdown */
 .pd-menu-dropdown {
-    position: absolute;
-    right: 21px;
-    top: 85px;
-    width: 112px; /* w-28 */
-    height: 64px; /* h-16 */
-    background: #f4f4f5; /* zinc-100 */
-    border-radius: 5px;
-    border: 1.32px solid #e4e4e7; /* outline */
-    z-index: 20;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+  position: absolute;
+  right: 21px;
+  top: 85px;
+  width: 112px; /* w-28 */
+  height: 64px; /* h-16 */
+  background: #f4f4f5; /* zinc-100 */
+  border-radius: 5px;
+  border: 1.32px solid #e4e4e7; /* outline */
+  z-index: 20;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .pd-menu-item {
-    width: 100%;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 600;
-    color: black;
-    cursor: pointer;
+  width: 100%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: black;
+  cursor: pointer;
 }
 .pd-menu-item:hover {
-    background: #e4e4e7;
+  background: #e4e4e7;
 }
 
 /* Report Reason Category List */
 .pd-reason-list {
-    position: absolute;
-    right: 21px; /* Aligned relative to where menu was, or fixed position */
-    top: 90px;
-    width: 128px; /* w-32 */
-    height: 192px; /* h-48 */
-    background: #f4f4f5;
-    border-radius: 5px;
-    border: 1.32px solid #e4e4e7;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
-    z-index: 20;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+  position: absolute;
+  right: 21px; /* Aligned relative to where menu was, or fixed position */
+  top: 90px;
+  width: 128px; /* w-32 */
+  height: 192px; /* h-48 */
+  background: #f4f4f5;
+  border-radius: 5px;
+  border: 1.32px solid #e4e4e7;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .pd-reason-item {
-    width: 100%;
-    height: 30px; /* Divide height by items approx */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 600;
-    color: black;
-    cursor: pointer;
-    border-bottom: 1px solid #e4e4e7;
+  width: 100%;
+  height: 30px; /* Divide height by items approx */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: black;
+  cursor: pointer;
+  border-bottom: 1px solid #e4e4e7;
 }
 .pd-reason-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 .pd-reason-item:hover {
-    background: #e4e4e7;
+  background: #e4e4e7;
 }
 
 /* Overlay */
 .pd-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(214, 211, 209, 0.2); /* stone-300 with opacity */
-    z-index: 30;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(214, 211, 209, 0.2); /* stone-300 with opacity */
+  z-index: 30;
 }
 
 /* Confirm Popup */
 .pd-confirm-popup {
-    position: absolute;
-    left: 50%;
-    top: 312px;
-    transform: translateX(-50%);
-    width: 288px; /* w-72 */
-    height: 192px; /* h-48 */
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
-    z-index: 40;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 312px;
+  transform: translateX(-50%);
+  width: 288px; /* w-72 */
+  height: 192px; /* h-48 */
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pd-confirm-title {
-    margin-top: 20px;
-    font-size: 16px;
-    font-weight: 700;
-    color: black;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: black;
 }
 
 .pd-confirm-desc {
-    margin-top: 15px; /* Spacing */
-    font-size: 14px;
-    font-weight: 600;
-    color: black;
-    text-align: center;
+  margin-top: 15px; /* Spacing */
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  text-align: center;
 }
 
 .pd-confirm-actions {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 23px;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 23px;
 }
 
 .pd-confirm-btn {
-    width: 112px; /* w-28 */
-    height: 44px; /* h-11 */
-    background: #f9fafb; /* gray-50 */
-    border: 1px solid #d6d3d1; /* stone-300 */
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: black;
-    cursor: pointer;
+  width: 112px; /* w-28 */
+  height: 44px; /* h-11 */
+  background: #f9fafb; /* gray-50 */
+  border: 1px solid #d6d3d1; /* stone-300 */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  cursor: pointer;
 }
 
 /* Complete Popup */
 .pd-complete-popup {
-    position: absolute;
-    left: 50%;
-    top: 357px;
-    transform: translateX(-50%);
-    width: 208px; /* w-52 */
-    height: 80px; /* h-20 */
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
-    z-index: 40;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  left: 50%;
+  top: 357px;
+  transform: translateX(-50%);
+  width: 208px; /* w-52 */
+  height: 80px; /* h-20 */
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pd-complete-text {
-    font-size: 16px;
-    font-weight: 700;
-    color: black;
+  font-size: 16px;
+  font-weight: 700;
+  color: black;
 }
 
 /* ... Existing styles ... */
 .pd-avatar-circle {
-    position: absolute;
-    left: 27px;
-    top: 120px;
+  position: absolute;
+  left: 27px;
+  top: 120px;
 }
 .pd-avatar-emoji {
-    position: absolute;
-    left: 27px;
-    top: 127px;
-    width: 40px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 600;
+  position: absolute;
+  left: 27px;
+  top: 127px;
+  width: 40px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
 }
 .pd-category-badge {
-    position: absolute;
-    left: 77px;
-    top: 119px;
-    padding: 2px 8px;
-    background: #cffafe;
-    border: 1px solid #2dd4bf;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  left: 77px;
+  top: 119px;
+  padding: 2px 8px;
+  background: #cffafe;
+  border: 1px solid #2dd4bf;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .pd-category-text {
-    font-size: 10px;
-    font-weight: 600;
-    color: black;
+  font-size: 10px;
+  font-weight: 600;
+  color: black;
 }
 .pd-author {
-    position: absolute;
-    left: 80px;
-    top: 138px;
-    font-size: 10px;
-    font-weight: 600;
-    color: black;
+  position: absolute;
+  left: 80px;
+  top: 138px;
+  font-size: 10px;
+  font-weight: 600;
+  color: black;
 }
 .pd-title {
-    position: absolute;
-    left: 34px;
-    top: 179px;
-    font-size: 20px; /* xl */
-    font-weight: 600;
-    color: black;
+  position: absolute;
+  left: 34px;
+  top: 179px;
+  font-size: 20px; /* xl */
+  font-weight: 600;
+  color: black;
 }
 .pd-content {
-    position: absolute;
-    left: 34px;
-    top: 227px;
-    font-size: 16px; /* base */
-    font-weight: 600;
-    color: black;
+  position: absolute;
+  left: 34px;
+  top: 227px;
+  font-size: 16px; /* base */
+  font-weight: 600;
+  color: black;
 }
 .pd-date {
-    position: absolute;
-    left: 34px;
-    top: 331px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #a3a3a3;
+  position: absolute;
+  left: 34px;
+  top: 331px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a3a3a3;
 }
 .pd-eye-icon {
-    position: absolute;
-    left: 303px;
-    top: 331px;
+  position: absolute;
+  left: 303px;
+  top: 331px;
 }
 .pd-view-count {
-    position: absolute;
-    left: 321px;
-    top: 332px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #a3a3a3;
+  position: absolute;
+  left: 321px;
+  top: 332px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a3a3a3;
 }
 .pd-action-bar {
-    position: absolute;
-    left: -48px; /* Based on HTML but needs centering or adjustment */
-    /* Adjusting to fit container logic */
-    left: 50%;
-    transform: translateX(-50%);
-    top: 367px;
-    width: 350px; /* Adjusted width */
-    height: 64px;
-    background: white;
-    border: 1px solid #d4d4d8;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  position: absolute;
+  left: -48px; /* Based on HTML but needs centering or adjustment */
+  /* Adjusting to fit container logic */
+  left: 50%;
+  transform: translateX(-50%);
+  top: 367px;
+  width: 350px; /* Adjusted width */
+  height: 64px;
+  background: white;
+  border: 1px solid #d4d4d8;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 .pd-action-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
 }
 .pd-action-text {
-    font-size: 16px;
-    font-weight: 600;
-    color: #a3a3a3;
+  font-size: 16px;
+  font-weight: 600;
+  color: #a3a3a3;
 }
 .pd-empty-comment-icon {
-    position: absolute;
-    left: 171px;
-    top: 491px;
+  position: absolute;
+  left: 171px;
+  top: 491px;
 }
 .pd-empty-comment-text {
-    position: absolute;
-    left: 155px;
-    top: 549px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #a3a3a3;
+  position: absolute;
+  left: 155px;
+  top: 549px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a3a3a3;
 }
 .pd-comment-input-container {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 350px;
-    height: 56px;
-    background: white;
-    border-radius: 30px;
-    border: 1px solid #d4d4d8;
-    box-shadow: 1px 1px 10px rgba(0,0,0,0.13);
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+  height: 56px;
+  background: white;
+  border-radius: 30px;
+  border: 1px solid #d4d4d8;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.13);
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
 }
 .pd-checkbox {
-    width: 16px;
-    height: 16px;
-    background: #f59e0b; /* amber-500 */
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: #f59e0b; /* amber-500 */
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .pd-anonymous-text {
-    margin-left: 6px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #f59e0b;
+  margin-left: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #f59e0b;
 }
 .pd-input-placeholder {
-    flex: 1;
-    border: none;
-    outline: none;
-    margin-left: 10px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #a3a3a3;
+  flex: 1;
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a3a3a3;
 }
 .pd-submit-btn {
-    width: 48px;
-    height: 28px;
-    background: #f9fafb;
-    border: 1px solid #e5e5e5;
-    border-radius: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 48px;
+  height: 28px;
+  background: #f9fafb;
+  border: 1px solid #e5e5e5;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .pd-submit-text {
-    font-size: 10px;
-    font-weight: 600;
-    color: black;
+  font-size: 10px;
+  font-weight: 600;
+  color: black;
 }

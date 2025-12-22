@@ -1,95 +1,95 @@
 .home-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background: #fffbeb; /* orange-50 */
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #fffbeb; /* orange-50 */
+  overflow: hidden;
 }
 
 .home-scroll-area {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    padding-bottom: 800px; /* Extremely large padding to ensure content is visible above bottom nav */
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 800px; /* Extremely large padding to ensure content is visible above bottom nav */
 }
 
 /* Header */
 /* Header */
 .home-header {
-    width: 100%;
-    height: 60px;
-    position: relative;
-    padding: 0 20px; /* Reduced padding for smaller screens */
-    margin-top: 56px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
+  width: 100%;
+  height: 60px;
+  position: relative;
+  padding: 0 20px; /* Reduced padding for smaller screens */
+  margin-top: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .home-greeting {
-    font-size: 20px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 .home-bell-icon {
-    position: relative; /* Changed from absolute */
-    top: auto;
-    left: auto;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    z-index: 100;
+  position: relative; /* Changed from absolute */
+  top: auto;
+  left: auto;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 100;
 }
 
 .bell-dot {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 9px;
-    height: 9px;
-    background: #FF0000;
-    border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 9px;
+  height: 9px;
+  background: #ff0000;
+  border-radius: 50%;
 }
 
 .home-subtitle {
-    width: 90%;
-    margin: 8px auto 0;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  width: 90%;
+  margin: 8px auto 0;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 /* Stress Check-in Card */
 .stress-checkin-card {
-    width: 90%;
-    max-width: 360px;
-    height: 144px;
-    margin: 20px auto 0;
-    background: #fef3c7; /* amber-100 */
-    border-radius: 16px;
-    box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
-    border: 1.5px solid #eab308; /* yellow-500 */
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
+  width: 90%;
+  max-width: 360px;
+  height: 144px;
+  margin: 20px auto 0;
+  background: #fef3c7; /* amber-100 */
+  border-radius: 16px;
+  box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
+  border: 1.5px solid #eab308; /* yellow-500 */
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 /* Stress Result Card (after check-in) */
 .stress-result-card {
-    width: 90%;
-    max-width: 360px;
-    height: 144px;
-    margin: 20px auto 0;
-    background: #fef3c7; /* amber-100 */
-    border-radius: 16px;
-    box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
-    border: 1.5px solid #eab308; /* yellow-500 */
-    position: relative;
-    overflow: hidden;
+  width: 90%;
+  max-width: 360px;
+  height: 144px;
+  margin: 20px auto 0;
+  background: #fef3c7; /* amber-100 */
+  border-radius: 16px;
+  box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
+  border: 1.5px solid #eab308; /* yellow-500 */
+  position: relative;
+  overflow: hidden;
 }
 
 /* ... (Keep inner content styles same, they are absolute relative to card) ... */
@@ -97,205 +97,211 @@
 
 /* Section Titles */
 .section-title {
-    width: 90%;
-    max-width: 360px;
-    margin: 28px auto 0;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  width: 90%;
+  max-width: 360px;
+  margin: 28px auto 0;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 .section-title.popular {
-    font-size: 14px;
-    width: 90%;
-    max-width: 360px;
+  font-size: 14px;
+  width: 90%;
+  max-width: 360px;
 }
 
 .section-title .emoji-icon {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 /* Message Card */
 .message-card {
-    width: 90%;
-    max-width: 360px;
-    height: 128px;
-    margin: 12px auto 0;
-    background: #d1fae5; /* emerald-50 */
-    border-radius: 16px;
-    box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
-    border: 1.5px solid #2dd4bf; /* teal-400 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  width: 90%;
+  max-width: 360px;
+  height: 128px;
+  margin: 12px auto 0;
+  background: #d1fae5; /* emerald-50 */
+  border-radius: 16px;
+  box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
+  border: 1.5px solid #2dd4bf; /* teal-400 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .message-text {
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 /* More Link */
 .more-link {
-    position: relative;
-    float: right; /* This might need adjustment relative to container */
-    margin-right: 5%; /* Align with card edge roughly */
-    margin-top: -22px;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: #a3a3a3; /* neutral-400 */
-    cursor: pointer;
+  position: relative;
+  float: right; /* This might need adjustment relative to container */
+  margin-right: 5%; /* Align with card edge roughly */
+  margin-top: -22px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: #a3a3a3; /* neutral-400 */
+  cursor: pointer;
 }
 
 /* Post Card */
 .post-card {
-    width: 90%;
-    max-width: 360px;
-    height: 160px; /* Matched Community height */
-    margin: 12px auto 0;
-    background: white;
-    border-radius: 10px; /* Matched Community radius */
-    border: 0.5px solid #d4d4d4; /* Matched Community border */
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
+  width: 90%;
+  max-width: 360px;
+  height: 160px; /* Matched Community height */
+  margin: 12px auto 0;
+  background: white;
+  border-radius: 10px; /* Matched Community radius */
+  border: 0.5px solid #d4d4d4; /* Matched Community border */
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
 }
 
 .post-header {
-    position: relative;
-    height: 43px;
-    padding: 14px 0 0 20px;
+  position: relative;
+  height: 43px;
+  padding: 14px 0 0 20px;
 }
 
 .post-avatar {
-    position: absolute;
-    left: 20px;
-    top: 14px;
-    width: 29px;
-    height: 29px;
+  position: absolute;
+  left: 20px;
+  top: 14px;
+  width: 29px;
+  height: 29px;
 }
 
 .post-emoji {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
 .post-category-badge {
-    position: absolute;
-    left: 60px;
-    top: 20px;
-    width: 44px;
-    height: 14px;
-    background: #cffafe;
-    border-radius: 20px;
-    border: 1px solid #2dd4bf;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  left: 60px;
+  top: 20px;
+  width: 44px;
+  height: 14px;
+  background: #cffafe;
+  border-radius: 20px;
+  border: 1px solid #2dd4bf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .post-category-text {
-    font-size: 8px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  font-size: 8px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 .post-author {
-    position: absolute;
-    left: 110px;
-    top: 17px;
-    width: 56px;
-    height: 20px;
-    font-size: 10px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  left: 110px;
+  top: 17px;
+  width: 56px;
+  height: 20px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .post-time {
-    position: absolute;
-    left: 165px;
-    top: 20px;
-    width: 64px;
-    height: 10px;
-    font-size: 10px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: #a3a3a3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  left: 165px;
+  top: 20px;
+  width: 64px;
+  height: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: #a3a3a3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .post-title {
-    position: absolute;
-    left: 64px;
-    top: 50px;
-    width: 160px;
-    height: 20px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
-    display: flex;
-    align-items: flex-start;
+  position: absolute;
+  left: 64px;
+  top: 50px;
+  width: 160px;
+  height: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
+  display: flex;
+  align-items: flex-start;
 }
 
 .post-content {
-    position: absolute;
-    left: 64px;
-    top: 78px;
-    width: 160px;
-    height: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
-    display: flex;
-    align-items: flex-start;
+  position: absolute;
+  left: 64px;
+  top: 78px;
+  width: 160px;
+  height: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
+  display: flex;
+  align-items: flex-start;
 }
 
 .post-stats {
-    position: absolute;
-    left: 64px;
-    top: 128px;
-    display: flex;
-    gap: 0px; /* Matched Community Layout */
+  position: absolute;
+  left: 64px;
+  top: 128px;
+  display: flex;
+  gap: 0px; /* Matched Community Layout */
 }
 
 /* Stat Items */
 .stat-item {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    width: 80px; /* Fixed width */
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  width: 80px; /* Fixed width */
 }
 
 .stat-item svg {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .stat-number {
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Pretendard';
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
 
-.stat-number.red { color: #FF3737; }
-.stat-number.teal { color: #2EC1C9; }
-.stat-number.gray { color: #a3a3a3; }
+.stat-number.red {
+  color: #ff3737;
+}
+.stat-number.teal {
+  color: #2ec1c9;
+}
+.stat-number.gray {
+  color: #a3a3a3;
+}
