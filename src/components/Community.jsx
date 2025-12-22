@@ -5,9 +5,11 @@ export function Community({ onNavigate }) {
     const [activeTab, setActiveTab] = useState('all');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+    const [sortOrder, setSortOrder] = useState('latest');
+    const [isSortOpen, setIsSortOpen] = useState(false);
 
-    // Generate 25 dummy posts
-    const allPosts = Array.from({ length: 25 }, (_, i) => ({
+    // Generate 50 dummy posts
+    const allPosts = Array.from({ length: 50 }, (_, i) => ({
         id: i + 1,
         emoji: ['🖥️', '👥', '💭'][i % 3],
         category: ['직장생활', '인간관계', '취미/여가'][i % 3],
@@ -36,16 +38,15 @@ export function Community({ onNavigate }) {
 
     return (
         <div className="community-container">
-            {/* Header Tabs */}
-            <div className="community-header">
-                <div className={`tab-item ${activeTab === 'all' ? 'active' : ''}`} onClick={() => setActiveTab('all')}>전체</div>
-                <div className={`tab-item ${activeTab === 'work' ? 'active' : ''}`} onClick={() => setActiveTab('work')}>🖥️ 직장생활</div>
-                <div className={`tab-item ${activeTab === 'relationship' ? 'active' : ''}`} onClick={() => setActiveTab('relationship')}>👥 인간관계</div>
-                <div className={`tab-item ${activeTab === 'hobby' ? 'active' : ''}`} onClick={() => setActiveTab('hobby')}>💭 취미/여가</div>
-            </div>
-
             {/* Scrollable Content */}
             <div className="community-scroll-area">
+                {/* Header Tabs */}
+                <div className="community-header">
+                    <div className={`tab-item ${activeTab === 'all' ? 'active' : ''}`} onClick={() => setActiveTab('all')}>전체</div>
+                    <div className={`tab-item ${activeTab === 'work' ? 'active' : ''}`} onClick={() => setActiveTab('work')}>🖥️ 직장생활</div>
+                    <div className={`tab-item ${activeTab === 'relationship' ? 'active' : ''}`} onClick={() => setActiveTab('relationship')}>👥 인간관계</div>
+                    <div className={`tab-item ${activeTab === 'hobby' ? 'active' : ''}`} onClick={() => setActiveTab('hobby')}>💭 취미/여가</div>
+                </div>
                 {/* Filter & Sort */}
                 <div className="filter-section">
                     <div className="filter-icon" onClick={() => onNavigate('search')} style={{cursor: 'pointer'}}>
@@ -53,15 +54,18 @@ export function Community({ onNavigate }) {
                             <path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     </div>
-                    <div className="sort-dropdown">
-                        <div className="sort-text">최신순</div>
+                    <div className="sort-dropdown" onClick={() => setIsSortOpen(!isSortOpen)}>
+                        <div className="sort-text">{sortOrder === 'latest' ? '최신순' : '인기순'}</div>
+                        {isSortOpen && (
+                            <div className="sort-menu">
+                                <div className="sort-option" onClick={(e) => { e.stopPropagation(); setSortOrder('latest'); setIsSortOpen(false); }}>최신순</div>
+                                <div className="sort-option" onClick={(e) => { e.stopPropagation(); setSortOrder('popular'); setIsSortOpen(false); }}>인기순</div>
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                {/* Start New Card */}
-                <div className="start-new-card" onClick={() => onNavigate('createPost')}>
-                    <div className="start-new-text">새로 시작하기</div>
-                </div>
+
 
                 {/* Post List */}
                 <div className="community-post-list">
