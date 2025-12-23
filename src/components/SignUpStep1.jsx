@@ -50,15 +50,7 @@ export const SignUpStep1 = ({ onNext, onBack, data, setData }) => {
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-
-      <div className="label">이름</div>
-      <InputText
-        text="이름"
-        placeholder="사용할 이름을 입력해주세요"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-
+      
       <div className="label">이메일</div>
       <InputText
         text="이메일"

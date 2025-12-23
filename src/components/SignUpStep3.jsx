@@ -34,13 +34,13 @@ export const SignUpStep3 = ({ onNext, onBack, data, setData }) => {
       const signUpRequest = {
         username: data.username,
         email: data.email,
-        name: data.name,
+        name: "홍길동",
         password: password,
         // [필수] 백엔드 DB 제약조건(nullable=false)을 만족시키기 위한 기본값
-        rank: "미정",
+        rank: "사원",
         // [선택] null이어도 되지만 명시적으로 보냄
-        industry: "미정",
-        careerYears: "신입",
+        industry: "IT",
+        careerYears: "1년",
       };
 
       console.log("최종 전송 데이터:", signUpRequest);
