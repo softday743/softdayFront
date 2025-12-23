@@ -8,37 +8,62 @@ import api from "../api/axiosConfig";
 
 export const SignUpStep3 = ({ onNext, onBack, data, setData }) => {
   const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
 
-  const handleNext = async () => {
-    if (password !== passwordConfirm) {
+  const handleSignup = async () => {
+    // 1. 유효성 검사
+    if (password !== confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    if (password.length < 4) {
+      alert("비밀번호는 4자리 이상이어야 합니다.");
+      return;
+    }
+
+    if (!data.username || !data.email) {
+      alert("가입 정보가 유실되었습니다. 처음부터 다시 진행해주세요.");
       return;
     }
 
     try {
-      // [API] 회원가입 요청
-      // data에는 Step1, Step2에서 입력받은 username, email 등이 들어있어야 함
-      const requestData = {
-        ...data,
+      // 2. 최종 회원가입 요청 데이터 구성
+      // data: App.jsx에서 관리하는 signupData (Step1, Step2의 정보 포함)
+      const signUpRequest = {
+        username: data.username,
+        email: data.email,
+        name: data.name,
         password: password,
+        // [필수] 백엔드 DB 제약조건(nullable=false)을 만족시키기 위한 기본값
+        rank: "미정",
+        // [선택] null이어도 되지만 명시적으로 보냄
+        industry: "미정",
+        careerYears: "신입",
       };
 
-      await api.post("/auth/signup", requestData);
+      console.log("최종 전송 데이터:", signUpRequest);
 
-      alert("회원가입이 완료되었습니다!");
-      onNext(); // 성공 시 다음 단계(완료 화면)로 이동
+      // 3. [API] 회원가입 요청 (DB 저장)
+      const response = await api.post("/auth/signup", signUpRequest);
+
+      // 4. 토큰 저장 (가입 성공 시 자동 로그인 처리)
+      if (response.data && response.data.accessToken) {
+        localStorage.setItem("accessToken", response.data.accessToken);
+      }
+
+      alert("회원가입에 성공했습니다!");
+      onNext(); // 가입 완료 화면(SignUpStep4)으로 이동
     } catch (error) {
       console.error("Signup failed", error);
-      alert("회원가입 중 오류가 발생했습니다.");
+      alert("회원가입 중 문제가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
   return (
     <div className="signup-step3-container">
-      <button className="button-next" onClick={handleNext}>
+      <button className="button-next" onClick={handleSignup}>
         <div className="button-text">회원가입</div>
       </button>
 
@@ -57,9 +82,10 @@ export const SignUpStep3 = ({ onNext, onBack, data, setData }) => {
       <div className="label">비밀번호</div>
       <div className="input-container">
         <InputText
-          className="input-group"
           text="비밀번호"
+          // [수정] 눈 아이콘 상태에 따라 type 변경
           type={showPassword1 ? "text" : "password"}
+          placeholder="비밀번호 입력"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -74,11 +100,12 @@ export const SignUpStep3 = ({ onNext, onBack, data, setData }) => {
 
       <div className="input-container" style={{ marginTop: "15px" }}>
         <InputText
-          className="input-group"
           text="비밀번호 확인"
+          // [수정] 눈 아이콘 상태에 따라 type 변경
           type={showPassword2 ? "text" : "password"}
-          value={passwordConfirm}
-          onChange={(e) => setPasswordConfirm(e.target.value)}
+          placeholder="비밀번호 재입력"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <div
           className="eye-off-icon"

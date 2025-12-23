@@ -68,6 +68,7 @@ function App() {
   const [signupData, setSignupData] = useState({
     username: "",
     email: "",
+    name: "",
     password: "",
     phoneNumber: "010-0000-0000", // 기본값 또는 추가 입력 필요
   });
@@ -194,6 +195,7 @@ function App() {
           )}
           {screen === "signup2" && (
             <SignUpStep2
+              data={signupData}
               onNext={() => setScreen("signup3")}
               onBack={() => setScreen("signup1")}
             />
