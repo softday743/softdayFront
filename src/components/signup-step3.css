@@ -1,94 +1,95 @@
 .signup-step3-container {
-    background-color: #ffffff;
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .signup-step3-container .button-next {
-    all: unset;
-    background-color: #fef3c7; /* amber-100 */
-    border: 1px solid #f59e0b; /* amber-500 */
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 56px;
-    width: 330px;
-    position: absolute;
-    bottom: 48px;
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
+  all: unset;
+  background-color: #fef3c7; /* amber-100 */
+  border: 1px solid #f59e0b; /* amber-500 */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 330px;
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
 }
 
 .signup-step3-container .button-text {
-    color: #000000;
-    font-size: 16px;
-    font-weight: 600;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .signup-step3-container .arrow-left {
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    top: 80px;
-    left: 15px;
-    cursor: pointer;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 80px;
+  left: 15px;
+  cursor: pointer;
 }
 
 .signup-step3-container .icon {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .signup-step3-container .header-text {
-    color: #000000;
-    font-size: 30px;
-    font-weight: 600;
-    position: absolute;
-    top: 123px;
-    left: 32px;
+  color: #000000;
+  font-size: 30px;
+  font-weight: 600;
+  position: absolute;
+  top: 123px;
+  left: 32px;
 }
 
 .signup-step3-container .sub-header {
-    color: #4f4f4f;
-    font-size: 16px;
-    font-weight: 500;
-    position: absolute;
-    top: 174px;
-    left: 34px;
+  color: #4f4f4f;
+  font-size: 16px;
+  font-weight: 500;
+  position: absolute;
+  top: 174px;
+  left: 34px;
 }
 
 .signup-step3-container .label {
-    color: #000000;
-    font-size: 16px;
-    font-weight: 600;
-    position: absolute;
-    top: 234px;
-    left: 34px;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
+  position: absolute;
+  top: 234px;
+  left: 34px;
 }
 
 .signup-step3-container .input-container {
-    position: relative;
-    width: 330px;
-    left: 32px;
-    top: 257px; /* Base top for first input */
+  position: relative;
+  /* width: 330px; */
+  /* left: 32px; */
+  top: 257px; /* Base top for first input */
+  margin: 0 auto;
 }
 
 .signup-step3-container .input-group {
-    width: 100%;
-    margin-left: 0;
-    margin-top: 0;
+  width: 100%;
+  margin-left: 0;
+  margin-top: 0;
 }
 
 .signup-step3-container .eye-off-icon {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }

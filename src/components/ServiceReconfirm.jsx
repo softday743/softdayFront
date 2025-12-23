@@ -1,5 +1,5 @@
-import React from 'react';
-import './notification-permission.css';
+import React from "react";
+import "./notification-permission.css";
 
 export function ServiceReconfirm({ onAllow, onDeny }) {
   return (

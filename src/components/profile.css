@@ -1,155 +1,172 @@
 .profile-container {
-    width: 100%;
-    height: 100%;
-    background-color: #fffbeb; /* amber-50 */
-    position: relative;
-    /* max-width: 384px; Removed strictly fixed max-width */
-    margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-bottom: 200px; /* Space for Bottom Nav */
+  width: 100%;
+  height: 100%;
+  background-color: #fffbeb; /* amber-50 */
+  position: relative;
+  /* max-width: 384px; Removed strictly fixed max-width */
+  margin: 0 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 200px; /* Space for Bottom Nav */
 }
 
 /* User Name */
 .profile-user-name {
-    position: absolute;
-    left: 27px;
-    top: 88px;
-    font-size: 24px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  position: absolute;
+  left: 27px;
+  top: 88px;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 /* Settings Icon */
 .profile-settings-icon {
-    position: absolute;
-    left: 341px;
-    top: 94px;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+  position: absolute;
+  left: 341px;
+  top: 94px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
 
 /* Profile Info Card */
 .profile-info-card {
-    position: absolute;
-    left: 24px; /* Aligned with 'My Posts' start */
-    top: 135px;
-    width: 336px; /* Aligned with 'Contents' end (24+160+16+160 = 360 - 24 = 336) */
-    height: 176px; /* h-44 */
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0px 0px 3px 1px rgba(136,136,136,0.25);
-    border: 1px solid #eab308; /* yellow-500 */
-    overflow: hidden;
+  position: absolute;
+  left: 24px; /* Aligned with 'My Posts' start */
+  top: 135px;
+  width: 336px; /* Aligned with 'Contents' end (24+160+16+160 = 360 - 24 = 336) */
+  height: 176px; /* h-44 */
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
+  border: 1px solid #eab308; /* yellow-500 */
+  overflow: hidden;
 }
 
 .profile-card-title {
-    position: absolute;
-    left: 17px;
-    top: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  position: absolute;
+  left: 17px;
+  top: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 .profile-edit-link {
-    position: absolute;
-    right: 17px; /* 320 - 262 - 48 = ~10px padding from right */
-    top: 149px;
-    font-size: 10px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: #d6d3d1; /* stone-300 */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 2px;
+  position: absolute;
+  right: 17px; /* 320 - 262 - 48 = ~10px padding from right */
+  top: 149px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: #d6d3d1; /* stone-300 */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 /* Tags in Info Card */
 .profile-tag-label {
-    position: absolute;
-    width: 96px; /* w-24 */
-    height: 24px;
-    background: #f9fafb; /* gray-50 */
-    border-radius: 10px;
-    border: 1px solid #d6d3d1; /* stone-300 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 600;
-    color: black;
-    top: 45px;
+  position: absolute;
+  width: 96px; /* w-24 */
+  height: 24px;
+  background: #f9fafb; /* gray-50 */
+  border-radius: 10px;
+  border: 1px solid #d6d3d1; /* stone-300 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: black;
+  top: 45px;
 }
 
 .profile-tag-value {
-    position: absolute;
-    width: 96px; /* w-24 */
-    height: 64px; /* h-16 */
-    background: #fffbeb; /* amber-50 */
-    border-radius: 10px;
-    border: 1px solid #fdba74; /* orange-300 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: black;
-    top: 75px;
+  position: absolute;
+  width: 96px; /* w-24 */
+  height: 64px; /* h-16 */
+  background: #fffbeb; /* amber-50 */
+  border-radius: 10px;
+  border: 1px solid #fdba74; /* orange-300 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  top: 75px;
 }
 
 /* Tag Positioning */
 /* Card width 336px. Item width 96px. 3 Items = 288px. Remaining 48px.
    Space evenly (4 gaps of 12px): 12, 120, 228 */
-.tag-pos-1 { left: 12px; }
-.tag-pos-2 { left: 120px; }
-.tag-pos-3 { left: 228px; }
-
+.tag-pos-1 {
+  left: 12px;
+}
+.tag-pos-2 {
+  left: 120px;
+}
+.tag-pos-3 {
+  left: 228px;
+}
 
 /* Menu Cards Grid */
 .profile-menu-card {
-    position: absolute;
-    width: 160px; /* w-40 */
-    height: 128px; /* h-32 */
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0px 0px 3px 1px rgba(136,136,136,0.25);
-    border: 1px solid #eab308; /* yellow-500 */
-    overflow: hidden;
-    cursor: pointer;
+  position: absolute;
+  width: 160px; /* w-40 */
+  height: 128px; /* h-32 */
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 0px 3px 1px rgba(136, 136, 136, 0.25);
+  border: 1px solid #eab308; /* yellow-500 */
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .profile-menu-title {
-    position: absolute;
-    left: 19px;
-    top: 9px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: black;
+  position: absolute;
+  left: 19px;
+  top: 9px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
 }
 
 .profile-menu-more {
-    position: absolute;
-    left: 91px;
-    top: 107px;
-    font-size: 10px;
-    font-weight: 600;
-    font-family: 'Pretendard';
-    color: #d6d3d1;
-    display: flex;
-    align-items: center;
-    gap: 2px;
+  position: absolute;
+  left: 91px;
+  top: 107px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: #d6d3d1;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 /* Menu Positioning */
 /* Left Column: 24px, Right Column: 200px (gap ~16px) */
 /* Rows: 323px, 472px */
-.menu-pos-1 { left: 24px; top: 323px; } /* My Posts */
-.menu-pos-2 { left: 200px; top: 323px; } /* Contents */
-.menu-pos-3 { left: 24px; top: 472px; } /* Likes */
-.menu-pos-4 { left: 200px; top: 472px; } /* Saved */
+.menu-pos-1 {
+  left: 24px;
+  top: 323px;
+} /* My Posts */
+.menu-pos-2 {
+  left: 200px;
+  top: 323px;
+} /* Contents */
+.menu-pos-3 {
+  left: 24px;
+  top: 472px;
+} /* Likes */
+.menu-pos-4 {
+  left: 200px;
+  top: 472px;
+} /* Saved */

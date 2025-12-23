@@ -1,209 +1,209 @@
 .create-post-container {
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    position: relative;
-    max-width: 384px;
-    margin: 0 auto;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  position: relative;
+  max-width: 384px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 /* Header */
 .cp-screen-header {
-    width: 100%;
-    height: 100px;
-    position: relative;
-    padding-top: 55px; /* Adjust for notch/status bar area */
+  width: 100%;
+  height: 100px;
+  position: relative;
+  padding-top: 55px; /* Adjust for notch/status bar area */
 }
 
 .cp-screen-title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 55px;
-    font-size: 16px;
-    font-weight: 600;
-    color: black;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 55px;
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
 }
 
 .cp-cancel-btn {
-    position: absolute;
-    left: 20px;
-    top: 58px;
-    font-size: 14px;
-    font-weight: 600;
-    color: black;
-    cursor: pointer;
+  position: absolute;
+  left: 20px;
+  top: 58px;
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  cursor: pointer;
 }
 
 .cp-complete-btn {
-    position: absolute;
-    right: 20px;
-    top: 58px;
-    font-size: 14px;
-    font-weight: 600;
-    color: black;
-    cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 58px;
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  cursor: pointer;
 }
 
 /* Content Area */
 .cp-input-area {
-    position: relative;
-    width: 100%;
-    height: calc(100% - 100px - 70px); /* Minus header and bottom bar */
-    padding: 0 25px;
+  position: relative;
+  width: 100%;
+  height: calc(100% - 100px - 70px); /* Minus header and bottom bar */
+  padding: 0 25px;
 }
 
 /* Category Row */
 .cp-category-row {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #d6d3d1; /* outline-stone-300 */
+  position: relative;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #d6d3d1; /* outline-stone-300 */
 }
 
 .cp-category-label {
-    font-size: 14px;
-    font-weight: 600;
-    color: black;
-    margin-right: 20px;
-    width: 60px; /* Fixed width for alignment */
-    text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  margin-right: 20px;
+  width: 60px; /* Fixed width for alignment */
+  text-align: center;
 }
 
 .cp-category-options {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .cp-category-options::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .cp-cat-option {
-    font-size: 14px;
-    font-weight: 600;
-    color: #a3a3a3; /* neutral-400 */
-    white-space: nowrap;
-    cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #a3a3a3; /* neutral-400 */
+  white-space: nowrap;
+  cursor: pointer;
 }
 .cp-cat-option.active {
-    color: black;
+  color: black;
 }
 
 /* Title Input */
 .cp-title-wrapper {
-    position: relative;
-    width: 100%;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #d6d3d1;
+  position: relative;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #d6d3d1;
 }
 
 .cp-title-input {
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-    font-size: 20px;
-    font-weight: 600;
-    color: black;
-    background: transparent;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  font-weight: 600;
+  color: black;
+  background: transparent;
 }
 .cp-title-input::placeholder {
-    color: #a3a3a3;
+  color: #a3a3a3;
 }
 
 /* Content Input */
 .cp-content-wrapper {
-    position: relative;
-    width: 100%;
-    /* Use remaining height or specific height */
-    height: 300px; 
-    margin-top: 20px;
-    border-bottom: 1px solid #d6d3d1;
+  position: relative;
+  width: 100%;
+  /* Use remaining height or specific height */
+  height: 300px;
+  margin-top: 20px;
+  border-bottom: 1px solid #d6d3d1;
 }
 
 .cp-content-input {
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-    resize: none;
-    font-size: 16px;
-    font-weight: 600;
-    color: black;
-    background: transparent;
-    font-family: 'Pretendard', sans-serif;
-    line-height: 1.5;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+  background: transparent;
+  font-family: "Pretendard", sans-serif;
+  line-height: 1.5;
 }
 .cp-content-input::placeholder {
-    color: #a3a3a3;
+  color: #a3a3a3;
 }
 
 /* Char Count */
 .cp-char-count-wrapper {
-    position: absolute;
-    right: 0;
-    bottom: 10px;
-    text-align: right;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  text-align: right;
 }
 
 .cp-char-current {
-    font-size: 12px;
-    font-weight: 600;
-    color: #52525b; /* zinc-600 */
+  font-size: 12px;
+  font-weight: 600;
+  color: #52525b; /* zinc-600 */
 }
 .cp-char-limit {
-    font-size: 12px;
-    font-weight: 600;
-    color: #a3a3a3;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a3a3a3;
 }
 
 /* Error Message */
 .cp-error-msg {
-    position: absolute;
-    left: 20px;
-    top: 419px; /* Absolute based on HTML design roughly */
-    font-size: 12px;
-    font-weight: 600;
-    color: #ef4444; /* red-500 */
+  position: absolute;
+  left: 20px;
+  top: 419px; /* Absolute based on HTML design roughly */
+  font-size: 12px;
+  font-weight: 600;
+  color: #ef4444; /* red-500 */
 }
 
 /* Bottom Toolbar (Anonymous) */
 .cp-bottom-toolbar {
-    position: absolute;
-    bottom: 20px; /* Above keyboard or bottom */
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
+  position: absolute;
+  bottom: 20px; /* Above keyboard or bottom */
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
 }
 
 .cp-check-box {
-    width: 16px;
-    height: 16px;
-    background: #f59e0b; /* amber-500 */
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: #f59e0b; /* amber-500 */
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .cp-check-box.unchecked {
-    background: #d4d4d8;
+  background: #d4d4d8;
 }
 
 .cp-anon-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: #f59e0b;
+  font-size: 12px;
+  font-weight: 700;
+  color: #f59e0b;
 }
 .cp-anon-label.unchecked {
-    color: #a3a3a3;
+  color: #a3a3a3;
 }
