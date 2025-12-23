@@ -1,39 +1,3 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react'
-import { Splash } from './components/Splash'
-import { Onboarding } from './components/Onboarding'
-import { SignUpStep1 } from './components/SignUpStep1'
-import { SignUpStep2 } from './components/SignUpStep2'
-import { SignUpStep3 } from './components/SignUpStep3'
-import { SignUpStep4 } from './components/SignUpStep4'
-import { Login } from './components/Login'
-import { ProfileSetup } from './components/ProfileSetup'
-import { StressSurvey } from './components/StressSurvey'
-import { Calculating } from './components/Calculating'
-import { StressResult } from './components/StressResult'
-import { ContentPreference } from './components/ContentPreference'
-import { SignupComplete } from './components/SignupComplete'
-import { ServiceNotification } from './components/ServiceNotification'
-import { MarketingNotification } from './components/MarketingNotification'
-import { ServiceReconfirm } from './components/ServiceReconfirm'
-import { FindIdEmail } from './components/FindIdEmail'
-import { FindIdVerify } from './components/FindIdVerify'
-import { FindIdResult } from './components/FindIdResult'
-import { FindPwInput } from './components/FindPwInput'
-import { FindPwVerify } from './components/FindPwVerify'
-import { FindPwReset } from './components/FindPwReset'
-import { FindPwComplete } from './components/FindPwComplete'
-import { Home } from './components/Home'
-import { Community } from './components/Community'
-import { PostDetail } from './components/PostDetail'
-import { StressCheckIn } from './components/StressCheckIn'
-import { Search } from './components/Search'
-import { CreatePost } from './components/CreatePost'
-import { Statistics } from './components/Statistics'
-import { Chatbot } from './components/Chatbot'
-import { Profile } from './components/Profile'
-import { Notification } from './components/Notification'
-=======
 import React, { useState } from "react";
 import { Splash } from "./components/Splash";
 import { Onboarding } from "./components/Onboarding";
@@ -68,7 +32,6 @@ import { Statistics } from "./components/Statistics";
 import { Chatbot } from "./components/Chatbot";
 import { Profile } from "./components/Profile";
 import { Notification } from "./components/Notification";
->>>>>>> 8be0a47e7bdcfa7523177dc355298e09f326bab7
 
 import { MainLayout } from "./components/MainLayout";
 import { StorePopup } from "./components/StorePopup";
@@ -100,37 +63,7 @@ function App() {
   const [userName, setUserName] = useState("");
   const [hasCheckedIn, setHasCheckedIn] = useState(false);
   const [showStorePopup, setShowStorePopup] = useState(false);
-  const [scale, setScale] = useState(1);
 
-<<<<<<< HEAD
-  // Responsive Scaling Logic
-  useEffect(() => {
-    const handleResize = () => {
-      // Don't scale on mobile devices (width <= 768px) where we show full screen
-      if (window.innerWidth <= 768) {
-        setScale(1);
-        return;
-      }
-
-      // Calculate scale to fit 393x852 into available space with padding
-      // Available height is window height minus some padding (e.g. 40px)
-      const targetHeight = 852;
-      const availableHeight = window.innerHeight - 60; // 30px padding top/bottom
-      
-      // Calculate scale
-      let newScale = availableHeight / targetHeight;
-      
-      // Max scale 1 (don't upscale), Min scale 0.5 (don't get too tiny)
-      newScale = Math.min(Math.max(newScale, 0.5), 1);
-      
-      setScale(newScale);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Initial calculation
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-=======
   // [추가] 회원가입 데이터를 단계별로 저장할 상태
   const [signupData, setSignupData] = useState({
     username: "",
@@ -147,7 +80,6 @@ function App() {
   };
 
   // Styles moved to landing.css
->>>>>>> 8be0a47e7bdcfa7523177dc355298e09f326bab7
 
   return (
     <div className="landing-container">
@@ -180,61 +112,6 @@ function App() {
         </div>
       </div>
 
-<<<<<<< HEAD
-       <div className="landing-right">
-          <div className="mobile-frame-wrapper" style={{ transform: `scale(${scale})` }}>
-      {screen === 'splash' && (
-        <Splash onClick={() => setScreen('onboarding')} />
-      )}
-      {screen === 'onboarding' && (
-        <Onboarding 
-            onSignUp={() => setScreen('signup1')} 
-            onLogin={() => setScreen('login')}
-            onLookAround={() => setScreen('home')}
-        />
-      )}
-      {screen === 'home' && (
-        <MainLayout active="home" onNavigate={setScreen}>
-            <Home onNavigate={setScreen} userName={userName} hasCheckedIn={hasCheckedIn} />
-        </MainLayout>
-      )}
-      {screen === 'chatbot' && (
-        <MainLayout active="chatbot" onNavigate={setScreen}>
-            <Chatbot onNavigate={setScreen} />
-        </MainLayout>
-      )}
-      {screen === 'folder' && (
-        <MainLayout active="folder" onNavigate={setScreen}>
-            <Statistics hasCheckedIn={hasCheckedIn} onNavigate={setScreen} />
-        </MainLayout>
-      )}
-      {screen === 'profile' && (
-        <MainLayout active="profile" onNavigate={setScreen}>
-            <Profile onNavigate={setScreen} />
-        </MainLayout>
-      )}
-      {screen === 'community' && (
-        <MainLayout active="community" onNavigate={setScreen}>
-            <Community onNavigate={setScreen} />
-        </MainLayout>
-      )}
-      {screen === 'postDetail' && (
-        <PostDetail onBack={() => setScreen('community')} />
-      )}
-      {screen === 'search' && (
-        <Search onNavigate={setScreen} />
-      )}
-      {screen === 'createPost' && (
-        <CreatePost onNavigate={setScreen} />
-      )}
-      {screen === 'notification' && (
-        <Notification onBack={() => setScreen('home')} />
-      )}
-      {screen === 'stressCheckIn' && (
-        <StressCheckIn 
-            onBack={() => setScreen('home')} 
-            onComplete={() => {
-=======
       <div className="landing-right">
         <div className="mobile-frame-wrapper">
           {screen === "splash" && (
@@ -294,7 +171,6 @@ function App() {
             <StressCheckIn
               onBack={() => setScreen("home")}
               onComplete={() => {
->>>>>>> 8be0a47e7bdcfa7523177dc355298e09f326bab7
                 setHasCheckedIn(true);
                 setScreen("home");
               }}

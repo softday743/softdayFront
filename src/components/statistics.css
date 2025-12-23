@@ -39,7 +39,6 @@
 }
 
 .stat-header-title {
-<<<<<<< HEAD
     font-family: var(--pre-semi-14-font-family);
     font-size: var(--pre-semi-14-font-size);
     font-weight: var(--pre-semi-14-font-weight);
@@ -47,12 +46,12 @@
 }
 
 .stat-header-sub {
-    font-family: var(--pre-semi-16-font-family);
-    font-size: var(--pre-semi-16-font-size);
-    font-weight: var(--pre-semi-16-font-weight);
-    color: black;
-    margin-top: 50px;
-    margin-left: 22px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Pretendard";
+  color: black;
+  margin-top: 50px; /* Gap logic preserved */
+  margin-left: 22px; /* Adjusted alignment */
 }
 
 /* Date Controls */
