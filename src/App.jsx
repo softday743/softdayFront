@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Splash } from './components/Splash'
 import { Onboarding } from './components/Onboarding'
 import { SignUpStep1 } from './components/SignUpStep1'
@@ -48,8 +48,35 @@ function App() {
   const [userName, setUserName] = useState('');
   const [hasCheckedIn, setHasCheckedIn] = useState(false);
   const [showStorePopup, setShowStorePopup] = useState(false);
+  const [scale, setScale] = useState(1);
 
-  // Styles moved to landing.css
+  // Responsive Scaling Logic
+  useEffect(() => {
+    const handleResize = () => {
+      // Don't scale on mobile devices (width <= 768px) where we show full screen
+      if (window.innerWidth <= 768) {
+        setScale(1);
+        return;
+      }
+
+      // Calculate scale to fit 393x852 into available space with padding
+      // Available height is window height minus some padding (e.g. 40px)
+      const targetHeight = 852;
+      const availableHeight = window.innerHeight - 60; // 30px padding top/bottom
+      
+      // Calculate scale
+      let newScale = availableHeight / targetHeight;
+      
+      // Max scale 1 (don't upscale), Min scale 0.5 (don't get too tiny)
+      newScale = Math.min(Math.max(newScale, 0.5), 1);
+      
+      setScale(newScale);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial calculation
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div className="landing-container">
@@ -79,7 +106,7 @@ function App() {
        </div>
 
        <div className="landing-right">
-          <div className="mobile-frame-wrapper">
+          <div className="mobile-frame-wrapper" style={{ transform: `scale(${scale})` }}>
       {screen === 'splash' && (
         <Splash onClick={() => setScreen('onboarding')} />
       )}
