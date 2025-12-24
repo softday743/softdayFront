@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./profile.css";
 import { ProfileEdit } from "./ProfileEdit";
 import { ProfileMyActivity } from "./ProfileMyActivity";
@@ -11,10 +11,10 @@ import api from "../api/axiosConfig";
 export function Profile({ onNavigate }) {
   const [view, setView] = useState("main"); // 'main' | 'edit' | 'myPosts' | 'contentPreference' | 'liked' | 'saved' | 'settings'
   const [formData, setFormData] = useState({
-    name: "",
-    job: "",
-    year: "",
-    industry: "",
+    name: "김소프트",
+    job: "서비스 기획자",
+    year: "3년차",
+    industry: "IT/플랫폼",
   });
 
   // // Main View Data (Using dummy data for now)
@@ -40,7 +40,9 @@ export function Profile({ onNavigate }) {
     const fetchProfile = async () => {
       try {
         const response = await api.get("/user/me");
-        setFormData(response.data);
+        if (response.data && response.data.name) {
+          setFormData(response.data);
+        }
       } catch (error) {
         console.error("Failed to fetch profile", error);
       }

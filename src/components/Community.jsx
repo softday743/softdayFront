@@ -47,6 +47,7 @@ export function Community({ onNavigate, onPostClick }) {
         setPosts(response.data.content || response.data); // Page 객체일 경우 content 사용
       } catch (error) {
         console.error("Failed to fetch posts", error);
+        setPosts(allPosts); // Fallback to dummy data
       } finally {
         setLoading(false);
       }
@@ -56,37 +57,36 @@ export function Community({ onNavigate, onPostClick }) {
 
   return (
     <div className="community-container">
+      {/* Header Tabs - Fixed at Top */}
+      <div className="community-header">
+        <div
+          className={`tab-item ${activeTab === "all" ? "active" : ""}`}
+          onClick={() => setActiveTab("all")}
+        >
+          전체
+        </div>
+        <div
+          className={`tab-item ${activeTab === "work" ? "active" : ""}`}
+          onClick={() => setActiveTab("work")}
+        >
+          🖥️ 직장생활
+        </div>
+        <div
+          className={`tab-item ${activeTab === "relationship" ? "active" : ""}`}
+          onClick={() => setActiveTab("relationship")}
+        >
+          👥 인간관계
+        </div>
+        <div
+          className={`tab-item ${activeTab === "hobby" ? "active" : ""}`}
+          onClick={() => setActiveTab("hobby")}
+        >
+          💭 취미/여가
+        </div>
+      </div>
+
       {/* Scrollable Content */}
       <div className="community-scroll-area">
-        {/* Header Tabs */}
-        <div className="community-header">
-          <div
-            className={`tab-item ${activeTab === "all" ? "active" : ""}`}
-            onClick={() => setActiveTab("all")}
-          >
-            전체
-          </div>
-          <div
-            className={`tab-item ${activeTab === "work" ? "active" : ""}`}
-            onClick={() => setActiveTab("work")}
-          >
-            🖥️ 직장생활
-          </div>
-          <div
-            className={`tab-item ${
-              activeTab === "relationship" ? "active" : ""
-            }`}
-            onClick={() => setActiveTab("relationship")}
-          >
-            👥 인간관계
-          </div>
-          <div
-            className={`tab-item ${activeTab === "hobby" ? "active" : ""}`}
-            onClick={() => setActiveTab("hobby")}
-          >
-            💭 취미/여가
-          </div>
-        </div>
         {/* Filter & Sort */}
         <div className="filter-section">
           <div
@@ -173,7 +173,22 @@ export function Community({ onNavigate, onPostClick }) {
                         stroke="#FFB200"
                       />
                     </svg>
-                    <div className="cp-emoji">{post.emoji}</div>
+                    <div className="cp-emoji" style={{ fontSize: "14px" }}>
+                      {(post.category &&
+                        (post.category.includes("직장") ||
+                          post.category === "WORK"))
+                        ? "🖥️"
+                        : (post.category &&
+                            (post.category.includes("인간") ||
+                              post.category === "RELATIONSHIP"))
+                        ? "👥"
+                        : (post.category &&
+                            (post.category.includes("취미") ||
+                              post.category.includes("여가") ||
+                              post.category === "HOBBY"))
+                        ? "💭"
+                        : post.emoji}
+                    </div>
                   </div>
                   <div className="cp-category-badge">
                     <div className="cp-category-text">{post.category}</div>

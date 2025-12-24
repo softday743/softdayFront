@@ -83,31 +83,33 @@ export function Home({
 
         {/* Post Cards */}
         <div className="post-card">
-          <div className="post-header">
-            <div className="post-avatar">
-              <svg
-                width="29"
-                height="29"
-                viewBox="0 0 29 29"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="14.5"
-                  cy="14.5"
-                  r="14"
-                  fill="#FFF9EA"
-                  stroke="#FFB200"
-                />
-              </svg>
-              <div className="post-emoji">🖥️</div>
+            <div className="post-header">
+              <div className="post-avatar">
+                <svg
+                  width="29"
+                  height="29"
+                  viewBox="0 0 29 29"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="14.5"
+                    cy="14.5"
+                    r="14"
+                    fill="#FFF9EA"
+                    stroke="#FFB200"
+                  />
+                </svg>
+                <div className="post-emoji" style={{ fontSize: "14px" }}>
+                  🖥️
+                </div>
+              </div>
+              <div className="post-category-badge">
+                <div className="post-category-text">직장생활</div>
+              </div>
+              <div className="post-author">작성자 정보</div>
+              <div className="post-time">6시간</div>
             </div>
-            <div className="post-category-badge">
-              <div className="post-category-text">직장생활</div>
-            </div>
-            <div className="post-author">작성자 정보</div>
-            <div className="post-time">6시간</div>
-          </div>
           <div className="post-title">제목</div>
           <div className="post-content">내용</div>
           <div className="post-stats">

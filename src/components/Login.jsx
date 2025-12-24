@@ -9,7 +9,7 @@ export const Login = ({ onBack, onFindId, onFindPw, onLogin }) => {
   const [password, setPassword] = useState("");
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
-  const isValid = id.length > 0 && password.length > 0;
+  const isValid = email.length > 0 && password.length > 0;
 
   const handleLogin = async () => {
     if (!isValid) return;
