@@ -1,0 +1,79 @@
+.guest-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.guest-popup-overlay.internal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+.guest-popup-container {
+  width: 300px;
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.guest-popup-message {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.guest-popup-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.guest-popup-btn {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.guest-popup-btn:active {
+  opacity: 0.8;
+}
+
+.guest-popup-btn.cancel {
+  background-color: #F0F0F0;
+  color: #666;
+}
+
+.guest-popup-btn.login {
+  background-color: #FD9800;
+  color: #fff;
+}

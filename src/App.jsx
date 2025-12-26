@@ -322,7 +322,7 @@ function App() {
                  if(tab === 'folder') navigate('/statistics');
                  else navigate('/' + tab);
               }}>
-                <Statistics hasCheckedIn={hasCheckedIn} onNavigate={(path) => navigate('/' + path)} />
+                <Statistics hasCheckedIn={hasCheckedIn} userName={userName} onNavigate={(path) => navigate('/' + path)} />
               </MainLayout>
             } />
 
@@ -343,6 +343,7 @@ function App() {
                 <Community
                   onNavigate={(path) => navigate('/' + path)}
                   onPostClick={(id) => navigate(`/community/post/${id}`)}
+                  userName={userName}
                 />
               </MainLayout>
             } />
@@ -354,12 +355,12 @@ function App() {
                  if(tab === 'folder') navigate('/statistics');
                  else navigate('/' + tab);
               }}>
-                <Profile onNavigate={(path) => navigate('/' + path)} />
+                <Profile onNavigate={(path) => navigate('/' + path)} userName={userName} />
               </MainLayout>
             } />
             
             {/* Other Authenticated Pages */}
-            <Route path="/search" element={<Search onNavigate={(path) => navigate('/' + path)} />} />
+            <Route path="/search" element={<Search onNavigate={(path) => navigate('/' + path)} userName={userName} />} />
             <Route path="/create-post" element={<CreatePost onNavigate={(path) => {
                  if (path === 'community') navigate('/community');
                  else navigate('/' + path); // fallback
