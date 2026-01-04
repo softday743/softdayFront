@@ -220,6 +220,11 @@
   height: 38px;
   flex-shrink: 0;
   margin-right: 4px; /* Small extra gap to Author? */
+  border-radius: 50%;
+}
+
+.pd-avatar-circle svg {
+  display: block;
 }
 
 /* Avatar Emoji styles are inline in JSX */
@@ -300,6 +305,7 @@
   color: #a3a3a3;
 }
 
+/* Action Bar */
 .pd-action-bar {
   position: relative;
   margin: 24px 24px 0; /* Responsive margins */
@@ -318,6 +324,7 @@
   align-items: center;
   gap: 5px;
   cursor: pointer;
+  user-select: none;
 }
 
 .pd-action-text {
@@ -326,28 +333,78 @@
   color: #a3a3a3;
 }
 
-.pd-empty-comment-icon {
+.pd-action-text.active-red {
+  color: #ef4444;
+}
+
+.pd-action-text.active-yellow {
+  color: #f59e0b;
+}
+
+/* Comment Section */
+.pd-comment-section {
   position: relative;
-  margin: 60px auto 10px; /* Center horizontally */
+  margin: 24px 24px 40px;
+}
+
+.pd-comment-list {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pd-comment-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f4f4f5;
+}
+
+.pd-comment-author {
+  font-size: 12px;
+  font-weight: 700;
+  color: black;
+}
+
+.pd-comment-content {
+  font-size: 14px;
+  font-weight: 400;
+  color: #374151; /* gray-700 */
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.pd-comment-time {
+  font-size: 10px;
+  font-weight: 400;
+  color: #a1a1aa; /* zinc-400 */
+}
+
+/* Empty State */
+.pd-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  width: 100%;
-  left: auto;
-  top: auto;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+/* Re-use empty icon/text styles if needed or simplify */
+
+.pd-empty-comment-icon {
+  margin-bottom: 10px;
 }
 
 .pd-empty-comment-text {
-  position: relative;
-  margin: 0 auto 40px;
-  text-align: center;
-  width: 100%;
   font-size: 12px;
   font-weight: 600;
   color: #a3a3a3;
-  left: auto;
-  top: auto;
+  text-align: center;
 }
 
+/* Input Area */
 .pd-comment-input-container {
   position: absolute;
   bottom: 20px;
@@ -363,6 +420,7 @@
   display: flex;
   align-items: center;
   padding: 0 15px;
+  z-index: 50;
 }
 .pd-checkbox {
   width: 16px;
@@ -372,12 +430,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .pd-anonymous-text {
   margin-left: 6px;
   font-size: 12px;
   font-weight: 700;
   color: #f59e0b;
+  flex-shrink: 0;
 }
 .pd-input-placeholder {
   flex: 1;
@@ -386,6 +446,10 @@
   margin-left: 10px;
   font-size: 12px;
   font-weight: 600;
+  color: #525252;
+  background: transparent;
+}
+.pd-input-placeholder::placeholder {
   color: #a3a3a3;
 }
 .pd-submit-btn {
@@ -397,9 +461,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 .pd-submit-text {
   font-size: 10px;
   font-weight: 600;
   color: black;
+}
+.pd-submit-btn:active {
+  background: #e5e5e5;
+}
+
+/* Confirm Buttons */
+.pd-confirm-btn.confirm {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
 }

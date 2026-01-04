@@ -1,6 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./home.css";
 import { GuestLoginPopup } from "./GuestLoginPopup";
+
+const MESSAGES = [
+  "작은 성취가 모여 큰 성공을 만듭니다.",
+  "오늘도 수고한 당신, 푹 쉬세요.",
+  "긍정적인 마인드가 좋은 결과를 가져옵니다.",
+  "힘든 순간도 결국 지나갑니다.",
+  "당신은 충분히 잘하고 있어요.",
+  "나 자신을 믿으세요. 당신은 할 수 있습니다.",
+  "오늘 흘린 땀이 내일의 기쁨이 됩니다."
+];
+
+const getKSTDate = () => {
+  const now = new Date();
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const kstGap = 9 * 60 * 60 * 1000;
+  const kstDate = new Date(utc + kstGap);
+  return kstDate;
+};
+
+const getFormattedDate = () => {
+  const date = getKSTDate();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const weekDays = ["일", "월", "화", "수", "목", "금", "토"];
+  const dayOfWeek = weekDays[date.getDay()];
+  return `${month}월 ${day}일(${dayOfWeek})`;
+};
+
+const getDailyMessage = () => {
+  const date = getKSTDate();
+  const dayStr = `${date.getFullYear()}${date.getMonth()}${date.getDate()}`;
+  let hash = 0;
+  for (let i = 0; i < dayStr.length; i++) {
+    hash = ((hash << 5) - hash) + dayStr.charCodeAt(i);
+    hash |= 0;
+  }
+  const index = Math.abs(hash) % MESSAGES.length;
+  return MESSAGES[index];
+};
+
+const MOCK_POPULAR_POST = {
+  id: 1,
+  category: "직장생활",
+  emoji: "🖥️",
+  author: "김철수",
+  time: "2시간 전",
+  title: "오늘 점심 메뉴 추천받아요",
+  content: "회사 근처에 맛집이 없어서 고민이네요. 다들 뭐 드시나요? 추천 부탁드립니다!",
+  likes: 24,
+  comments: 12,
+};
 
 export function Home({
   onNavigate,
@@ -8,15 +59,9 @@ export function Home({
   hasCheckedIn = false,
 }) {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-
-  // Check if user is actually logged in (if userName is "사용자" or empty, treat as guest?)
-  // App.jsx passes `userName={userName || "사용자"}` for calculating, but for Home it passes `userName={userName}`.
-  // In App.jsx `const [userName, setUserName] = useState("");`
-  // So if guest, userName is "".
-  // But Home received `userName` prop.
-  // Wait, looking at Home.jsx original code:
-  // `userName ? ... : "로그인을 해주세요"`
-  // So if userName is falsy, it is guest.
+  
+  // Placeholder for notification state
+  const hasUnreadNotifications = false;
 
   const isGuest = !userName;
 
@@ -27,6 +72,9 @@ export function Home({
       action();
     }
   };
+
+  const todayDate = getFormattedDate();
+  const dailyMessage = getDailyMessage();
 
   return (
     <div className="home-container">
@@ -57,7 +105,7 @@ export function Home({
                 strokeLinejoin="round"
               />
             </svg>
-            <div className="bell-dot"></div>
+            {hasUnreadNotifications && <div className="bell-dot"></div>}
           </div>
         </div>
 
@@ -71,15 +119,17 @@ export function Home({
         {!hasCheckedIn ? (
           <div
             className="stress-checkin-card"
-            onClick={() => handleRestrictedClick(() => onNavigate && onNavigate("stressCheckIn"))}
+            onClick={() => handleRestrictedClick(() => onNavigate && onNavigate("stress-checkin"))}
           >
-            <div className="checkin-date">12월 9일(화)</div>
+            <div className="checkin-date">{todayDate}</div>
             <div className="checkin-emoji">☺️</div>
             <div className="checkin-link">오늘의 기분을 기록해 볼까요?</div>
           </div>
         ) : (
-          <div className="stress-result-card">
-            <div className="result-date">12월 9일(화)</div>
+          <div className="stress-result-card" 
+               onClick={() => handleRestrictedClick(() => onNavigate && onNavigate("stress-checkin-stats"))}
+               style={{cursor: 'pointer'}}>
+            <div className="result-date">{todayDate}</div>
             <div className="result-emoji">😐</div>
             <div className="result-info">
               <div className="result-score">3점</div>
@@ -95,7 +145,7 @@ export function Home({
         </div>
 
         <div className="message-card">
-          <div className="message-text">" 메시지 문구"</div>
+          <div className="message-text">" {dailyMessage} "</div>
         </div>
 
         {/* Popular Posts Section */}
@@ -104,7 +154,7 @@ export function Home({
         </div>
         <div 
           className="more-link" 
-          onClick={() => onNavigate && onNavigate("community?sort=latest")}
+          onClick={() => onNavigate && onNavigate("community")}
           style={{ cursor: "pointer" }}
         >
           더보기
@@ -113,7 +163,7 @@ export function Home({
         {/* Post Cards */}
         <div 
           className="post-card" 
-          onClick={() => onNavigate && onNavigate("community?sort=popular")}
+          onClick={() => onNavigate && onNavigate(`community/post/${MOCK_POPULAR_POST.id}`)}
           style={{ cursor: "pointer" }}
         >
             <div className="post-header">
@@ -134,17 +184,17 @@ export function Home({
                   />
                 </svg>
                 <div className="post-emoji" style={{ fontSize: "14px" }}>
-                  🖥️
+                  {MOCK_POPULAR_POST.emoji}
                 </div>
               </div>
               <div className="post-category-badge">
-                <div className="post-category-text">직장생활</div>
+                <div className="post-category-text">{MOCK_POPULAR_POST.category}</div>
               </div>
-              <div className="post-author">작성자 정보</div>
-              <div className="post-time">6시간</div>
+              <div className="post-author">{MOCK_POPULAR_POST.author}</div>
+              <div className="post-time">{MOCK_POPULAR_POST.time}</div>
             </div>
-          <div className="post-title">제목</div>
-          <div className="post-content">내용</div>
+          <div className="post-title">{MOCK_POPULAR_POST.title}</div>
+          <div className="post-content">{MOCK_POPULAR_POST.content}</div>
           <div className="post-stats">
             <div className="stat-item">
               <svg
@@ -162,8 +212,9 @@ export function Home({
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="stat-number red">24</span>
+              <span className="stat-number red">{MOCK_POPULAR_POST.likes}</span>
             </div>
+            {/* Comment Icon (Using existing Teal one from previous code but might want specific icon if needed) */}
             <div className="stat-item">
               <svg
                 width="18"
@@ -180,8 +231,9 @@ export function Home({
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="stat-number teal">24</span>
+              <span className="stat-number teal">{MOCK_POPULAR_POST.comments}</span>
             </div>
+            {/* View Icon - keeping it if it was there or maybe standardizing */}
             <div className="stat-item">
               <svg
                 width="18"

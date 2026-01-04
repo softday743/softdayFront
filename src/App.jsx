@@ -46,10 +46,10 @@ import badgeAppStore from "./assets/badge_appstore.png";
 import badgeGooglePlay from "./assets/badge_googleplay.png";
 
 // Wrapper for PostDetail to handle useParams
-function PostDetailRoute() {
+function PostDetailRoute({ userName }) {
   const { postId } = useParams();
   const navigate = useNavigate();
-  return <PostDetail postId={postId} onBack={() => navigate("/community")} />;
+  return <PostDetail postId={postId} userName={userName} onBack={() => navigate("/community")} />;
 }
 
 // Wrapper for initial redirect logic
@@ -348,7 +348,7 @@ function App() {
               </MainLayout>
             } />
             
-            <Route path="/community/post/:postId" element={<PostDetailRoute />} />
+            <Route path="/community/post/:postId" element={<PostDetailRoute userName={userName} />} />
 
             <Route path="/profile" element={
               <MainLayout active="profile" onNavigate={(tab) => {

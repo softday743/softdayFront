@@ -10,7 +10,7 @@ export function Community({ onNavigate, onPostClick, userName }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 20;
   const [sortOrder, setSortOrder] = useState("latest");
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
@@ -41,18 +41,47 @@ export function Community({ onNavigate, onPostClick, userName }) {
     title: `게시글 제목 ${i + 1}`,
     content: `게시글 내용 ${i + 1}입니다.`,
     author: "작성자 정보",
-    time: "시간(ex, n분 전)",
-    likes: i % 5,
+    time: "시간(ex, n분 전)", // Keep for fallback if needed
+    createdAt: new Date(Date.now() - i * 10000000).toISOString(), // Generate varied dates
+    likes: (i * 7) % 100, // Varied likes for popular text
     comments: i % 3,
     views: "조회수",
     hasLikes: i % 5 > 0,
   }));
 
+  // Filtering & Sorting Logic
+  const filteredPosts = posts
+    .filter((post) => {
+      if (activeTab === "all") return true;
+      if (activeTab === "work")
+        return (
+          post.category?.includes("직장") || post.category === "WORK"
+        );
+      if (activeTab === "relationship")
+        return (
+          post.category?.includes("인간") || post.category === "RELATIONSHIP"
+        );
+      if (activeTab === "hobby")
+        return (
+          post.category?.includes("취미") ||
+          post.category?.includes("여가") ||
+          post.category === "HOBBY"
+        );
+      return true;
+    })
+    .sort((a, b) => {
+      if (sortOrder === "popular") {
+        return b.likes - a.likes; // Descending likes
+      }
+      // Default: Latest (Descending ID)
+      return b.id - a.id;
+    });
+
   // Pagination Logic
   const indexOfLastPost = currentPage * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
-  const currentPosts = allPosts.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(allPosts.length / itemsPerPage);
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -66,7 +95,13 @@ export function Community({ onNavigate, onPostClick, userName }) {
     const fetchPosts = async () => {
       try {
         const response = await api.get("/board"); // 백엔드 목록 조회 API
-        setPosts(response.data.content || response.data); // Page 객체일 경우 content 사용
+        const data = response.data.content || response.data;
+        if (Array.isArray(data) && data.length > 0) {
+            setPosts(data);
+        } else {
+            // API returned empty list, use dummy data for preview
+            setPosts(allPosts);
+        }
       } catch (error) {
         console.error("Failed to fetch posts", error);
         setPosts(allPosts); // Fallback to dummy data
@@ -182,7 +217,7 @@ export function Community({ onNavigate, onPostClick, userName }) {
           {loading ? (
             <div>Loading...</div>
           ) : (
-            posts.map((post) => (
+            currentPosts.map((post) => (
               <div
                 key={post.id}
                 className="community-post-card"

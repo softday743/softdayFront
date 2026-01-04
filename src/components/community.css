@@ -173,13 +173,16 @@
 /* Post Card */
 .community-post-card {
   width: 90%;
-  height: 160px;
   margin: 0 auto; /* Center it */
   background: white;
   border-radius: 10px;
   border: 0.5px solid #d4d4d4;
   position: relative;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
+  min-height: 160px;
 }
 
 .cp-header {
@@ -189,6 +192,7 @@
   display: flex;
   align-items: center;
   gap: 8px; /* Spacing between header items */
+  flex-shrink: 0;
 }
 
 .cp-avatar {
@@ -216,8 +220,6 @@
 }
 
 .cp-category-badge {
-  /* position: absolute; removed */
-  /* top/left removed */
   width: auto; /* Allow auto width based on content */
   min-width: 44px;
   height: 14px;
@@ -240,7 +242,6 @@
 }
 
 .cp-author {
-  /* position: absolute; removed */
   font-size: 10px;
   font-weight: 600;
   font-family: "Pretendard";
@@ -249,7 +250,6 @@
 }
 
 .cp-time {
-  /* position: absolute; removed */
   font-size: 10px;
   font-weight: 600;
   font-family: "Pretendard";
@@ -259,37 +259,29 @@
 }
 
 .cp-title {
-  position: absolute;
-  left: 64px;
-  top: 50px;
-  width: 160px;
-  height: 20px;
+  margin: 10px 20px 0 64px;
   font-size: 16px;
   font-weight: 600;
   font-family: "Pretendard";
   color: black;
-  display: flex;
-  align-items: flex-start;
+  line-height: 1.4;
 }
 
 .cp-content {
-  position: absolute;
-  left: 64px;
-  top: 78px;
-  width: 160px;
-  height: 20px;
+  margin: 4px 20px 0 64px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   font-family: "Pretendard";
-  color: black;
-  display: flex;
-  align-items: flex-start;
+  color: #525252;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .cp-footer {
-  position: absolute;
-  left: 64px;
-  top: 128px;
+  margin: 12px 0 0 64px;
   display: flex;
   gap: 0px;
 }
