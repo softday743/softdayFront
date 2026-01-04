@@ -198,7 +198,7 @@ function App() {
 
             <Route path="/survey" element={
               <StressSurvey
-                onNext={() => navigate("/calculating")}
+                onNext={(score) => navigate("/calculating", { state: { score } })}
                 onBack={() => {
                   setHasCheckedIn(true);
                   navigate("/home");
@@ -209,7 +209,7 @@ function App() {
             <Route path="/calculating" element={
               <Calculating
                 userName={userName || "사용자"}
-                onFinished={() => navigate("/result")}
+                onFinished={(score) => navigate("/result", { state: { score } })}
               />
             } />
 
@@ -239,15 +239,15 @@ function App() {
 
             <Route path="/service-auth" element={
               <ServiceNotification
-                onAllow={() => navigate("/marketing-auth")}
+                onAllow={() => navigate("/marketing-auth", { state: { general: true } })}
                 onDeny={() => navigate("/service-reconfirm")}
               />
             } />
 
             <Route path="/service-reconfirm" element={
               <ServiceReconfirm
-                onAllow={() => navigate("/marketing-auth")}
-                onDeny={() => navigate("/marketing-auth")}
+                onAllow={() => navigate("/marketing-auth", { state: { general: true } })}
+                onDeny={() => navigate("/marketing-auth", { state: { general: false } })}
               />
             } />
 

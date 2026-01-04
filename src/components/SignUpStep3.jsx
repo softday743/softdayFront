@@ -18,8 +18,14 @@ export const SignUpStep3 = ({ onNext, onBack, data, setData }) => {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-    if (password.length < 4) {
-      alert("비밀번호는 4자리 이상이어야 합니다.");
+    
+    // "8~16자, 영문 대/소문자, 숫자, 특수문자 포함"
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+    
+    // Note: Regex can be strict. If user struggles, simplified check:
+    // This regex enforces at least one lower, one upper, one digit, one special.
+    if (!passwordRegex.test(password)) {
+      alert("비밀번호는 8~16자, 영문 대/소문자, 숫자, 특수문자를 포함해야 합니다.");
       return;
     }
 
@@ -30,17 +36,10 @@ export const SignUpStep3 = ({ onNext, onBack, data, setData }) => {
 
     try {
       // 2. 최종 회원가입 요청 데이터 구성
-      // data: App.jsx에서 관리하는 signupData (Step1, Step2의 정보 포함)
       const signUpRequest = {
         username: data.username,
         email: data.email,
-        name: "홍길동",
         password: password,
-        // [필수] 백엔드 DB 제약조건(nullable=false)을 만족시키기 위한 기본값
-        rank: "사원",
-        // [선택] null이어도 되지만 명시적으로 보냄
-        industry: "IT",
-        careerYears: "1년",
       };
 
       console.log("최종 전송 데이터:", signUpRequest);
@@ -51,13 +50,17 @@ export const SignUpStep3 = ({ onNext, onBack, data, setData }) => {
       // 4. 토큰 저장 (가입 성공 시 자동 로그인 처리)
       if (response.data && response.data.accessToken) {
         localStorage.setItem("accessToken", response.data.accessToken);
+        // refreshToken이 있다면 저장
+        if(response.data.refreshToken) {
+            localStorage.setItem("refreshToken", response.data.refreshToken);
+        }
       }
 
       alert("회원가입에 성공했습니다!");
       onNext(); // 가입 완료 화면(SignUpStep4)으로 이동
     } catch (error) {
       console.error("Signup failed", error);
-      alert("회원가입 중 문제가 발생했습니다. 다시 시도해주세요.");
+      alert("회원가입 중 문제가 발생했습니다. (조건: 아이디 중복 등)");
     }
   };
 
