@@ -9,10 +9,18 @@ export const Login = ({ onBack, onFindId, onFindPw, onLogin }) => {
   const [password, setPassword] = useState("");
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
-  const isValid = id.length > 0 && password.length > 0;
+  const isValid = email.length > 0 && password.length > 0;
 
   const handleLogin = async () => {
     if (!isValid) return;
+
+    // Test Credential Check
+    if (email === "test@test.com" && password === "1234") {
+      localStorage.setItem("accessToken", "dummy-test-token");
+      alert("테스트 계정으로 로그인되었습니다.");
+      if (onLogin) onLogin("테스트유저");
+      return;
+    }
 
     try {
       // [API] 로그인 요청

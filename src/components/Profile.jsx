@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./profile.css";
 import { ProfileEdit } from "./ProfileEdit";
 import { ProfileMyActivity } from "./ProfileMyActivity";
@@ -7,23 +7,27 @@ import { ProfileLiked } from "./ProfileLiked";
 import { ProfileSaved } from "./ProfileSaved";
 import { ProfileSettings } from "./ProfileSettings";
 import api from "../api/axiosConfig";
+import { GuestLoginPopup } from "./GuestLoginPopup";
 
-export function Profile({ onNavigate }) {
+export function Profile({ onNavigate, userName }) {
   const [view, setView] = useState("main"); // 'main' | 'edit' | 'myPosts' | 'contentPreference' | 'liked' | 'saved' | 'settings'
   const [formData, setFormData] = useState({
-    name: "",
-    job: "",
-    year: "",
-    industry: "",
+    name: "김소프트",
+    job: "서비스 기획자",
+    year: "3년차",
+    industry: "IT/플랫폼",
   });
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
-  // // Main View Data (Using dummy data for now)
-  // const [formData, setFormData] = useState({
-  //   name: "00",
-  //   job: "대리",
-  //   year: "3년차",
-  //   industry: "마케팅",
-  // });
+  const isGuest = !userName;
+
+  const handleRestrictedClick = (action) => {
+    if (isGuest) {
+        setShowLoginPopup(true);
+    } else {
+        if (action) action();
+    }
+  };
 
   if (view === "edit") return <ProfileEdit onBack={() => setView("main")} />;
   if (view === "myPosts")
@@ -40,24 +44,28 @@ export function Profile({ onNavigate }) {
     const fetchProfile = async () => {
       try {
         const response = await api.get("/user/me");
-        setFormData(response.data);
+        if (response.data && response.data.name) {
+          setFormData(response.data);
+        }
       } catch (error) {
         console.error("Failed to fetch profile", error);
       }
     };
-    fetchProfile();
-  }, []);
+    if (!isGuest) {
+        fetchProfile();
+    }
+  }, [isGuest]);
 
   /* ================== Render: Profile Main ================== */
   return (
     <div className="profile-container">
       {/* User Name */}
-      <div className="profile-user-name">{formData.name}님</div>
+      <div className="profile-user-name">{isGuest ? "로그인이 필요해요" : `${formData.name}님`}</div>
 
       {/* Settings Icon */}
       <div
         className="profile-settings-icon"
-        onClick={() => setView("settings")}
+        onClick={() => handleRestrictedClick(() => setView("settings"))}
       >
         <svg
           width="24"
@@ -93,11 +101,12 @@ export function Profile({ onNavigate }) {
         <div className="profile-tag-label tag-pos-3">🍦 산업 분야</div>
 
         {/* Tags Values */}
-        <div className="profile-tag-value tag-pos-1">{formData.job}</div>
-        <div className="profile-tag-value tag-pos-2">{formData.year}</div>
-        <div className="profile-tag-value tag-pos-3">{formData.industry}</div>
+        {/* If guest, we might want to hide or show dashes, but logic doesn't strictly say. Keeping values or dashes. */}
+        <div className="profile-tag-value tag-pos-1">{isGuest ? "-" : formData.job}</div>
+        <div className="profile-tag-value tag-pos-2">{isGuest ? "-" : formData.year}</div>
+        <div className="profile-tag-value tag-pos-3">{isGuest ? "-" : formData.industry}</div>
 
-        <div className="profile-edit-link" onClick={() => setView("edit")}>
+        <div className="profile-edit-link" onClick={() => handleRestrictedClick(() => setView("edit"))}>
           수정하기
           <svg
             width="18"
@@ -120,7 +129,7 @@ export function Profile({ onNavigate }) {
       {/* Menu Cards */}
       <div className="profile-menu-card menu-pos-1">
         <div className="profile-menu-title">내가 쓴 글</div>
-        <div className="profile-menu-more" onClick={() => setView("myPosts")}>
+        <div className="profile-menu-more" onClick={() => handleRestrictedClick(() => setView("myPosts"))}>
           자세히 보기
           <svg
             width="18"
@@ -144,7 +153,7 @@ export function Profile({ onNavigate }) {
         <div className="profile-menu-title">콘텐츠</div>
         <div
           className="profile-menu-more"
-          onClick={() => setView("contentPreference")}
+          onClick={() => handleRestrictedClick(() => setView("contentPreference"))}
         >
           자세히 보기
           <svg
@@ -167,7 +176,7 @@ export function Profile({ onNavigate }) {
 
       <div className="profile-menu-card menu-pos-3">
         <div className="profile-menu-title">좋아요</div>
-        <div className="profile-menu-more" onClick={() => setView("liked")}>
+        <div className="profile-menu-more" onClick={() => handleRestrictedClick(() => setView("liked"))}>
           자세히 보기
           <svg
             width="18"
@@ -189,7 +198,7 @@ export function Profile({ onNavigate }) {
 
       <div className="profile-menu-card menu-pos-4">
         <div className="profile-menu-title">저장</div>
-        <div className="profile-menu-more" onClick={() => setView("saved")}>
+        <div className="profile-menu-more" onClick={() => handleRestrictedClick(() => setView("saved"))}>
           자세히 보기
           <svg
             width="18"
@@ -208,6 +217,17 @@ export function Profile({ onNavigate }) {
           </svg>
         </div>
       </div>
+
+      {showLoginPopup && (
+        <GuestLoginPopup
+            type="absolute"
+            onClose={() => setShowLoginPopup(false)}
+            onLogin={() => {
+                setShowLoginPopup(false);
+                if (onNavigate) onNavigate("onboarding");
+            }}
+        />
+      )}
     </div>
   );
 }

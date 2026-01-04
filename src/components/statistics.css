@@ -1223,3 +1223,10 @@
   font-weight: 600;
   font-family: "Pretendard";
 }
+
+.guest-blur-content {
+  filter: blur(5px);
+  user-select: none;
+  pointer-events: auto;
+  opacity: 0.6;
+}

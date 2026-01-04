@@ -160,8 +160,9 @@
   bottom: 20px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  padding: 0 23px;
+  justify-content: center; /* Center aligning */
+  gap: 10px; /* Reducing gap */
+  padding: 0; /* Removing side padding as we center with gap */
 }
 
 .pd-confirm-btn {
@@ -203,24 +204,39 @@
 }
 
 /* ... Existing styles ... */
+/* Post Header Info Row */
+.pd-post-info-header {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Gap between Avatar/Author/Badge */
+  margin-top: 100px; /* Increased from 80px to avoid overlap with header */
+  padding-left: 20px; /* Shifted slightly left from 24px */
+  padding-right: 24px;
+}
+
 .pd-avatar-circle {
-  position: absolute;
-  left: 27px;
-  top: 120px;
+  position: relative;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  margin-right: 4px; /* Small extra gap to Author? */
+  border-radius: 50%;
 }
-.pd-avatar-emoji {
-  position: absolute;
-  left: 27px;
-  top: 127px;
-  width: 40px;
-  text-align: center;
-  font-size: 20px;
+
+.pd-avatar-circle svg {
+  display: block;
+}
+
+/* Avatar Emoji styles are inline in JSX */
+
+.pd-author {
+  font-size: 12px;
   font-weight: 600;
+  color: black;
 }
+
 .pd-category-badge {
-  position: absolute;
-  left: 77px;
-  top: 119px;
+  width: fit-content;
   padding: 2px 8px;
   background: #cffafe;
   border: 1px solid #2dd4bf;
@@ -229,64 +245,71 @@
   align-items: center;
   justify-content: center;
 }
+
 .pd-category-text {
   font-size: 10px;
   font-weight: 600;
   color: black;
 }
-.pd-author {
-  position: absolute;
-  left: 80px;
-  top: 138px;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
-}
+
 .pd-title {
-  position: absolute;
-  left: 34px;
-  top: 179px;
-  font-size: 20px; /* xl */
+  position: relative;
+  margin: 20px 24px 0; /* Responsive margin */
+  width: auto;
+  font-size: 20px;
   font-weight: 600;
   color: black;
+  word-break: break-all;
 }
+
 .pd-content {
-  position: absolute;
-  left: 34px;
-  top: 227px;
-  font-size: 16px; /* base */
+  position: relative;
+  margin: 16px 24px 0;
+  width: auto;
+  font-size: 16px;
   font-weight: 600;
   color: black;
+  line-height: 1.5;
+  word-break: break-all;
+  white-space: pre-wrap;
 }
-.pd-date {
-  position: absolute;
-  left: 34px;
-  top: 331px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #a3a3a3;
+
+/* Stats Row: Time + View Count */
+.pd-post-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
 }
+
+/* Flex container for right side stats */
+.pd-stats-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap; /* Prevent wrapping */
+}
+
 .pd-eye-icon {
-  position: absolute;
-  left: 303px;
-  top: 331px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .pd-view-count {
-  position: absolute;
-  left: 321px;
-  top: 332px;
   font-size: 12px;
   font-weight: 600;
   color: #a3a3a3;
 }
+
+/* Action Bar */
 .pd-action-bar {
-  position: absolute;
-  left: -48px; /* Based on HTML but needs centering or adjustment */
-  /* Adjusting to fit container logic */
-  left: 50%;
-  transform: translateX(-50%);
-  top: 367px;
-  width: 350px; /* Adjusted width */
+  position: relative;
+  margin: 24px 24px 0; /* Responsive margins */
+  width: auto; /* Fill available space minus margins */
   height: 64px;
   background: white;
   border: 1px solid #d4d4d8;
@@ -295,36 +318,100 @@
   align-items: center;
   justify-content: space-around;
 }
+
 .pd-action-item {
   display: flex;
   align-items: center;
   gap: 5px;
   cursor: pointer;
+  user-select: none;
 }
+
 .pd-action-text {
   font-size: 16px;
   font-weight: 600;
   color: #a3a3a3;
 }
-.pd-empty-comment-icon {
-  position: absolute;
-  left: 171px;
-  top: 491px;
+
+.pd-action-text.active-red {
+  color: #ef4444;
 }
+
+.pd-action-text.active-yellow {
+  color: #f59e0b;
+}
+
+/* Comment Section */
+.pd-comment-section {
+  position: relative;
+  margin: 24px 24px 40px;
+}
+
+.pd-comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pd-comment-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f4f4f5;
+}
+
+.pd-comment-author {
+  font-size: 12px;
+  font-weight: 700;
+  color: black;
+}
+
+.pd-comment-content {
+  font-size: 14px;
+  font-weight: 400;
+  color: #374151; /* gray-700 */
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.pd-comment-time {
+  font-size: 10px;
+  font-weight: 400;
+  color: #a1a1aa; /* zinc-400 */
+}
+
+/* Empty State */
+.pd-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+/* Re-use empty icon/text styles if needed or simplify */
+
+.pd-empty-comment-icon {
+  margin-bottom: 10px;
+}
+
 .pd-empty-comment-text {
-  position: absolute;
-  left: 155px;
-  top: 549px;
   font-size: 12px;
   font-weight: 600;
   color: #a3a3a3;
+  text-align: center;
 }
+
+/* Input Area */
 .pd-comment-input-container {
   position: absolute;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 350px;
+  width: calc(100% - 32px); /* Responsive width with padding */
+  max-width: 360px; /* Cap at reasonable size */
   height: 56px;
   background: white;
   border-radius: 30px;
@@ -333,6 +420,7 @@
   display: flex;
   align-items: center;
   padding: 0 15px;
+  z-index: 50;
 }
 .pd-checkbox {
   width: 16px;
@@ -342,12 +430,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .pd-anonymous-text {
   margin-left: 6px;
   font-size: 12px;
   font-weight: 700;
   color: #f59e0b;
+  flex-shrink: 0;
 }
 .pd-input-placeholder {
   flex: 1;
@@ -356,6 +446,10 @@
   margin-left: 10px;
   font-size: 12px;
   font-weight: 600;
+  color: #525252;
+  background: transparent;
+}
+.pd-input-placeholder::placeholder {
   color: #a3a3a3;
 }
 .pd-submit-btn {
@@ -367,9 +461,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 .pd-submit-text {
   font-size: 10px;
   font-weight: 600;
   color: black;
+}
+.pd-submit-btn:active {
+  background: #e5e5e5;
+}
+
+/* Confirm Buttons */
+.pd-confirm-btn.confirm {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
 }
