@@ -29,12 +29,31 @@ export const Login = ({ onBack, onFindId, onFindPw, onLogin }) => {
         password: password,
       });
 
-      // [로직] 토큰 저장
-      const { accessToken, username } = response.data; // 백엔드 응답 구조에 맞게 수정
-      localStorage.setItem("accessToken", accessToken);
+      // [로직] 토큰 및 유저 정보 추출
+      // 백엔드 응답: { accessToken, refreshToken, username, tokenType }
+      const { accessToken, refreshToken, username } = response.data;
+
+      // 로그인 유지 여부에 따라 저장소 선택
+      if (keepLoggedIn) {
+        // [로그인 유지 O] -> LocalStorage
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        
+        // 중복 방지를 위해 SessionStorage 클리어
+        sessionStorage.removeItem("accessToken");
+        sessionStorage.removeItem("refreshToken");
+      } else {
+        // [로그인 유지 X] -> SessionStorage (브라우저 종료 시 삭제됨)
+        sessionStorage.setItem("accessToken", accessToken);
+        sessionStorage.setItem("refreshToken", refreshToken);
+
+        // 중복 방지를 위해 LocalStorage 클리어
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+      }
 
       alert("로그인 성공!");
-      if (onLogin) onLogin(username || email); // 유저 이름 부모 컴포넌트에 전달
+      if (onLogin) onLogin(username || email);
     } catch (error) {
       console.error("Login failed", error);
       alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
