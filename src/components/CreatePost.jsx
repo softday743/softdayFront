@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./create-post.css";
+import api from "../api/axiosConfig";
 
 export function CreatePost({ onNavigate }) {
   const [title, setTitle] = useState("");
@@ -17,10 +18,31 @@ export function CreatePost({ onNavigate }) {
     }
   };
 
-  const handleComplete = () => {
-    if (!title.trim() || !content.trim()) return;
-    // Here you would normally submit the post data to backend
-    onNavigate("community");
+  const handleComplete = async () => {
+    if (!title.trim() || !content.trim()) {
+      alert("제목과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    // Map display category to backend ENUM/Code
+    let categoryCode = "WORK";
+    if (category === "인간관계") categoryCode = "RELATIONSHIP";
+    else if (category === "취미/여가") categoryCode = "HOBBY";
+
+    const requestBody = {
+      title: title,
+      content: content,
+      category: categoryCode,
+      anonymous: isAnonymous,
+    };
+
+    try {
+      await api.post("/board", requestBody);
+      onNavigate("community");
+    } catch (error) {
+      console.error("Post creation failed:", error);
+      alert("게시글 작성에 실패했습니다.");
+    }
   };
 
   const isLimitReached = content.length >= MAX_LENGTH;

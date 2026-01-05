@@ -4,32 +4,61 @@ import "./notification.css";
 export function Notification({ onBack }) {
   const [activeTab, setActiveTab] = useState("all");
 
-  const notifications = [
+  const allNotifications = [
     {
       id: 1,
       type: "board",
-      icon: "🗣️",
-      title: "제목",
-      content: "내용",
-      time: "시간",
+      title: "댓글 알림",
+      content: "작성하신 글에 새로운 댓글이 달렸습니다.",
+      time: "방금 전",
     },
     {
       id: 2,
       type: "chat",
-      icon: "💬",
-      title: "제목",
-      content: "내용",
-      time: "시간",
+      title: "새로운 메시지",
+      content: "김철수님이 메시지를 보냈습니다.",
+      time: "10분 전",
     },
     {
       id: 3,
       type: "system",
-      icon: "🍦",
-      title: "제목",
-      content: "내용",
-      time: "시간",
+      title: "업데이트 안내",
+      content: "서비스 점검이 예정되어 있습니다.",
+      time: "1시간 전",
+    },
+    {
+      id: 4,
+      type: "board",
+      title: "인기글 달성",
+      content: "작성하신 글이 인기글로 선정되었습니다!",
+      time: "2시간 전",
+    },
+    {
+      id: 5,
+      type: "chat",
+      title: "새로운 메시지",
+      content: "이영희님이 메시지를 보냈습니다.",
+      time: "3시간 전",
     },
   ];
+
+  const getIcon = (type) => {
+    switch (type) {
+      case "board":
+        return "🗣️";
+      case "chat":
+        return "💬";
+      case "system":
+        return "🍦";
+      default:
+        return "🔔";
+    }
+  };
+
+  const filteredList =
+    activeTab === "all"
+      ? allNotifications
+      : allNotifications.filter((n) => n.type === activeTab);
 
   return (
     <div className="notification-container">
@@ -90,7 +119,7 @@ export function Notification({ onBack }) {
 
       {/* Notification List */}
       <div className="notification-list">
-        {notifications.map((notif) => (
+        {filteredList.map((notif) => (
           <div key={notif.id} className="notification-item">
             <div className="notif-icon-wrapper">
               <svg
@@ -108,7 +137,7 @@ export function Notification({ onBack }) {
                   stroke="#CDCDCD"
                 />
               </svg>
-              <div className="notif-icon">{notif.icon}</div>
+              <div className="notif-icon">{getIcon(notif.type)}</div>
             </div>
             <div className="notif-content">
               <div className="notif-header-row">

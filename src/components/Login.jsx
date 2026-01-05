@@ -53,7 +53,8 @@ export const Login = ({ onBack, onFindId, onFindPw, onLogin }) => {
       }
 
       alert("로그인 성공!");
-      if (onLogin) onLogin(username || email);
+      // Change: Display ID (local-part of email) if username is unavailable, satisfying "Change email to ID" request
+      if (onLogin) onLogin(username || email.split("@")[0]);
     } catch (error) {
       console.error("Login failed", error);
       alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");

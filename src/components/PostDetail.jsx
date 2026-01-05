@@ -155,7 +155,18 @@ export function PostDetail({ onBack, postId, userName }) {
             {isOwner ? (
               <>
                 <div className="pd-menu-item" onClick={() => {/* Edit Logic */ setMenuOpen(false);}}>수정</div>
-                <div className="pd-menu-item" onClick={() => {/* Delete Logic */ setMenuOpen(false);}}>삭제</div>
+                <div className="pd-menu-item" onClick={async () => {
+                    if (window.confirm("정말 삭제하시겠습니까?")) {
+                        try {
+                           await api.delete(`/board/${postId}`);
+                           onBack();
+                        } catch (e) {
+                           console.error("Delete failed", e);
+                           alert("삭제에 실패했습니다.");
+                        }
+                    }
+                    setMenuOpen(false);
+                }}>삭제</div>
               </>
             ) : (
               <>
