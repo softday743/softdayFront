@@ -74,9 +74,9 @@ PR을 생성하기 전에는 반드시 Issue를 생성하고, PR과 Issue를 연
 PR 설명에 아래 키워드를 포함하여 작성한다
 
 ```
-closes #이슈번호
-fixes #이슈번호
-resolves #이슈번호
+close #이슈번호
+fix #이슈번호
+resolve #이슈번호
 ```
 
 PR이 merge되면 연결된 Issue는 자동으로 종료된다
