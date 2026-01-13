@@ -48,18 +48,10 @@ jobs:
           script: |
             # 기존 파일 깔끔하게 지우기
             sudo rm -rf /var/www/html/*
-<<<<<<< HEAD
 
             # 임시 폴더에서 Nginx 폴더로 이동 (관리자 권한)
             sudo mv /home/ubuntu/frontend-temp/* /var/www/html/
 
             # 임시 폴더 껍데기 삭제
             rm -rf /home/ubuntu/frontend-temp
-=======
-            
-            # 임시 폴더에서 Nginx 폴더로 이동 (관리자 권한)
-            sudo mv /home/ubuntu/frontend-temp/* /var/www/html/
-            
-            # 임시 폴더 껍데기 삭제
-            rm -rf /home/ubuntu/frontend-temp
->>>>>>> 96bf594947193ffd2ec372d3343d07d44f83d586
+
