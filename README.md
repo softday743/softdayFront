@@ -1,16 +1,92 @@
-# React + Vite
+## Git 규칙
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 브랜치명 및 커밋 메시지 컨벤션
 
-Currently, two official plugins are available:
+브랜치명과 커밋 메시지는 아래 형식으로 작성한다
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```
+타입/엔티티명: 작업 내용 요약
+```
 
-## React Compiler
+| 타입 | 의미 |
+| --- | --- |
+| feat | 기능 추가 또는 새로운 작업 |
+| fix | 버그 수정 |
+| refactor | 리팩토링 |
+| chore | 설정 / 빌드 / 주석 수정 |
+| test | 테스트 코드 작성 및 수정 |
+| style | 포맷, 스타일 수정 (로직 변경 없음) |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+feat/users: 회원 가입 기능 추가
+fix/orders: 주문 금액 계산 오류 수정
+refactor/follow: 팔로우 로직 구조 개선
+chore/global: docker 설정 수정
+test/users: 회원 가입 테스트 추가
+style/users: import 정리 및 포맷 수정
+```
 
-## Expanding the ESLint configuration
+#### 엔티티명 규칙
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 소문자 사용
+- 복수형 권장
+- 공백 및 특수문자 사용X
+
+### Issue 및 PR 규칙
+
+모든 작업은 `Issue 생성 → 브랜치 생성 → 작업 → PR 생성 → merge` 흐름대로 진행한다
+
+PR을 생성하기 전에는 반드시 Issue를 생성하고, PR과 Issue를 연결한다
+
+#### Issue와 PR을 생성하고 연결하는 이유
+
+1. 작업의 목적과 배경을 기록하기 위해
+    
+    Issue는 ‘무엇을, 왜 해야 하는지’ 정의하는 공간
+    
+    문제 상황, 요구사항, 개선 목적 등을 Issue에 정리함으로써, PR에서는 구현 내용에만 집중할 수 있으며 나중에 변경 이유를 쉽게 확인할 수 있다
+    
+2. 작업 단위를 명확하게 관리하기 위해
+    
+    Issue는 하나의 작업 단위
+    
+    각 Issue는 하나의 기능, 하나의 버그, 하나의 개선 작업을 나타내며 PR은 해당 Issue를 해결하는 구현 단위
+    
+    이를 통해 작업 범위가 불필요하게 커지거나 섞이는 것을 방지할 수 있다
+    
+3. 작업 진행 상황을 팀 전체가 공유하기 위해
+    
+    Issue와 PR을 연결하면 어떤 작업이 대기 중인지, 어떤 작업이 진행 중인지, 어떤 작업이 완료되었는지 확인할 수 있어 개발 진행 상황을 쉽게 파악할 수 있다
+    
+4. 효율적인 커뮤니케이션을 위해
+    
+    ‘이 작업은 왜 했는지’, ‘이 코드는 어디에서 논의되었는지’, ‘누가 제안했는지’ 등의 질문을 Issue 하나로 해결할 수 있어 불필요한 반복 커뮤니케이션을 줄일 수 있다
+    
+5. 변경 이력을 명확히 하기 위해
+    
+    Issue와 PR을 연결함으로써, 문제 제기 → 논의 → 구현 → 병합 의 흐름이 모두 기록으로 남는다
+    
+    이는 이후 유지보수나 기능 확장 시 중요한 참고 자료가 될 수 있다
+    
+
+#### Issue ↔ PR 연결 방법
+
+PR 설명에 아래 키워드를 포함하여 작성한다
+
+```
+close #이슈번호
+fix #이슈번호
+resolve #이슈번호
+```
+
+PR 설명에 Close #까지 입력하면 현재 열려있는 이슈번호들이 자동으로 뜨고 해당 PR과 연결하고 싶은 이슈번호를 선택하여 입력한다 
+PR이 merge되면 연결된 Issue는 자동으로 종료된다
+
+#### 작업 흐름 요약
+
+1. Issue 생성 (작업 정의)
+2. `타입/#이슈번호-엔티티명` 형태로 브랜치 생성
+3. 작업 진행
+4. PR 생성 및 Issue 연결 (`closes #이슈번호`)
+5. 코드 리뷰 후 merge
+6. Issue 자동 종료

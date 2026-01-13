@@ -1,10 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./profile-saved.css";
 
 export function ProfileSaved({ onBack }) {
   const [activeTab, setActiveTab] = useState("posts"); // 'posts' | 'contents'
+  
+  // 드롭다운 메뉴 상태 관리
+  const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
+  const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
+  
+  // 선택된 값 관리
+  const [currentSort, setCurrentSort] = useState("최신순");
+  const [currentFilter, setCurrentFilter] = useState("전체");
 
-  // Dummy Data
+  const sortRef = useRef(null);
+  const filterRef = useRef(null);
+
+  // 메뉴 외부 클릭 시 닫기
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (sortRef.current && !sortRef.current.contains(event.target)) {
+        setIsSortMenuOpen(false);
+      }
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setIsFilterMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Dummy Data (생략 없음)
   const [savedPosts, setSavedPosts] = useState([
     {
       id: 1,
@@ -92,7 +117,25 @@ export function ProfileSaved({ onBack }) {
 
       {/* Filters */}
       <div className="ps-filter-bar">
-        <div className="ps-filter-btn">전체</div>
+        {/* 콘텐츠 탭 - 전체 버튼 및 메뉴 */}
+        <div className="ps-dropdown-container" ref={filterRef} style={{ position: "relative" }}>
+          <div 
+            className="ps-filter-btn" 
+            onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
+            style={{ cursor: "pointer" }}
+          >
+            {activeTab === "contents" ? currentFilter : "전체"}
+          </div>
+          {activeTab === "contents" && isFilterMenuOpen && (
+            <div className="ps-dropdown-menu" style={{ position: "absolute", top: "35px", left: 0, background: "white", border: "1px solid #eee", borderRadius: "4px", zIndex: 10, width: "80px", boxShadow: "0 2px 5px rgba(0,0,0,0.1)" }}>
+              <div onClick={() => { setCurrentFilter("전체"); setIsFilterMenuOpen(false); }} style={{ padding: "8px", fontSize: "13px", borderBottom: "1px solid #f9f9f9" }}>전체</div>
+              <div onClick={() => { setCurrentFilter("영상"); setIsFilterMenuOpen(false); }} style={{ padding: "8px", fontSize: "13px", borderBottom: "1px solid #f9f9f9" }}>🎬 영상</div>
+              <div onClick={() => { setCurrentFilter("텍스트"); setIsFilterMenuOpen(false); }} style={{ padding: "8px", fontSize: "13px", borderBottom: "1px solid #f9f9f9" }}>📄 텍스트</div>
+              <div onClick={() => { setCurrentFilter("음성"); setIsFilterMenuOpen(false); }} style={{ padding: "8px", fontSize: "13px" }}>🎧 음성</div>
+            </div>
+          )}
+        </div>
+
         <div className="ps-search-bar">
           <div className="ps-search-icon">
             <svg
@@ -112,7 +155,25 @@ export function ProfileSaved({ onBack }) {
             </svg>
           </div>
         </div>
-        {activeTab === "posts" && <div className="ps-sort-btn">최신순</div>}
+
+        {/* 게시글 탭 - 최신순 버튼 및 메뉴 */}
+        {activeTab === "posts" && (
+          <div className="ps-dropdown-container" ref={sortRef} style={{ position: "relative" }}>
+            <div 
+              className="ps-sort-btn" 
+              onClick={() => setIsSortMenuOpen(!isSortMenuOpen)}
+              style={{ cursor: "pointer" }}
+            >
+              {currentSort}
+            </div>
+            {isSortMenuOpen && (
+              <div className="ps-dropdown-menu" style={{ position: "absolute", top: "35px", right: 0, background: "white", border: "1px solid #eee", borderRadius: "4px", zIndex: 10, width: "90px", boxShadow: "0 2px 5px rgba(0,0,0,0.1)" }}>
+                <div onClick={() => { setCurrentSort("최신순"); setIsSortMenuOpen(false); }} style={{ padding: "8px", fontSize: "13px", borderBottom: "1px solid #f9f9f9" }}>최신순</div>
+                <div onClick={() => { setCurrentSort("오래된 순"); setIsSortMenuOpen(false); }} style={{ padding: "8px", fontSize: "13px" }}>오래된 순</div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* List Area */}

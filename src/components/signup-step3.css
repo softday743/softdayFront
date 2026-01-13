@@ -72,9 +72,10 @@
 
 .signup-step3-container .input-container {
   position: relative;
-  width: 330px;
-  left: 32px;
+  /* width: 330px; */
+  /* left: 32px; */
   top: 257px; /* Base top for first input */
+  margin: 0 auto;
 }
 
 .signup-step3-container .input-group {
@@ -85,7 +86,7 @@
 
 .signup-step3-container .eye-off-icon {
   position: absolute;
-  right: 15px;
+  right: 50px;
   top: 50%;
   transform: translateY(-50%);
   width: 24px;

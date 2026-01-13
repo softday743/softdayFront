@@ -62,8 +62,14 @@
   cursor: pointer;
 }
 
+
 .signup-step1-container .button-text {
   color: #000000;
   font-size: 16px;
   font-weight: 600;
+}
+
+/* 아이디 중복확인 버튼 공간 확보 */
+.signup-step1-container .input-with-btn .text-wrapper-2 {
+  padding-right: 70px !important;
 }

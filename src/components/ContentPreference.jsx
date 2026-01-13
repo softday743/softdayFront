@@ -4,6 +4,7 @@ import iconVideo from "../assets/icon-video-new.png";
 import iconText from "../assets/icon-text-new.png";
 import iconAudio from "../assets/icon-audio-new.png";
 import "./content-preference.css";
+import api from "../api/axiosConfig";
 
 export const ContentPreference = ({ onComplete, onBack }) => {
   const [selected, setSelected] = useState([]);
@@ -13,6 +14,23 @@ export const ContentPreference = ({ onComplete, onBack }) => {
       setSelected(selected.filter((item) => item !== type));
     } else {
       setSelected([...selected, type]);
+    }
+  };
+
+  const handleSubmit = async () => {
+    const payload = {
+      video: selected.includes("video"),
+      text: selected.includes("text"),
+      audio: selected.includes("audio"),
+    };
+
+    try {
+      // API: Content Preference (Inferred URL: /auth/preferences)
+      await api.post("/auth/preferences", payload);
+      onComplete();
+    } catch (error) {
+      console.error("Preference save failed", error);
+      alert("선호도 저장 중 오류가 발생했습니다.");
     }
   };
 
@@ -150,7 +168,7 @@ export const ContentPreference = ({ onComplete, onBack }) => {
       </div>
 
       {selected.length > 0 && (
-        <button className="button-complete" onClick={onComplete}>
+        <button className="button-complete" onClick={handleSubmit}>
           <div className="button-text">완료</div>
         </button>
       )}

@@ -32,6 +32,7 @@
   position: absolute;
   width: 100%;
   top: 115px;
+  z-index: 50;
 }
 
 .search-category-dropdown {
@@ -41,9 +42,10 @@
   height: 36px;
   background: #f4f4f5; /* zinc-100 */
   border-radius: 5px;
-  overflow: hidden;
+  /* overflow: hidden; Removed to allow dropdown to show */
   display: flex;
   align-items: center;
+  z-index: 20; /* Ensure it stays on top of other content when open */
 }
 
 .search-cat-text {

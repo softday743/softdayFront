@@ -1,14 +1,39 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import "./notification-permission.css";
+import api from "../api/axiosConfig";
 
 export function MarketingNotification({ onAllow, onDeny }) {
+  const location = useLocation();
+  const generalConsent = location.state?.general || false;
+
+  const handleDecision = async (marketing) => {
+    try {
+      await api.post("/auth/notification-consent", {
+        general: generalConsent,
+        marketing: marketing,
+      });
+    } catch (error) {
+      console.error("Consent save failed", error);
+    } finally {
+      if (marketing) onAllow();
+      else onDeny();
+    }
+  };
+
   return (
     <div className="notification-container">
       <div className="notification-modal">
-        <div className="notification-btn deny" onClick={onDeny}>
+        <div
+          className="notification-btn deny"
+          onClick={() => handleDecision(false)}
+        >
           <div className="notification-btn-text">허용 안 함</div>
         </div>
-        <div className="notification-btn allow" onClick={onAllow}>
+        <div
+          className="notification-btn allow"
+          onClick={() => handleDecision(true)}
+        >
           <div className="notification-btn-text">허용</div>
         </div>
         <div className="notification-title">

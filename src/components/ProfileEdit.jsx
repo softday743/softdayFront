@@ -1,24 +1,34 @@
 import React, { useState, useEffect } from "react";
 import "./profile-edit.css";
+import api from "../api/axiosConfig";
 
 export function ProfileEdit({ onBack }) {
   const [formData, setFormData] = useState({
-    name: "이소민",
-    job: "대리",
-    year: "3년차",
-    industry: "마케팅",
+    name: "",
+    job: "",
+    year: "",
+    industry: "",
   });
+  // const [formData, setFormData] = useState({
+  //   name: "이소민",
+  //   job: "대리",
+  //   year: "3년차",
+  //   industry: "마케팅",
+  // });
   const [initialData, setInitialData] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
+  // 초기 데이터 로드
   useEffect(() => {
-    // Simulating data fetch or initial load
-    setInitialData({
-      name: "이소민",
-      job: "대리",
-      year: "3년차",
-      industry: "마케팅",
-    });
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get("/user/me");
+        setFormData(response.data);
+      } catch (error) {
+        console.error("Fetch failed", error);
+      }
+    };
+    fetchProfile();
   }, []);
 
   const handleChange = (e) => {
@@ -35,10 +45,16 @@ export function ProfileEdit({ onBack }) {
     }
   };
 
-  const handleSave = () => {
-    // Save logic here
-    // setInitialData(formData); // Update initial data to prevent popup
-    onBack(); // Go back after save
+  const handleSave = async () => {
+    try {
+      // [API] 정보 수정 요청
+      await api.put("/user/me", formData);
+      alert("저장되었습니다.");
+      onBack();
+    } catch (error) {
+      console.error("Update failed", error);
+      alert("저장에 실패했습니다.");
+    }
   };
 
   return (
