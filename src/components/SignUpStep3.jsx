@@ -19,15 +19,14 @@ export const SignUpStep3 = ({ onNext, onBack, data }) => {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-
-    // 백엔드 정규식: 8~16자, 영문 대/소문자, 숫자, 특수문자 필수
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/;
-
+    
+    // "8~16자, 영문 대/소문자, 숫자, 특수문자 포함"
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+    
+    // Note: Regex can be strict. If user struggles, simplified check:
+    // This regex enforces at least one lower, one upper, one digit, one special.
     if (!passwordRegex.test(password)) {
-      alert(
-        "비밀번호는 8~16자이며, 영문 대문자, 소문자, 숫자, 특수문자를 모두 포함해야 합니다."
-      );
+      alert("비밀번호는 8~16자, 영문 대/소문자, 숫자, 특수문자를 포함해야 합니다.");
       return;
     }
 
@@ -57,6 +56,10 @@ export const SignUpStep3 = ({ onNext, onBack, data }) => {
       if (response.data && response.data.accessToken) {
         localStorage.setItem("accessToken", response.data.accessToken);
         console.log("토큰 저장 완료:", response.data.accessToken);
+        // refreshToken이 있다면 저장
+        if(response.data.refreshToken) {
+            localStorage.setItem("refreshToken", response.data.refreshToken);
+        }
       }
 
       alert("회원가입에 성공했습니다!");
@@ -64,11 +67,8 @@ export const SignUpStep3 = ({ onNext, onBack, data }) => {
       // 5. 다음 단계(가입 완료 화면)로 이동
       onNext();
     } catch (error) {
-      console.error("Signup failed:", error);
-      // 에러 메시지가 서버에서 오면 그걸 보여주고, 아니면 기본 메시지
-      const errorMessage =
-        error.response?.data || "회원가입 중 문제가 발생했습니다.";
-      alert(errorMessage);
+      console.error("Signup failed", error);
+      alert("회원가입 중 문제가 발생했습니다. (조건: 아이디 중복 등)");
     }
   };
 

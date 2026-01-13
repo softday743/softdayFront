@@ -1,15 +1,19 @@
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import activeIndicator from "../assets/active-indicator.svg";
 import track from "../assets/track.svg";
 import "./calculating.css";
 
 export const Calculating = ({ onFinished, userName = "사용자" }) => {
+  const location = useLocation();
+  const score = location.state?.score;
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      onFinished();
+      onFinished(score);
     }, 3000); // 3 seconds simulation
     return () => clearTimeout(timer);
-  }, [onFinished]);
+  }, [onFinished, score]);
 
   return (
     <div className="calculating-container">
