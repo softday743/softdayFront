@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./community.css";
 import api from "../api/axiosConfig";
+import { GuestLoginPopup } from "./GuestLoginPopup";
 
-export function Community({ onNavigate, onPostClick }) {
+export function Community({ onNavigate, onPostClick, userName }) {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("all");
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,6 +13,25 @@ export function Community({ onNavigate, onPostClick }) {
   const itemsPerPage = 10;
   const [sortOrder, setSortOrder] = useState("latest");
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+
+  const isGuest = !userName;
+
+  const handleRestrictedClick = (action) => {
+    if (isGuest) {
+      setShowLoginPopup(true);
+    } else {
+      action();
+    }
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const sort = params.get("sort");
+    if (sort === "latest" || sort === "popular") {
+      setSortOrder(sort);
+    }
+  }, [location.search]);
 
   // Generate 50 dummy posts
   const allPosts = Array.from({ length: 50 }, (_, i) => ({
@@ -47,6 +69,7 @@ export function Community({ onNavigate, onPostClick }) {
         setPosts(response.data.content || response.data); // Page 객체일 경우 content 사용
       } catch (error) {
         console.error("Failed to fetch posts", error);
+        setPosts(allPosts); // Fallback to dummy data
       } finally {
         setLoading(false);
       }
@@ -54,39 +77,49 @@ export function Community({ onNavigate, onPostClick }) {
     fetchPosts();
   }, []);
 
+  const handleScroll = (e) => {
+    // If guest, check if scrolled to bottom
+    if (isGuest) {
+      const { scrollTop, clientHeight, scrollHeight } = e.target;
+      // Allow a small buffer (e.g. 10px)
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        setShowLoginPopup(true);
+      }
+    }
+  };
+
   return (
     <div className="community-container">
-      {/* Scrollable Content */}
-      <div className="community-scroll-area">
-        {/* Header Tabs */}
-        <div className="community-header">
-          <div
-            className={`tab-item ${activeTab === "all" ? "active" : ""}`}
-            onClick={() => setActiveTab("all")}
-          >
-            전체
-          </div>
-          <div
-            className={`tab-item ${activeTab === "work" ? "active" : ""}`}
-            onClick={() => setActiveTab("work")}
-          >
-            🖥️ 직장생활
-          </div>
-          <div
-            className={`tab-item ${
-              activeTab === "relationship" ? "active" : ""
-            }`}
-            onClick={() => setActiveTab("relationship")}
-          >
-            👥 인간관계
-          </div>
-          <div
-            className={`tab-item ${activeTab === "hobby" ? "active" : ""}`}
-            onClick={() => setActiveTab("hobby")}
-          >
-            💭 취미/여가
-          </div>
+      {/* Header Tabs - Fixed at Top */}
+      <div className="community-header">
+        <div
+          className={`tab-item ${activeTab === "all" ? "active" : ""}`}
+          onClick={() => setActiveTab("all")}
+        >
+          전체
         </div>
+        <div
+          className={`tab-item ${activeTab === "work" ? "active" : ""}`}
+          onClick={() => setActiveTab("work")}
+        >
+          🖥️ 직장생활
+        </div>
+        <div
+          className={`tab-item ${activeTab === "relationship" ? "active" : ""}`}
+          onClick={() => setActiveTab("relationship")}
+        >
+          👥 인간관계
+        </div>
+        <div
+          className={`tab-item ${activeTab === "hobby" ? "active" : ""}`}
+          onClick={() => setActiveTab("hobby")}
+        >
+          💭 취미/여가
+        </div>
+      </div>
+
+      {/* Scrollable Content */}
+      <div className="community-scroll-area" onScroll={handleScroll}>
         {/* Filter & Sort */}
         <div className="filter-section">
           <div
@@ -153,7 +186,7 @@ export function Community({ onNavigate, onPostClick }) {
               <div
                 key={post.id}
                 className="community-post-card"
-                onClick={() => onPostClick(post.id)} // [수정] 클릭 시 ID 전달
+                onClick={() => handleRestrictedClick(() => onPostClick(post.id))}
                 style={{ cursor: "pointer" }}
               >
                 <div className="cp-header">
@@ -173,7 +206,22 @@ export function Community({ onNavigate, onPostClick }) {
                         stroke="#FFB200"
                       />
                     </svg>
-                    <div className="cp-emoji">{post.emoji}</div>
+                    <div className="cp-emoji" style={{ fontSize: "14px" }}>
+                      {(post.category &&
+                        (post.category.includes("직장") ||
+                          post.category === "WORK"))
+                        ? "🖥️"
+                        : (post.category &&
+                            (post.category.includes("인간") ||
+                              post.category === "RELATIONSHIP"))
+                        ? "👥"
+                        : (post.category &&
+                            (post.category.includes("취미") ||
+                              post.category.includes("여가") ||
+                              post.category === "HOBBY"))
+                        ? "💭"
+                        : post.emoji}
+                    </div>
                   </div>
                   <div className="cp-category-badge">
                     <div className="cp-category-text">{post.category}</div>
@@ -295,7 +343,10 @@ export function Community({ onNavigate, onPostClick }) {
         </div>
 
         {/* FAB */}
-        <div className="fab-button" onClick={() => onNavigate("createPost")}>
+        <div 
+          className="fab-button" 
+          onClick={() => handleRestrictedClick(() => onNavigate("createPost"))}
+        >
           <svg
             width="55"
             height="55"
@@ -323,6 +374,17 @@ export function Community({ onNavigate, onPostClick }) {
           </svg>
         </div>
       </div>
+
+      {showLoginPopup && (
+        <GuestLoginPopup
+          type="absolute"
+          onClose={() => setShowLoginPopup(false)}
+          onLogin={() => {
+            setShowLoginPopup(false);
+            if (onNavigate) onNavigate("onboarding");
+          }}
+        />
+      )}
     </div>
   );
 }

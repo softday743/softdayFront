@@ -14,12 +14,29 @@ export function PostDetail({ onBack, postId }) {
   // [API] 상세 조회
   useEffect(() => {
     const fetchPostDetail = async () => {
-      if (!postId) return;
+      // if (!postId) return; // Allow dummy data even if no ID in dev
       try {
         const response = await api.get(`/board/${postId}`);
         setPost(response.data);
       } catch (error) {
         console.error("Failed to fetch post detail", error);
+        // Fallback dummy data
+        // Fallback dummy data based on ID to match Community list
+        const id = parseInt(postId) || 1;
+        const categories = ["직장생활", "인간관계", "취미/여가"];
+        const emojies = ["🖥️", "👥", "💭"];
+        const index = (id - 1) % 3;
+        
+        setPost({
+          id: id,
+          category: categories[index],
+          username: "작성자 정보",
+          title: `게시글 제목 ${id}`,
+          content: `게시글 내용 ${id}입니다.`,
+          createdAt: new Date().toISOString(),
+          viewCount: id * 10,
+          emoji: emojies[index] // for backup
+        });
       } finally {
         setLoading(false);
       }
@@ -250,56 +267,96 @@ export function PostDetail({ onBack, postId }) {
         )}
 
         {/* Post Content */}
-        <div className="pd-avatar-circle">
-          <svg
-            width="38"
-            height="38"
-            viewBox="0 0 38 38"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="19" cy="19" r="18.5" fill="#FFF9EA" stroke="#FD9800" />
-          </svg>
+        <div className="pd-post-info-header">
+          <div className="pd-avatar-circle">
+            <svg
+              width="38"
+              height="38"
+              viewBox="0 0 38 38"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="19"
+                cy="19"
+                r="18.5"
+                fill="#FFF9EA"
+                stroke="#FD9800"
+              />
+            </svg>
+            <div
+              className="pd-avatar-emoji"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "18px",
+                lineHeight: 1,
+                paddingBottom: "2px",
+              }}
+            >
+              {(post.category &&
+                (post.category.includes("직장") ||
+                  post.category === "WORK"))
+                ? "🖥️"
+                : (post.category &&
+                    (post.category.includes("인간") ||
+                      post.category === "RELATIONSHIP"))
+                ? "👥"
+                : (post.category &&
+                    (post.category.includes("취미") ||
+                      post.category.includes("여가") ||
+                      post.category === "HOBBY"))
+                ? "💭"
+                : post.emoji}
+            </div>
+          </div>
+          <div className="pd-author">{post.username}</div>
+          <div className="pd-category-badge">
+            <div className="pd-category-text">{post.category}</div>
+          </div>
         </div>
-        <div className="pd-avatar-emoji">🖥️</div>
-
-        <div className="pd-category-badge">
-          <div className="pd-category-text">직장생활</div>
-        </div>
-        <div className="pd-author">{post.username}</div>
 
         <div className="pd-title">{post.title}</div>
         <div className="pd-content">{post.content}</div>
 
-        <div className="pd-date">
-          {new Date(post.createdAt).toLocaleString()}
+        <div className="pd-post-stats-row">
+          <div className="pd-time-text">
+            {new Date(post.createdAt).toLocaleString()}
+          </div>
+          <div className="pd-stats-right">
+            <div className="pd-eye-icon">
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 17 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0.671875 8.06213C0.671875 8.06213 3.35919 2.6875 8.06199 2.6875C12.7648 2.6875 15.4521 8.06213 15.4521 8.06213C15.4521 8.06213 12.7648 13.4368 8.06199 13.4368C3.35919 13.4368 0.671875 8.06213 0.671875 8.06213Z"
+                  stroke="#959595"
+                  strokeWidth="1.79154"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M8.06199 10.0776C9.17512 10.0776 10.0775 9.17526 10.0775 8.06213C10.0775 6.94901 9.17512 6.04665 8.06199 6.04665C6.94887 6.04665 6.04651 6.94901 6.04651 8.06213C6.04651 9.17526 6.94887 10.0776 8.06199 10.0776Z"
+                  stroke="#959595"
+                  strokeWidth="1.79154"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <div className="pd-view-count">조회수 {post.viewCount}</div>
+          </div>
         </div>
-
-        <div className="pd-eye-icon">
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0.671875 8.06213C0.671875 8.06213 3.35919 2.6875 8.06199 2.6875C12.7648 2.6875 15.4521 8.06213 15.4521 8.06213C15.4521 8.06213 12.7648 13.4368 8.06199 13.4368C3.35919 13.4368 0.671875 8.06213 0.671875 8.06213Z"
-              stroke="#959595"
-              strokeWidth="1.79154"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M8.06199 10.0776C9.17512 10.0776 10.0775 9.17526 10.0775 8.06213C10.0775 6.94901 9.17512 6.04665 8.06199 6.04665C6.94887 6.04665 6.04651 6.94901 6.04651 8.06213C6.04651 9.17526 6.94887 10.0776 8.06199 10.0776Z"
-              stroke="#959595"
-              strokeWidth="1.79154"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-        <div className="pd-view-count">조회수 {post.viewCount}</div>
 
         {/* Action Bar */}
         <div className="pd-action-bar">

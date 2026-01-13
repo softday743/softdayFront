@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "./search.css";
+import { GuestLoginPopup } from "./GuestLoginPopup";
 
-export function Search({ onNavigate }) {
+export function Search({ onNavigate, userName }) {
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("전체");
+
+  const isGuest = !userName;
+
+  const handleRestrictedClick = (e, action) => {
+    // If propagation needs checking, but usually for inputs or specific divs:
+    if (isGuest) {
+      if (e) e.stopPropagation();
+      // Unfocus input if it triggered this
+      if (e && e.target && e.target.blur) e.target.blur();
+      
+      setShowLoginPopup(true);
+    } else {
+      if (action) action();
+    }
+  };
+
+  const categories = ["전체", "직장생활", "인간관계", "취미/여가"];
+
   return (
     <div className="search-container">
       {/* Back Button */}
@@ -29,8 +51,12 @@ export function Search({ onNavigate }) {
       {/* Search Input Area */}
       <div className="search-input-area">
         {/* Category Dropdown */}
-        <div className="search-category-dropdown">
-          <div className="search-cat-text">전체</div>
+        <div 
+            className="search-category-dropdown" 
+            onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+            style={{ cursor: "pointer", zIndex: 60 }} // Bring above if needed
+        >
+          <div className="search-cat-text">{selectedCategory}</div>
           <div className="search-cat-icon">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path
@@ -42,10 +68,30 @@ export function Search({ onNavigate }) {
               />
             </svg>
           </div>
+          {isCategoryOpen && (
+            <div className="category-menu">
+                {categories.map(cat => (
+                    <div 
+                        key={cat} 
+                        className="category-item" 
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedCategory(cat);
+                            setIsCategoryOpen(false);
+                        }}
+                    >
+                        {cat}
+                    </div>
+                ))}
+            </div>
+          )}
         </div>
 
         {/* Input Field */}
-        <div className="search-text-input">
+        <div 
+            className="search-text-input" 
+            onClick={(e) => handleRestrictedClick(e)}
+        >
           <div className="search-input-icon">
             <svg width="19" height="19" viewBox="0 0 19 19" fill="none">
               <path
@@ -57,7 +103,13 @@ export function Search({ onNavigate }) {
               />
             </svg>
           </div>
-          <input type="text" className="search-real-input" placeholder="검색" />
+          <input 
+            type="text" 
+            className="search-real-input" 
+            placeholder="검색" 
+            disabled={isGuest} 
+            style={{ backgroundColor: 'transparent'}}
+          />
         </div>
       </div>
 
@@ -122,7 +174,12 @@ export function Search({ onNavigate }) {
             <div className="popular-rank" style={{ top: `${item.top}px` }}>
               {item.rank}
             </div>
-            <div className="popular-text" style={{ top: `${item.top}px` }}>
+            {/* Make the text clickable to show popup */}
+            <div 
+                className="popular-text" 
+                style={{ top: `${item.top}px`, cursor: "pointer" }}
+                onClick={(e) => handleRestrictedClick(e)}
+            >
               {item.text}
             </div>
             <div className="popular-trend" style={{ top: `${item.top - 3}px` }}>
@@ -139,6 +196,17 @@ export function Search({ onNavigate }) {
           </React.Fragment>
         ))}
       </div>
+
+      {showLoginPopup && (
+        <GuestLoginPopup
+            type="absolute"
+            onClose={() => setShowLoginPopup(false)}
+            onLogin={() => {
+                setShowLoginPopup(false);
+                if (onNavigate) onNavigate("onboarding");
+            }}
+        />
+      )}
     </div>
   );
 }

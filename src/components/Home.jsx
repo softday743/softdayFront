@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import "./home.css";
+import { GuestLoginPopup } from "./GuestLoginPopup";
 
 export function Home({
   onNavigate,
   userName = "사용자",
   hasCheckedIn = false,
 }) {
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+
+  // Check if user is actually logged in (if userName is "사용자" or empty, treat as guest?)
+  // App.jsx passes `userName={userName || "사용자"}` for calculating, but for Home it passes `userName={userName}`.
+  // In App.jsx `const [userName, setUserName] = useState("");`
+  // So if guest, userName is "".
+  // But Home received `userName` prop.
+  // Wait, looking at Home.jsx original code:
+  // `userName ? ... : "로그인을 해주세요"`
+  // So if userName is falsy, it is guest.
+
+  const isGuest = !userName;
+
+  const handleRestrictedClick = (action) => {
+    if (isGuest) {
+      setShowLoginPopup(true);
+    } else {
+      action();
+    }
+  };
+
   return (
     <div className="home-container">
       <div className="home-scroll-area">
@@ -17,7 +39,8 @@ export function Home({
           {/* Bell Icon */}
           <div
             className="home-bell-icon"
-            onClick={() => onNavigate && onNavigate("notification")}
+            onClick={() => handleRestrictedClick(() => onNavigate && onNavigate("notification"))}
+            style={{ cursor: "pointer" }}
           >
             <svg
               width="24"
@@ -48,7 +71,7 @@ export function Home({
         {!hasCheckedIn ? (
           <div
             className="stress-checkin-card"
-            onClick={() => onNavigate && onNavigate("stressCheckIn")}
+            onClick={() => handleRestrictedClick(() => onNavigate && onNavigate("stressCheckIn"))}
           >
             <div className="checkin-date">12월 9일(화)</div>
             <div className="checkin-emoji">☺️</div>
@@ -67,7 +90,7 @@ export function Home({
 
         {/* Today's Message Section */}
         <div className="section-title">
-          <span className="emoji-icon">🍦</span> {userName}님을 위한 오늘의
+          <span className="emoji-icon">🍦</span> {userName || "사용자"}님을 위한 오늘의
           메시지
         </div>
 
@@ -79,35 +102,47 @@ export function Home({
         <div className="section-title popular">
           👀 많은 사람들이 공감하고 있는 글이에요
         </div>
-        <div className="more-link">더보기</div>
+        <div 
+          className="more-link" 
+          onClick={() => onNavigate && onNavigate("community?sort=latest")}
+          style={{ cursor: "pointer" }}
+        >
+          더보기
+        </div>
 
         {/* Post Cards */}
-        <div className="post-card">
-          <div className="post-header">
-            <div className="post-avatar">
-              <svg
-                width="29"
-                height="29"
-                viewBox="0 0 29 29"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="14.5"
-                  cy="14.5"
-                  r="14"
-                  fill="#FFF9EA"
-                  stroke="#FFB200"
-                />
-              </svg>
-              <div className="post-emoji">🖥️</div>
+        <div 
+          className="post-card" 
+          onClick={() => onNavigate && onNavigate("community?sort=popular")}
+          style={{ cursor: "pointer" }}
+        >
+            <div className="post-header">
+              <div className="post-avatar">
+                <svg
+                  width="29"
+                  height="29"
+                  viewBox="0 0 29 29"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="14.5"
+                    cy="14.5"
+                    r="14"
+                    fill="#FFF9EA"
+                    stroke="#FFB200"
+                  />
+                </svg>
+                <div className="post-emoji" style={{ fontSize: "14px" }}>
+                  🖥️
+                </div>
+              </div>
+              <div className="post-category-badge">
+                <div className="post-category-text">직장생활</div>
+              </div>
+              <div className="post-author">작성자 정보</div>
+              <div className="post-time">6시간</div>
             </div>
-            <div className="post-category-badge">
-              <div className="post-category-text">직장생활</div>
-            </div>
-            <div className="post-author">작성자 정보</div>
-            <div className="post-time">6시간</div>
-          </div>
           <div className="post-title">제목</div>
           <div className="post-content">내용</div>
           <div className="post-stats">
@@ -182,6 +217,16 @@ export function Home({
           </div>
         </div>
       </div>
+
+      {showLoginPopup && (
+        <GuestLoginPopup
+          onClose={() => setShowLoginPopup(false)}
+          onLogin={() => {
+            setShowLoginPopup(false);
+            if (onNavigate) onNavigate("onboarding");
+          }}
+        />
+      )}
     </div>
   );
 }

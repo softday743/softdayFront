@@ -4,22 +4,35 @@
   background: #fef3c7; /* amber-50 */
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header Tabs */
 .community-header {
   width: 100%;
-  height: 48px;
+  height: 60px;
   background: white;
   box-shadow: 0px 1px 6px 0px rgba(186, 186, 186, 0.25);
   display: flex;
   align-items: center;
-  margin-top: 46px; /* Moved down to preserve top layout spacing */
+  justify-content: flex-start; /* Align to left */
+  padding-left: 24px; /* Shift slightly right from edge */
+  gap: 24px; /* Space between tabs */
+  position: relative;
+  z-index: 50;
+  flex-shrink: 0;
+  overflow-x: auto; /* Allow scroll if needed on small screens */
+  scrollbar-width: none; /* Hide scrollbar */
+}
+
+.community-header::-webkit-scrollbar {
+  display: none;
 }
 
 .tab-item {
-  width: 144px;
-  height: 36px;
+  flex: 0 0 auto; /* Auto width based on content */
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,15 +41,16 @@
   font-family: "Pretendard";
   color: #a3a3a3;
   cursor: pointer;
-  margin-left: -26px;
+  white-space: nowrap; /* Prevent wrap */
 }
 
 .tab-item:first-child {
-  margin-left: -26px;
+  /* margin-left: -26px; Removed */
 }
 
 .tab-item.active {
   color: black;
+  border-bottom: 2px solid black; /* Optional active indicator */
 }
 
 /* Scrollable Area */
@@ -171,39 +185,50 @@
 .cp-header {
   position: relative;
   height: 43px;
-  padding: 14px 0 0 20px;
+  padding: 14px 20px 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing between header items */
 }
 
 .cp-avatar {
-  position: absolute;
-  left: 20px;
-  top: 14px;
+  /* position: relative; natural flow */
   width: 29px;
   height: 29px;
+  flex-shrink: 0;
+  position: relative; /* For emoji centering */
 }
 
 .cp-emoji {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 16px;
   font-weight: 600;
   font-family: "Pretendard";
+  line-height: 1; /* Fix vertical alignment */
+  padding-bottom: 2px; /* Visual tweak for emojis often sitting high */
 }
 
 .cp-category-badge {
-  position: absolute;
-  left: 60px;
-  top: 20px;
-  width: 44px;
+  /* position: absolute; removed */
+  /* top/left removed */
+  width: auto; /* Allow auto width based on content */
+  min-width: 44px;
   height: 14px;
+  padding: 0 6px;
   background: #cffafe; /* cyan-100 */
   border-radius: 20px;
   border: 1px solid #2dd4bf; /* teal-400 */
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .cp-category-text {
@@ -211,36 +236,26 @@
   font-weight: 600;
   font-family: "Pretendard";
   color: black;
+  white-space: nowrap;
 }
 
 .cp-author {
-  position: absolute;
-  left: 110px;
-  top: 17px;
-  width: 56px;
-  height: 20px;
+  /* position: absolute; removed */
   font-size: 10px;
   font-weight: 600;
   font-family: "Pretendard";
   color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  white-space: nowrap;
 }
 
 .cp-time {
-  position: absolute;
-  left: 165px;
-  top: 20px;
-  width: 64px;
-  height: 10px;
+  /* position: absolute; removed */
   font-size: 10px;
   font-weight: 600;
   font-family: "Pretendard";
   color: #a3a3a3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  white-space: nowrap;
+  margin-left: auto; /* Pushes time to the right if desired, or keep naturally spaced */
 }
 
 .cp-title {
@@ -283,7 +298,7 @@
   display: flex;
   align-items: center;
   gap: 2px;
-  width: 80px; /* Fixed width for consistent start position */
+  width: 60px; /* Reduced fixed width from 80px */
 }
 
 .cp-stat-item svg {
@@ -309,8 +324,9 @@
 /* FAB Button */
 .fab-button {
   position: absolute;
-  left: 316px;
-  bottom: 150px; /* Moved up further */
+  /* left: 316px; Removed fixed left */
+  right: 20px; /* Responsive right positioning */
+  bottom: 150px;
   width: 55px;
   height: 55px;
   cursor: pointer;
