@@ -1,5 +1,5 @@
 import React from "react";
-import "./home.css";
+import "../styles/home/home.css";
 
 export function BottomNav({ active, onNavigate }) {
   const activeColor = "#FD9800"; // Orange

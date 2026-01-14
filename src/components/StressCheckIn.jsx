@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./stress-checkin.css";
+import "../styles/home/stress-checkin.css";
 import api from "../api/axiosConfig";
 
 export function StressCheckIn({ onBack, onComplete }) {

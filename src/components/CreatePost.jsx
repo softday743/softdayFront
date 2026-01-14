@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./create-post.css";
+import "../styles/community/create-post.css";
 import api from "../api/axiosConfig";
 
 export function CreatePost({ onNavigate }) {

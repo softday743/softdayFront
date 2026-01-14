@@ -1,5 +1,5 @@
 import React from "react";
-import "./find-id.css";
+import "../styles/onboarding/find-id.css";
 
 export function FindPwComplete({ onLogin, onTabId }) {
   return (

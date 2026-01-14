@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./notification.css";
+import "../styles/home/notification.css";
 
 export function Notification({ onBack }) {
   const [activeTab, setActiveTab] = useState("all");

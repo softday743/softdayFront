@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./profile-saved.css";
+import "../styles/mypage/profile-saved.css";
 
 export function ProfileSaved({ onBack }) {
   const [activeTab, setActiveTab] = useState("posts"); // 'posts' | 'contents'

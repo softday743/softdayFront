@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./find-id.css";
+import "../styles/onboarding/find-id.css";
 
 export function FindPwInput({ onNext, onBack, onTabId }) {
   const [id, setId] = useState("");

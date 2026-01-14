@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./profile-liked.css";
+import "../styles/mypage/profile-liked.css";
 
 export function ProfileLiked({ onBack }) {
   const [activeTab, setActiveTab] = useState("posts"); // 'posts' | 'comments'

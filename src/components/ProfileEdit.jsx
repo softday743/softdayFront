@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./profile-edit.css";
+import "../styles/mypage/profile-edit.css";
 import api from "../api/axiosConfig";
 
 export function ProfileEdit({ onBack }) {

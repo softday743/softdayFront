@@ -1,6 +1,6 @@
 import React from "react";
 import icon from "../assets/icon_arrow_left.svg";
-import "./signup-step4.css";
+import "../styles/onboarding/signup-step4.css";
 
 export const SignUpStep4 = ({ onNext, onBack }) => {
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./profile-content.css";
+import "../styles/mypage/profile-content.css";
 
 export function ProfileContent({ onBack }) {
   const [preferences, setPreferences] = useState(["text", "audio"]); // Initial selections based on HTML example

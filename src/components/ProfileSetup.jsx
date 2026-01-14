@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import icon from "../assets/icon_arrow_left.svg";
-import "./profile-setup.css";
+import "../styles/onboarding/profile-setup.css";
 import api from "../api/axiosConfig";
 
 const RANK_OPTIONS = [

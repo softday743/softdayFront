@@ -1,5 +1,5 @@
 import React from "react";
-import "./guest-login-popup.css";
+import "../styles/onboarding/guest-login-popup.css";
 
 export function GuestLoginPopup({ onLogin, onClose, type = "fixed" }) {
   return (

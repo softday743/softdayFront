@@ -6,7 +6,7 @@ import imgQ3 from "../assets/stress_q3.png";
 import imgQ4 from "../assets/stress_q4.png";
 import imgQ5 from "../assets/stress_q5.png";
 import introImg from "../assets/stress_intro.png";
-import "./stress-survey.css";
+import "../styles/home/stress-survey.css";
 import api from "../api/axiosConfig";
 
 const QUESTION_IMAGES = {

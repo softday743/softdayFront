@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import icon from "../assets/icon_arrow_left.svg";
 import { InputText } from "./InputText";
-import "./login.css";
+import "../styles/onboarding/login.css";
 import api from "../api/axiosConfig";
 
 export const Login = ({ onBack, onFindId, onFindPw, onLogin }) => {

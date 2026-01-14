@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./post-detail.css";
+import "../styles/community/post-detail.css";
 import api from "../api/axiosConfig";
 
 export function PostDetail({ onBack, postId, userName }) {

@@ -2,7 +2,7 @@ import React from "react";
 import x2 from "../assets/2.png";
 import { Button } from "./Button";
 
-import "./onboarding.css";
+import "../styles/onboarding/onboarding.css";
 
 export const Onboarding = ({ onSignUp, onLogin, onLookAround }) => {
   return (

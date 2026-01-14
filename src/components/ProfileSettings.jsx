@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./profile-settings.css";
+import "../styles/mypage/profile-settings.css";
 
 export function ProfileSettings({ onBack }) {
   const [view, setView] = useState("main"); // 'main' | 'notification'

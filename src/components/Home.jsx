@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./home.css";
+import "../styles/home/home.css";
 import { GuestLoginPopup } from "./GuestLoginPopup";
 
 const MESSAGES = [

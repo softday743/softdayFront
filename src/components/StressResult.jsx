@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import icon from "../assets/icon_arrow_left.svg";
-import "./stress-result.css";
+import "../styles/home/stress-result.css";
 
 const RESULT_DATA = {
   1: { emoji: "😍", text: "현재 스트레스 신호가 거의 없어요." },

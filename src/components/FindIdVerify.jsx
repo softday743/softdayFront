@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./find-id.css";
+import "../styles/onboarding/find-id.css";
 
 export function FindIdVerify({ onNext, onBack, email = "0000@gmail.com" }) {
   const [code, setCode] = useState("");

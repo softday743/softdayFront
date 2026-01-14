@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./profile.css";
+import "../styles/mypage/profile.css";
 import { ProfileEdit } from "./ProfileEdit";
 import { ProfileMyActivity } from "./ProfileMyActivity";
 import { ProfileContent } from "./ProfileContent";
