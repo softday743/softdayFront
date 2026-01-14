@@ -1,7 +1,7 @@
 import { useState } from "react";
 import icon from "../assets/icon_arrow_left.svg";
 import { InputText } from "./InputText";
-import "./signup-step1.css";
+import "../styles/onboarding/signup-step1.css";
 import api from "../api/axiosConfig";
 
 export const SignUpStep1 = ({ onNext, onBack, data, setData }) => {

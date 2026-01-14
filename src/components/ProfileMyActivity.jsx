@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./profile-my-activity.css";
+import React, { useState } from "react";
+import "../styles/mypage/profile-my-activity.css";
 import api from "../api/axiosConfig";
 
 export function ProfileMyActivity({ onBack }) {

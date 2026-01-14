@@ -3,7 +3,7 @@ import iconArrow from "../assets/icon_arrow_left.svg";
 import iconVideo from "../assets/icon-video-new.png";
 import iconText from "../assets/icon-text-new.png";
 import iconAudio from "../assets/icon-audio-new.png";
-import "./content-preference.css";
+import "../styles/onboarding/content-preference.css";
 import api from "../api/axiosConfig";
 
 export const ContentPreference = ({ onComplete, onBack }) => {

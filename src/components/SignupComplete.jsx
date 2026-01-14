@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import welcomeEmoji from "../assets/welcome-emoji.png";
-import "./signup-complete.css";
+import "../styles/onboarding/signup-complete.css";
 
 export function SignupComplete({ onNext, userName = "사용자" }) {
   useEffect(() => {

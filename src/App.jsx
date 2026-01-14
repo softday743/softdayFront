@@ -39,7 +39,7 @@ import { MainLayout } from "./components/MainLayout";
 import { StorePopup } from "./components/StorePopup";
 
 // Landing Page Style & Assets
-import "./landing.css";
+import "./styles/splash/landing.css";
 import logoHeader from "./assets/logo_header.png";
 import btnTryApp from "./assets/btn_try_app.png";
 import badgeAppStore from "./assets/badge_appstore.png";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./search.css";
+import "../styles/community/search.css";
 import { GuestLoginPopup } from "./GuestLoginPopup";
 
 export function Search({ onNavigate, userName }) {

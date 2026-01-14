@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import activeIndicator from "../assets/active-indicator.svg";
 import track from "../assets/track.svg";
-import "./calculating.css";
+import "../styles/home/calculating.css";
 
 export const Calculating = ({ onFinished, userName = "사용자" }) => {
   const location = useLocation();

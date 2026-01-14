@@ -1,5 +1,5 @@
 import React from "react";
-import "./notification-permission.css";
+import "../styles/onboarding/notification-permission.css";
 
 export function ServiceNotification({ onAllow, onDeny }) {
   return (

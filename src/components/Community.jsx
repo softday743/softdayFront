@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import "./community.css";
+import "../styles/community/community.css";
 import api from "../api/axiosConfig";
 import { GuestLoginPopup } from "./GuestLoginPopup";
 

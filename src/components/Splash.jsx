@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../assets/1.png";
-import "./splash.css";
+import "../styles/splash/splash.css";
 
 export function Splash({ onClick }) {
   return (

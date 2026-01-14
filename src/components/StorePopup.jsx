@@ -1,5 +1,5 @@
 import React from "react";
-import "./store-popup.css";
+import "../styles/home/store-popup.css";
 
 export function StorePopup({ onClose }) {
   return (

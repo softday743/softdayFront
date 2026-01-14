@@ -1,5 +1,5 @@
 import React from "react";
-import "./folder.css";
+import "../styles/mypage/folder.css";
 
 export function Folder({ onNavigate }) {
   return (

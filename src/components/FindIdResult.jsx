@@ -1,5 +1,5 @@
 import React from "react";
-import "./find-id.css";
+import "../styles/onboarding/find-id.css";
 
 export function FindIdResult({ onLogin, id = "id1234" }) {
   return (

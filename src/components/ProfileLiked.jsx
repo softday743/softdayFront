@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import "./profile-liked.css";
+import React, { useState } from "react";
+import "../styles/mypage/profile-liked.css";
 
 export function ProfileLiked({ onBack }) {
   const navigate = useNavigate();

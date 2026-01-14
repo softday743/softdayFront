@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import "./notification-permission.css";
+import "../styles/onboarding/notification-permission.css";
 import api from "../api/axiosConfig";
 
 export function MarketingNotification({ onAllow, onDeny }) {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./chatbot.css";
+import "../styles/chatbot/chatbot.css";
 import { GuestLoginPopup } from "./GuestLoginPopup";
 import x1 from "../assets/1.png";
 
