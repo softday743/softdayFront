@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./profile-my-activity.css";
 import api from "../api/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
-export function ProfileMyActivity({ onBack }) {
+export function ProfileMyActivity({ onBack, onNavigate }) {
   const [activeTab, setActiveTab] = useState("posts"); // 'posts' | 'comments'
   
   // 드롭다운 및 상태 관리
@@ -11,14 +12,15 @@ export function ProfileMyActivity({ onBack }) {
   const [categoryFilter, setCategoryFilter] = useState("전체");
   const [sortOrder, setSortOrder] = useState("최신순");
   
-  // 수정/삭제 메뉴를 보여줄 ID 저장 (게시글/댓글 구분 위해 프리픽스 사용 가능)
+  // 수정/삭제 메뉴를 보여줄 ID 저장
   const [activeEditMenu, setActiveEditMenu] = useState(null);
 
   // 외부 클릭 시 드롭다운 닫기 위한 Ref
   const categoryRef = useRef(null);
   const sortRef = useRef(null);
 
-  // --- Dummy Data ---
+  // --- 데이터 상태 ---
+  // 초기값을 빈 배열로 설정하거나 데이터 로딩 실패 시 더미를 보여주도록 관리
   const [myPosts, setMyPosts] = useState([
     { id: 1, title: "제목", content: "내용", category: "직장생활", author: "작성자 정보", time: "1분 전", likeCount: 10, commentCount: 1, viewCount: "조회수", icon: "🖥️" },
     { id: 2, title: "제목", content: "내용", category: "인간관계", author: "작성자 정보", time: "5분 전", likeCount: 5, commentCount: "댓글", viewCount: "조회수", icon: "👥" },
@@ -42,31 +44,87 @@ export function ProfileMyActivity({ onBack }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // --- 데이터 페칭 (Spring Page 객체 대응) ---
   useEffect(() => {
     const fetchActivity = async () => {
       try {
-        const endpoint = activeTab === "posts" ? "/user/posts" : "/user/comments";
-        const response = await api.get(endpoint);
-        if (response.data && response.data.length > 0) {
-          if (activeTab === "posts") setMyPosts(response.data);
-          else setMyComments(response.data);
+        const token = localStorage.getItem("accessToken");
+        // 댓글 조회 경로는 컨트롤러 확인 필요 (보통 /api/board/comments/me 등)
+        const endpoint = activeTab === "posts" ? "board" : "board/comments/me"; 
+        
+        const response = await api.get(endpoint, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        // Spring Page 객체(response.data.content)가 있는지 먼저 확인
+        const actualData = response.data.content || response.data;
+
+        if (Array.isArray(actualData)) {
+          if (activeTab === "posts") setMyPosts(actualData);
+          else setMyComments(actualData);
         }
       } catch (error) {
-        console.error("Fetch failed, using dummy data.", error);
+        console.error("Fetch failed, keeping dummy data.", error);
       }
     };
     fetchActivity();
   }, [activeTab]);
 
+  // --- 핸들러: 게시글 삭제 ---
+  const handleDeletePost = async (postId) => {
+    if (window.confirm("게시글을 삭제하시겠습니까?")) {
+      try {
+        const token = localStorage.getItem("accessToken");
+        // 컨트롤러 주소 /api/board/{postId} 에 대응
+        await api.delete(`board/${postId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        alert("삭제되었습니다.");
+        // UI 반영
+        setMyPosts((prev) => prev.filter((post) => post.id !== postId));
+      } catch (error) {
+        console.error("삭제 실패:", error);
+        alert("삭제에 실패했습니다. (권한이 없거나 이미 삭제된 글입니다.)");
+      }
+    }
+  };
+
+  // --- 핸들러: 댓글 삭제 ---
+  const handleDeleteComment = async (commentId) => {
+    if (window.confirm("댓글을 삭제하시겠습니까?")) {
+      try {
+        const token = localStorage.getItem("accessToken");
+        // 컨트롤러 주소 /api/board/comments/{commentId} 에 대응
+        await api.delete(`board/comments/${commentId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        alert("댓글이 삭제되었습니다.");
+        setMyComments((prev) => prev.filter((c) => c.id !== commentId));
+      } catch (error) {
+        console.error("댓글 삭제 실패:", error);
+        alert("댓글 삭제에 실패했습니다.");
+      }
+    }
+  };
+
+  // --- 핸들러: 수정 페이지 이동 ---
+  const handleEditPost = (post) => {
+    if (onNavigate) {
+      onNavigate("profile/edit-post", { state: { post } });
+    }
+  };
+
   // --- 데이터 필터링 및 정렬 계산 ---
-  const displayPosts = myPosts
+  const displayPosts = (myPosts || [])
     .filter(post => categoryFilter === "전체" || post.category === categoryFilter)
     .sort((a, b) => {
       if (sortOrder === "최신순") return b.id - a.id;
       return a.id - b.id;
     });
 
-  const displayComments = myComments.sort((a, b) => {
+  const displayComments = (myComments || []).sort((a, b) => {
     if (sortOrder === "최신순") return b.id - a.id;
     return a.id - b.id;
   });
@@ -77,7 +135,7 @@ export function ProfileMyActivity({ onBack }) {
       <div className="pma-back-arrow" onClick={onBack}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </div>
-      <div className="pma-header-title">내가 쓴 글</div>
+      <div className="pma-header-title">내가 쓴 활동</div>
 
       {/* Tabs */}
       <div className="pma-tabs-container">
@@ -87,7 +145,6 @@ export function ProfileMyActivity({ onBack }) {
 
       {/* Filters Area */}
       <div className="pma-filter-bar">
-        {/* 게시글 탭일 때만 카테고리 필터 노출 */}
         {activeTab === "posts" && (
           <div className="pma-dropdown-wrapper" ref={categoryRef} style={{ position: 'relative' }}>
             <div className="pma-filter-btn" onClick={() => setShowCategoryMenu(!showCategoryMenu)} style={{ cursor: 'pointer' }}>
@@ -131,10 +188,10 @@ export function ProfileMyActivity({ onBack }) {
             <div className="pma-card-icon">
               <svg width="29" height="29" viewBox="0 0 29 29" fill="none"><circle cx="14.5" cy="14.5" r="14" fill="#FFF9EA" stroke="#FFB200" /></svg>
             </div>
-            <div className="pma-card-emoji">{post.icon}</div>
+            <div className="pma-card-emoji">{post.icon || "📝"}</div>
             <div className="pma-card-category">{post.category}</div>
-            <div className="pma-card-author">{post.author}</div>
-            <div className="pma-card-time">{post.time}</div>
+            <div className="pma-card-author">{post.username || post.author}</div>
+            <div className="pma-card-time">{post.createdAt ? new Date(post.createdAt).toLocaleDateString() : post.time}</div>
             <div className="pma-card-title">{post.title}</div>
             <div className="pma-card-content">{post.content}</div>
             <div className="pma-card-stats">
@@ -147,8 +204,8 @@ export function ProfileMyActivity({ onBack }) {
             </div>
             {activeEditMenu === `p-${post.id}` && (
               <div className="pma-edit-popup" style={{ position: 'absolute', top: '40px', right: '10px', background: '#fff', border: '1px solid #ddd', borderRadius: '4px', zIndex: 11, padding: '5px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
-                <div style={{ padding: '8px 15px', cursor: 'pointer', borderBottom: '1px solid #eee' }} onClick={() => alert('수정')}>수정</div>
-                <div style={{ padding: '8px 15px', cursor: 'pointer', color: 'red' }} onClick={() => alert('삭제')}>삭제</div>
+                <div style={{ padding: '8px 15px', cursor: 'pointer', borderBottom: '1px solid #eee' }} onClick={() => handleEditPost(post)}>수정</div>
+                <div style={{ padding: '8px 15px', cursor: 'pointer', color: 'red' }} onClick={() => handleDeletePost(post.id)}>삭제</div>
               </div>
             )}
           </div>
@@ -160,10 +217,10 @@ export function ProfileMyActivity({ onBack }) {
             <div className="pma-comment-profile-bg">
               <svg width="27" height="27" viewBox="0 0 27 27" fill="none"><circle cx="13.5" cy="13.5" r="13" fill="#FFF9EA" stroke="#FD9800" /></svg>
             </div>
-            <div className="pma-comment-emoji" style={{ position: 'absolute', top: '20px', left: '20px' }}>{comment.icon}</div>
-            <div className="pma-comment-author" style={{ marginLeft: '40px', fontWeight: 'bold' }}>{comment.author}</div>
+            <div className="pma-comment-emoji" style={{ position: 'absolute', top: '20px', left: '20px' }}>{comment.icon || "💬"}</div>
+            <div className="pma-comment-author" style={{ marginLeft: '40px', fontWeight: 'bold' }}>{comment.username || comment.author}</div>
             <div className="pma-comment-content" style={{ marginTop: '10px' }}>{comment.content}</div>
-            <div className="pma-comment-date" style={{ marginTop: '10px', fontSize: '12px', color: '#999' }}>{comment.date}</div>
+            <div className="pma-comment-date" style={{ marginTop: '10px', fontSize: '12px', color: '#999' }}>{comment.createdAt ? new Date(comment.createdAt).toLocaleString() : comment.date}</div>
             
             <div className="pma-comment-menu" onClick={() => setActiveEditMenu(activeEditMenu === `c-${comment.id}` ? null : `c-${comment.id}`)} style={{ position: 'absolute', top: '15px', right: '15px', cursor: 'pointer' }}>
               <svg width="3" height="14" viewBox="0 0 3 14" fill="none"><path d="M1.5 7.5C1.91421 7.5 2.25 7.16421 2.25 6.75Z" stroke="black" strokeWidth="1.5"/><path d="M1.5 12.75C1.91421 12.75 2.25 12.4142 2.25 12Z" stroke="black" strokeWidth="1.5"/><path d="M1.5 2.25C1.91421 2.25 2.25 1.91421 2.25 1.5C2.25 1.08579 1.91421 0.75 1.5 0.75" stroke="black" strokeWidth="1.5"/></svg>
@@ -171,8 +228,8 @@ export function ProfileMyActivity({ onBack }) {
 
             {activeEditMenu === `c-${comment.id}` && (
               <div className="pma-edit-popup" style={{ position: 'absolute', top: '40px', right: '10px', background: '#fff', border: '1px solid #ddd', borderRadius: '4px', zIndex: 11, padding: '5px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
-                <div style={{ padding: '8px 15px', cursor: 'pointer', borderBottom: '1px solid #eee' }} onClick={() => alert('수정')}>수정</div>
-                <div style={{ padding: '8px 15px', cursor: 'pointer', color: 'red' }} onClick={() => alert('삭제')}>삭제</div>
+                <div style={{ padding: '8px 15px', cursor: 'pointer', borderBottom: '1px solid #eee' }} onClick={() => alert('댓글 수정 기능 준비 중')}>수정</div>
+                <div style={{ padding: '8px 15px', cursor: 'pointer', color: 'red' }} onClick={() => handleDeleteComment(comment.id)}>삭제</div>
               </div>
             )}
           </div>
