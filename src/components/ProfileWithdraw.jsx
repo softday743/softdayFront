@@ -64,8 +64,8 @@ export function ProfileWithdraw({ onBack }) {
           <p>정말 회원 탈퇴를 진행하시겠어요?</p>
           <p className="pw-modal-subtext">탈퇴 후에는 계정에<br/>다시 로그인할 수 없어요.</p>
           <div className="pw-modal-btns">
-            <button className="pw-modal-no" onClick={onBack}>아니오</button>
-            <button className="pw-modal-yes" onClick={() => setStep("reason")}>예</button>
+            <button className="pw-modal-no" onClick={onBack} style={{ cursor: "pointer" }}>아니오</button>
+            <button className="pw-modal-yes" onClick={() => setStep("reason")} style={{ cursor: "pointer" }}>예</button>
           </div>
         </div>
       </div>
@@ -76,7 +76,7 @@ export function ProfileWithdraw({ onBack }) {
     return (
       <div className="pw-container">
         <div className="pw-header">
-          <div className="pw-back" onClick={() => navigate("/")}>←</div>
+          <div className="pw-back" onClick={() => navigate("/")} style={{ cursor: "pointer" }}>←</div>
           <div className="pw-title">회원탈퇴</div>
         </div>
         <div className="pw-done-content">
@@ -90,25 +90,33 @@ export function ProfileWithdraw({ onBack }) {
   return (
     <div className="pw-container">
       <div className="pw-header">
-        <div className="pw-back" onClick={onBack}>←</div>
-        <div className="pw-title">회원탈퇴</div>
+        <div className="pw-back" onClick={onBack} style={{ cursor: "pointer" }}>
+          {/* 이미지와 비슷한 화살표 아이콘으로 변경 */}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M5 12L12 19M5 12L12 5"/></svg>
+        </div>
+        <div className="pw-title">회원 탈퇴</div>
       </div>
 
       <div className="pw-body">
         {step === "reason" && (
           <>
             <h3 className="pw-question">탈퇴하는 이유가 무엇인가요?</h3>
-            <p className="pw-guide">탈퇴 이유를 1개 이상 선택해주세요.</p>
+            {/* 선택 안됐을 때만 가이드 노출 (이미지 참고) */}
+            <p className="pw-guide" style={{ visibility: selectedReasons.length === 0 ? "visible" : "hidden" }}>
+              탈퇴 이유를 1개 이상 선택해주세요.
+            </p>
             
             <div className="pw-reasons-list">
               {reasonsList.map((reason, idx) => (
-                <label key={idx} className="pw-reason-item">
+                <label key={idx} className="pw-reason-item" style={{ cursor: "pointer" }}>
                   <input 
                     type="checkbox" 
                     checked={selectedReasons.includes(reason)}
                     onChange={() => handleReasonChange(reason)}
                   />
-                  <span>{reason}</span>
+                  {/* 커스텀 체크박스 모양을 위한 span */}
+                  <span className="pw-custom-checkbox"></span>
+                  <span className="pw-reason-text">{reason}</span>
                 </label>
               ))}
             </div>
@@ -126,6 +134,7 @@ export function ProfileWithdraw({ onBack }) {
               className={`pw-next-btn ${selectedReasons.length > 0 ? "active" : ""}`}
               disabled={selectedReasons.length === 0}
               onClick={() => setStep("password")}
+              style={{ cursor: selectedReasons.length > 0 ? "pointer" : "default" }}
             >
               다음
             </button>
@@ -153,6 +162,7 @@ export function ProfileWithdraw({ onBack }) {
                   type="button"
                   className="pw-toggle-pw"
                   onClick={() => setShowPassword(!showPassword)}
+                  style={{ cursor: "pointer" }}
                 >
                   {showPassword ? "👁️" : "👁️‍🗨️"}
                 </button>
@@ -164,6 +174,7 @@ export function ProfileWithdraw({ onBack }) {
               className={`pw-next-btn ${password ? "active" : ""}`}
               disabled={!password}
               onClick={handleWithdraw}
+              style={{ cursor: password ? "pointer" : "default" }}
             >
               확인
             </button>
