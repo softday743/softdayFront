@@ -39,6 +39,7 @@ export function ProfileMyActivity({ onBack, onNavigate, userName }) {
     }
   };
 
+  // --- 데이터 페칭 (Spring Page 객체 대응) ---
   useEffect(() => {
     setLoading(true);
     fetchData().finally(() => setLoading(false));
