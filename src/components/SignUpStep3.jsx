@@ -3,7 +3,7 @@ import icon from "../assets/icon_arrow_left.svg";
 import { InputText } from "./InputText";
 import { EyeOff } from "./EyeOff";
 import { Eye } from "./Eye";
-import "./signup-step3.css";
+import "../styles/onboarding/signup-step3.css";
 import api from "../api/axiosConfig";
 
 export const SignUpStep3 = ({ onNext, onBack, data }) => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Eye } from "./Eye";
 import { EyeOff } from "./EyeOff";
-import "./find-id.css";
+import "../styles/onboarding/find-id.css";
 
 export function FindPwReset({ onNext, onBack, onTabId }) {
   const [pw1, setPw1] = useState("");

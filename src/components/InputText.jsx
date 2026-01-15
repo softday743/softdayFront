@@ -1,5 +1,5 @@
 import React from "react";
-import "./signup-shared.css";
+import "../styles/onboarding/signup-shared.css";
 
 export const InputText = ({
   className,

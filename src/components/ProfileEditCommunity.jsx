@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import api from "../api/axiosConfig";
-import "./profile-edit-community.css";
+// 중요: api 대신 boardApi를 가져옵니다.
+import { boardApi } from "../api/axiosConfig"; 
+import "../styles/mypage/profile-edit-community.css"
 
 export function ProfileEditCommunity() {
   const location = useLocation();
@@ -30,6 +31,7 @@ export function ProfileEditCommunity() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // 완료 버튼 클릭 시 실행되는 함수
   const handleSave = async () => {
     if (!formData.title.trim() || !formData.content.trim()) {
       alert("제목과 내용을 입력해주세요.");
@@ -37,17 +39,19 @@ export function ProfileEditCommunity() {
     }
 
     try {
-      // 백엔드 updatePost API 호출
-      await api.put(`/api/board/${post.id}`, {
+      // 수정된 부분: boardApi의 updatePost 함수를 사용합니다.
+      // 첫 번째 인자는 ID, 두 번째 인자는 수정할 데이터 객체입니다.
+      await boardApi.updatePost(post.id, {
         title: formData.title,
         content: formData.content,
         category: formData.category
       });
-      alert("수정되었습니다.");
-      navigate(-1);
+      
+      alert("게시글이 수정되었습니다.");
+      navigate(-1); // 이전 화면(활동 내역)으로 돌아가기
     } catch (error) {
       console.error("수정 실패:", error);
-      alert("수정에 실패했습니다.");
+      alert("수정에 실패했습니다. 본인 글인지 확인해주세요.");
     }
   };
 

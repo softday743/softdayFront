@@ -1,0 +1,132 @@
+.pma-container {
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  position: relative;
+  max-width: 384px;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.pma-header-title {
+  padding-top: 55px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+}
+
+.pma-back-arrow {
+  position: absolute;
+  left: 21px;
+  top: 58px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Tabs */
+.pma-tabs-container {
+  display: flex;
+  margin-top: 25px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.pma-tab {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #d6d3d1;
+  position: relative;
+}
+
+.pma-tab.active { color: black; }
+.pma-tab.active::after {
+  content: ""; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: black;
+}
+
+/* Filter Bar - 이 부분의 padding-top을 줄여서 위치를 올렸습니다 */
+.pma-filter-bar { 
+  display: flex; 
+  align-items: center; 
+  padding: 8px 15px 15px 15px; /* 기존 15px에서 8px로 줄여 위로 올림 */
+  gap: 10px; 
+}
+
+.pma-filter-btn, .pma-sort-btn {
+  padding: 5px 10px; background: #f9fafb; border: 1px solid #d6d3d1; border-radius: 5px; font-size: 12px; cursor: pointer;
+}
+
+.pma-search-bar { 
+  flex: 1; 
+  height: 28px; 
+  background: #f9fafb; 
+  border: 1px solid #d6d3d1; 
+  border-radius: 5px; 
+  display: flex; 
+  align-items: center; 
+  padding: 0 8px;
+}
+
+/* List Area & Scroll */
+.pma-list-bg {
+  flex: 1;
+  background-color: #FFFBEB;
+  overflow-y: auto;
+}
+
+.pma-scroll-content {
+  padding: 15px;
+  padding-bottom: 180px; 
+}
+
+/* Card Style */
+.pma-card, .pma-comment-card {
+  background: white; border-radius: 12px; border: 1px solid #e5e7eb; padding: 16px; margin-bottom: 15px;
+}
+.pma-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.pma-card-emoji-box { width: 28px; height: 28px; background: #FFF9EA; border: 1px solid #FFB200; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.pma-card-category-tag { background: #cffafe; color: black; border: 1px solid #2dd4bf; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; }
+.pma-card-author-name { font-size: 12px; font-weight: 600; }
+.pma-card-date { margin-left: auto; font-size: 11px; color: #a3a3a3; }
+.pma-card-post-title { font-size: 15px; font-weight: 700; margin: 10px 0 5px; }
+.pma-card-post-text { font-size: 13px; color: #4b5563; line-height: 1.5; }
+.pma-card-footer { margin-top: 15px; display: flex; gap: 15px; font-size: 11px; font-weight: 600; color: #9ca3af; }
+
+/* Pagination */
+.pma-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 40px;
+  padding-bottom: 20px;
+}
+
+.pma-page-btn {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  color: #a3a3a3;
+}
+
+.pma-page-btn.active {
+  color: black;
+  font-weight: 800;
+}
+
+.pma-page-btn:disabled {
+  color: #e5e7eb;
+  cursor: not-allowed;
+}

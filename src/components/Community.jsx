@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import "./community.css";
+import "../styles/community/community.css";
 import api from "../api/axiosConfig";
 import { GuestLoginPopup } from "./GuestLoginPopup";
 
@@ -10,7 +10,10 @@ export function Community({ onNavigate, onPostClick, userName }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20;
+  
+  // 페이지당 게시글 수를 20에서 10으로 수정
+  const itemsPerPage = 10; 
+  
   const [sortOrder, setSortOrder] = useState("latest");
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
@@ -33,7 +36,11 @@ export function Community({ onNavigate, onPostClick, userName }) {
     }
   }, [location.search]);
 
-  // Generate 50 dummy posts
+  // 카테고리나 정렬이 바뀌면 페이지를 1페이지로 초기화
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeTab, sortOrder]);
+
   const allPosts = Array.from({ length: 50 }, (_, i) => ({
     id: i + 1,
     emoji: ["🖥️", "👥", "💭"][i % 3],
@@ -41,15 +48,14 @@ export function Community({ onNavigate, onPostClick, userName }) {
     title: `게시글 제목 ${i + 1}`,
     content: `게시글 내용 ${i + 1}입니다.`,
     author: "작성자 정보",
-    time: "시간(ex, n분 전)", // Keep for fallback if needed
-    createdAt: new Date(Date.now() - i * 10000000).toISOString(), // Generate varied dates
-    likes: (i * 7) % 100, // Varied likes for popular text
+    time: "시간(ex, n분 전)",
+    createdAt: new Date(Date.now() - i * 10000000).toISOString(),
+    likes: (i * 7) % 100,
     comments: i % 3,
     views: "조회수",
     hasLikes: i % 5 > 0,
   }));
 
-  // Filtering & Sorting Logic
   const filteredPosts = posts
     .filter((post) => {
       if (activeTab === "all") return true;
@@ -71,13 +77,11 @@ export function Community({ onNavigate, onPostClick, userName }) {
     })
     .sort((a, b) => {
       if (sortOrder === "popular") {
-        return b.likes - a.likes; // Descending likes
+        return b.likes - a.likes;
       }
-      // Default: Latest (Descending ID)
       return b.id - a.id;
     });
 
-  // Pagination Logic
   const indexOfLastPost = currentPage * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
@@ -85,26 +89,23 @@ export function Community({ onNavigate, onPostClick, userName }) {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    // Scroll to top when page changes (optional)
     const scrollArea = document.querySelector(".community-scroll-area");
     if (scrollArea) scrollArea.scrollTop = 0;
   };
 
-  // [API] 게시글 목록 조회
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await api.get("/board"); // 백엔드 목록 조회 API
+        const response = await api.get("/board");
         const data = response.data.content || response.data;
         if (Array.isArray(data) && data.length > 0) {
             setPosts(data);
         } else {
-            // API returned empty list, use dummy data for preview
             setPosts(allPosts);
         }
       } catch (error) {
         console.error("Failed to fetch posts", error);
-        setPosts(allPosts); // Fallback to dummy data
+        setPosts(allPosts);
       } finally {
         setLoading(false);
       }
@@ -113,10 +114,8 @@ export function Community({ onNavigate, onPostClick, userName }) {
   }, []);
 
   const handleScroll = (e) => {
-    // If guest, check if scrolled to bottom
     if (isGuest) {
       const { scrollTop, clientHeight, scrollHeight } = e.target;
-      // Allow a small buffer (e.g. 10px)
       if (scrollTop + clientHeight >= scrollHeight - 10) {
         setShowLoginPopup(true);
       }
@@ -125,7 +124,6 @@ export function Community({ onNavigate, onPostClick, userName }) {
 
   return (
     <div className="community-container">
-      {/* Header Tabs - Fixed at Top */}
       <div className="community-header">
         <div
           className={`tab-item ${activeTab === "all" ? "active" : ""}`}
@@ -153,9 +151,7 @@ export function Community({ onNavigate, onPostClick, userName }) {
         </div>
       </div>
 
-      {/* Scrollable Content */}
       <div className="community-scroll-area" onScroll={handleScroll}>
-        {/* Filter & Sort */}
         <div className="filter-section">
           <div
             className="filter-icon"
@@ -212,7 +208,6 @@ export function Community({ onNavigate, onPostClick, userName }) {
           </div>
         </div>
 
-        {/* Post List */}
         <div className="community-post-list">
           {loading ? (
             <div>Loading...</div>
@@ -267,7 +262,6 @@ export function Community({ onNavigate, onPostClick, userName }) {
                 <div className="cp-title">{post.title}</div>
                 <div className="cp-content">{post.content}</div>
                 <div className="cp-footer">
-                  {/* Like */}
                   <div className="cp-stat-item">
                     <svg
                       width="18"
@@ -288,7 +282,6 @@ export function Community({ onNavigate, onPostClick, userName }) {
                       {post.likes > 0 ? post.likes : "좋아요"}
                     </span>
                   </div>
-                  {/* Comment */}
                   <div className="cp-stat-item">
                     <svg
                       width="18"
@@ -309,7 +302,6 @@ export function Community({ onNavigate, onPostClick, userName }) {
                       {post.comments > 0 ? post.comments : "댓글"}
                     </span>
                   </div>
-                  {/* View */}
                   <div className="cp-stat-item">
                     <svg
                       width="18"
@@ -348,7 +340,6 @@ export function Community({ onNavigate, onPostClick, userName }) {
           )}
         </div>
 
-        {/* Pagination */}
         <div className="pagination">
           <button
             className="page-btn prev"
@@ -377,7 +368,6 @@ export function Community({ onNavigate, onPostClick, userName }) {
           </button>
         </div>
 
-        {/* FAB */}
         <div 
           className="fab-button" 
           onClick={() => handleRestrictedClick(() => onNavigate("createPost"))}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./statistics.css";
+import "../styles/stats/statistics.css";
 import { GuestLoginPopup } from "./GuestLoginPopup"; // Keep just in case, but using custom UI here
 import welcomeEmoji from "../assets/welcome-emoji.png"; // Or just the emoji text as per HTML
 

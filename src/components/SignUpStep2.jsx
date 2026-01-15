@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import icon from "../assets/icon_arrow_left.svg";
 import line from "../assets/line_dashed.svg"; // Using simplified asset
-import "./signup-step2.css";
+import "../styles/onboarding/signup-step2.css";
 import { InputText } from "./InputText";
 import api from "../api/axiosConfig";
 

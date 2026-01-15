@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import api from "../api/axiosConfig";
-import "./CommunityCreate.css"; // 아래 CSS 코드 참고
+import "../styles/community/communityCreate.css"; // 아래 CSS 코드 참고
 
 export function CommunityCreate({ onNavigate }) {
   const [formData, setFormData] = useState({

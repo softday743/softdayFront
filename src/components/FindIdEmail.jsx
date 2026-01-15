@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./find-id.css";
+import "../styles/onboarding/find-id.css";
 
 export function FindIdEmail({ onNext, onBack }) {
   const [email, setEmail] = useState("");

@@ -1,0 +1,119 @@
+.cc-container {
+  background-color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.cc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cc-cancel { color: #666; cursor: pointer; font-size: 15px; }
+.cc-header-title { font-weight: bold; font-size: 17px; }
+.cc-done { color: #FFB200; font-weight: bold; cursor: pointer; font-size: 15px; }
+
+.cc-category-section {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cc-label { font-size: 14px; font-weight: bold; color: #333; }
+
+.cc-category-list { display: flex; gap: 8px; }
+
+.cc-category-item {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #eee;
+  font-size: 13px;
+  cursor: pointer;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cc-category-item.active {
+  background-color: #FFF9EA;
+  border-color: #FFB200;
+  color: #FFB200;
+}
+
+.cc-title-input {
+  width: 100%;
+  padding: 20px;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 18px;
+  outline: none;
+}
+
+.cc-content-group {
+  padding: 20px;
+  flex: 1;
+  position: relative;
+}
+
+.cc-char-count {
+  text-align: right;
+  font-size: 12px;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.cc-content-input {
+  width: 100%;
+  height: 300px;
+  border: none;
+  resize: none;
+  outline: none;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.cc-content-input::placeholder {
+  color: #ddd;
+  font-size: 13px;
+}
+
+.cc-limit-warning {
+  color: #ff3737;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.cc-anonymous-section {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  cursor: pointer;
+  color: #FD9800;
+  font-size: 14px;
+}
+
+.cc-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #FD9800;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.cc-checkbox.checked {
+  background-color: #FD9800;
+  color: white;
+}
