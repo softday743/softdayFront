@@ -1,6 +1,12 @@
-
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate, useLocation, Navigate, useParams } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  Navigate,
+  useParams,
+} from "react-router-dom";
 import { Splash } from "./components/Splash";
 import { Onboarding } from "./components/Onboarding";
 import { SignUpStep1 } from "./components/SignUpStep1";
@@ -29,17 +35,23 @@ import { Community } from "./components/Community";
 import { PostDetail } from "./components/PostDetail";
 import { StressCheckIn } from "./components/StressCheckIn";
 import { Search } from "./components/Search";
-import { CreatePost } from "./components/CreatePost";
 import { Statistics } from "./components/Statistics";
 import { Chatbot } from "./components/Chatbot";
 import { Profile } from "./components/Profile";
 import { Notification } from "./components/Notification";
-
 import { MainLayout } from "./components/MainLayout";
 import { StorePopup } from "./components/StorePopup";
+import { CommunityCreate } from "./components/CommunityCreate";
+import { ProfileSettings } from "./components/ProfileSettings";
+import { ProfileAccount } from "./components/ProfileAccount";
+import { ProfileMyActivity } from "./components/ProfileMyActivity";
+import Withdrawal from "./components/Withdrawal";
+
+// [추가] 내 게시글 수정 컴포넌트
+import { ProfileEditCommunity } from "./components/ProfileEditCommunity";
 
 // Landing Page Style & Assets
-import "./styles/splash/landing.css";
+import "../src/styles/splash/landing.css";
 import logoHeader from "./assets/logo_header.png";
 import btnTryApp from "./assets/btn_try_app.png";
 import badgeAppStore from "./assets/badge_appstore.png";
@@ -49,14 +61,19 @@ import badgeGooglePlay from "./assets/badge_googleplay.png";
 function PostDetailRoute({ userName }) {
   const { postId } = useParams();
   const navigate = useNavigate();
-  return <PostDetail postId={postId} userName={userName} onBack={() => navigate("/community")} />;
+  return (
+    <PostDetail
+      postId={postId}
+      userName={userName}
+      onBack={() => navigate("/community")}
+    />
+  );
 }
 
 // Wrapper for initial redirect logic
 function IndexRedirect() {
   const navigate = useNavigate();
   useEffect(() => {
-    // Check session
     const hasShownSplash = sessionStorage.getItem("hasShownSplash");
     if (hasShownSplash) {
       const token = localStorage.getItem("accessToken");
@@ -76,7 +93,7 @@ function App() {
   const [hasCheckedIn, setHasCheckedIn] = useState(false);
   const [showStorePopup, setShowStorePopup] = useState(false);
 
-  // Signup data state (kept in App to persist across steps)
+  // Signup data state
   const [signupData, setSignupData] = useState({
     username: "",
     email: "",
@@ -90,11 +107,10 @@ function App() {
     if (pathname.startsWith("/home")) return "home";
     if (pathname.startsWith("/community")) return "community";
     if (pathname.startsWith("/chatbot")) return "chatbot";
-    if (pathname.startsWith("/statistics")) return "folder"; // Statistics maps to 'folder' tab
+    if (pathname.startsWith("/statistics")) return "folder";
     if (pathname.startsWith("/profile")) return "profile";
     return "";
   };
-  const activeTab = getActiveTab(location.pathname);
 
   return (
     <div className="landing-container">
@@ -132,264 +148,443 @@ function App() {
         <div className="mobile-frame-wrapper">
           <Routes>
             <Route path="/" element={<IndexRedirect />} />
-            
-            <Route path="/splash" element={<Splash onClick={() => navigate("/onboarding")} />} />
-            
-            <Route path="/onboarding" element={
-              <Onboarding
-                onSignUp={() => navigate("/signup/step1")}
-                onLogin={() => navigate("/login")}
-                onLookAround={() => {
-                   sessionStorage.setItem("hasShownSplash", "true"); // ensure we don't go back to splash
-                   navigate("/home");
-                }}
-              />
-            } />
 
-            <Route path="/login" element={
-              <Login
-                onBack={() => navigate("/onboarding")}
-                onFindId={() => navigate("/find-id/email")}
-                onFindPw={() => navigate("/find-pw/input")}
-                onLogin={(id) => {
-                  setUserName(id);
-                  navigate("/home");
-                }}
-              />
-            } />
+            <Route
+              path="/splash"
+              element={<Splash onClick={() => navigate("/onboarding")} />}
+            />
+
+            <Route
+              path="/onboarding"
+              element={
+                <Onboarding
+                  onSignUp={() => navigate("/signup/step1")}
+                  onLogin={() => navigate("/login")}
+                  onLookAround={() => {
+                    sessionStorage.setItem("hasShownSplash", "true");
+                    navigate("/home");
+                  }}
+                />
+              }
+            />
+
+            <Route
+              path="/login"
+              element={
+                <Login
+                  onBack={() => navigate("/onboarding")}
+                  onFindId={() => navigate("/find-id/email")}
+                  onFindPw={() => navigate("/find-pw/input")}
+                  onLogin={(id) => {
+                    setUserName(id);
+                    navigate("/home");
+                  }}
+                />
+              }
+            />
 
             {/* Signup Flow */}
-            <Route path="/signup/step1" element={
-              <SignUpStep1
-                data={signupData}
-                setData={setSignupData}
-                onNext={() => navigate("/signup/step2")}
-                onBack={() => navigate("/onboarding")}
-              />
-            } />
-            <Route path="/signup/step2" element={
-              <SignUpStep2
-                data={signupData}
-                onNext={() => navigate("/signup/step3")}
-                onBack={() => navigate("/signup/step1")}
-              />
-            } />
-            <Route path="/signup/step3" element={
-              <SignUpStep3
-                data={signupData}
-                setData={setSignupData}
-                onNext={() => navigate("/signup/step4")}
-                onBack={() => navigate("/signup/step2")}
-              />
-            } />
-            <Route path="/signup/step4" element={
-              <SignUpStep4
-                onNext={() => navigate("/profile-setup")}
-                onBack={() => navigate("/signup/step3")}
-              />
-            } />
+            <Route
+              path="/signup/step1"
+              element={
+                <SignUpStep1
+                  data={signupData}
+                  setData={setSignupData}
+                  onNext={() => navigate("/signup/step2")}
+                  onBack={() => navigate("/onboarding")}
+                />
+              }
+            />
+            <Route
+              path="/signup/step2"
+              element={
+                <SignUpStep2
+                  data={signupData}
+                  onNext={() => navigate("/signup/step3")}
+                  onBack={() => navigate("/signup/step1")}
+                />
+              }
+            />
+            <Route
+              path="/signup/step3"
+              element={
+                <SignUpStep3
+                  data={signupData}
+                  setData={setSignupData}
+                  onNext={() => navigate("/signup/step4")}
+                  onBack={() => navigate("/signup/step2")}
+                />
+              }
+            />
+            <Route
+              path="/signup/step4"
+              element={
+                <SignUpStep4
+                  onNext={() => navigate("/profile-setup")}
+                  onBack={() => navigate("/signup/step3")}
+                />
+              }
+            />
 
-            <Route path="/profile-setup" element={
-              <ProfileSetup
-                onNext={() => navigate("/survey")}
-                onBack={() => navigate("/signup/step4")}
-              />
-            } />
+            <Route
+              path="/profile-setup"
+              element={
+                <ProfileSetup
+                  onNext={() => navigate("/survey")}
+                  onBack={() => navigate("/signup/step4")}
+                />
+              }
+            />
 
-            <Route path="/survey" element={
-              <StressSurvey
-                onNext={(score) => navigate("/calculating", { state: { score } })}
-                onBack={() => {
-                  setHasCheckedIn(true);
-                  navigate("/home");
-                }}
-              />
-            } />
+            <Route
+              path="/survey"
+              element={
+                <StressSurvey
+                  onNext={(score) =>
+                    navigate("/calculating", { state: { score } })
+                  }
+                  onBack={() => {
+                    setHasCheckedIn(true);
+                    navigate("/home");
+                  }}
+                />
+              }
+            />
 
-            <Route path="/calculating" element={
-              <Calculating
-                userName={userName || "사용자"}
-                onFinished={(score) => navigate("/result", { state: { score } })}
-              />
-            } />
+            <Route
+              path="/calculating"
+              element={
+                <Calculating
+                  userName={userName || "사용자"}
+                  onFinished={(score) =>
+                    navigate("/result", { state: { score } })
+                  }
+                />
+              }
+            />
 
-            <Route path="/result" element={
-              <StressResult
-                onConfirm={() => {
-                  setHasCheckedIn(true);
-                  navigate("/home");
-                }}
-                onBack={() => navigate("/survey")}
-              />
-            } />
+            <Route
+              path="/result"
+              element={
+                <StressResult
+                  onConfirm={() => {
+                    setHasCheckedIn(true);
+                    navigate("/home");
+                  }}
+                  onBack={() => navigate("/survey")}
+                />
+              }
+            />
 
-            <Route path="/preference" element={
-              <ContentPreference
-                onComplete={() => navigate("/signup-complete")}
-                onBack={() => navigate("/result")}
-              />
-            } />
+            <Route
+              path="/preference"
+              element={
+                <ContentPreference
+                  onComplete={() => navigate("/signup-complete")}
+                  onBack={() => navigate("/result")}
+                />
+              }
+            />
 
-            <Route path="/signup-complete" element={
-              <SignupComplete
-                userName={userName || "사용자"}
-                onNext={() => navigate("/service-auth")}
-              />
-            } />
+            <Route
+              path="/signup-complete"
+              element={
+                <SignupComplete
+                  userName={userName || "사용자"}
+                  onNext={() => navigate("/service-auth")}
+                />
+              }
+            />
 
-            <Route path="/service-auth" element={
-              <ServiceNotification
-                onAllow={() => navigate("/marketing-auth", { state: { general: true } })}
-                onDeny={() => navigate("/service-reconfirm")}
-              />
-            } />
+            <Route
+              path="/service-auth"
+              element={
+                <ServiceNotification
+                  onAllow={() =>
+                    navigate("/marketing-auth", { state: { general: true } })
+                  }
+                  onDeny={() => navigate("/service-reconfirm")}
+                />
+              }
+            />
 
-            <Route path="/service-reconfirm" element={
-              <ServiceReconfirm
-                onAllow={() => navigate("/marketing-auth", { state: { general: true } })}
-                onDeny={() => navigate("/marketing-auth", { state: { general: false } })}
-              />
-            } />
+            <Route
+              path="/service-reconfirm"
+              element={
+                <ServiceReconfirm
+                  onAllow={() =>
+                    navigate("/marketing-auth", { state: { general: true } })
+                  }
+                  onDeny={() =>
+                    navigate("/marketing-auth", { state: { general: false } })
+                  }
+                />
+              }
+            />
 
-            <Route path="/marketing-auth" element={
-              <MarketingNotification
-                onAllow={() => navigate("/login")}
-                onDeny={() => navigate("/login")}
-              />
-            } />
+            <Route
+              path="/marketing-auth"
+              element={
+                <MarketingNotification
+                  onAllow={() => navigate("/login")}
+                  onDeny={() => navigate("/login")}
+                />
+              }
+            />
 
             {/* Find ID/PW */}
-            <Route path="/find-id/email" element={
-              <FindIdEmail
-                onNext={() => navigate("/find-id/verify")}
-                onBack={() => navigate("/login")}
-              />
-            } />
-            <Route path="/find-id/verify" element={
-              <FindIdVerify
-                onNext={() => navigate("/find-id/result")}
-                onBack={() => navigate("/find-id/email")}
-              />
-            } />
-            <Route path="/find-id/result" element={
-              <FindIdResult onLogin={() => navigate("/login")} />
-            } />
+            <Route
+              path="/find-id/email"
+              element={
+                <FindIdEmail
+                  onNext={() => navigate("/find-id/verify")}
+                  onBack={() => navigate("/login")}
+                />
+              }
+            />
+            <Route
+              path="/find-id/verify"
+              element={
+                <FindIdVerify
+                  onNext={() => navigate("/find-id/result")}
+                  onBack={() => navigate("/find-id/email")}
+                />
+              }
+            />
+            <Route
+              path="/find-id/result"
+              element={<FindIdResult onLogin={() => navigate("/login")} />}
+            />
 
-            <Route path="/find-pw/input" element={
-              <FindPwInput
-                onNext={() => navigate("/find-pw/verify")}
-                onBack={() => navigate("/login")}
-                onTabId={() => navigate("/find-id/email")}
-              />
-            } />
-            <Route path="/find-pw/verify" element={
-              <FindPwVerify
-                onNext={() => navigate("/find-pw/reset")}
-                onBack={() => navigate("/find-pw/input")}
-                onTabId={() => navigate("/find-id/email")}
-              />
-            } />
-            <Route path="/find-pw/reset" element={
-              <FindPwReset
-                onNext={() => navigate("/find-pw/complete")}
-                onBack={() => navigate("/find-pw/verify")}
-                onTabId={() => navigate("/find-id/email")}
-              />
-            } />
-            <Route path="/find-pw/complete" element={
-              <FindPwComplete
-                onLogin={() => navigate("/login")}
-                onTabId={() => navigate("/find-id/email")}
-              />
-            } />
+            <Route
+              path="/find-pw/input"
+              element={
+                <FindPwInput
+                  onNext={() => navigate("/find-pw/verify")}
+                  onBack={() => navigate("/login")}
+                  onTabId={() => navigate("/find-id/email")}
+                />
+              }
+            />
+            <Route
+              path="/find-pw/verify"
+              element={
+                <FindPwVerify
+                  onNext={() => navigate("/find-pw/reset")}
+                  onBack={() => navigate("/find-pw/input")}
+                  onTabId={() => navigate("/find-id/email")}
+                />
+              }
+            />
+            <Route
+              path="/find-pw/reset"
+              element={
+                <FindPwReset
+                  onNext={() => navigate("/find-pw/complete")}
+                  onBack={() => navigate("/find-pw/verify")}
+                  onTabId={() => navigate("/find-id/email")}
+                />
+              }
+            />
+            <Route
+              path="/find-pw/complete"
+              element={
+                <FindPwComplete
+                  onLogin={() => navigate("/login")}
+                  onTabId={() => navigate("/find-id/email")}
+                />
+              }
+            />
 
             {/* Main Tabs */}
-            <Route path="/home" element={
-              <MainLayout active="home" onNavigate={(tab) => {
-                 if(tab === 'folder') navigate('/statistics');
-                 else navigate('/' + tab);
-              }}>
-                <Home
-                  onNavigate={(path) => navigate('/' + path)}
+            <Route
+              path="/home"
+              element={
+                <MainLayout
+                  active="home"
+                  onNavigate={(tab) => {
+                    if (tab === "folder") navigate("/statistics");
+                    else navigate("/" + tab);
+                  }}
+                >
+                  <Home
+                    onNavigate={(path) => navigate("/" + path)}
+                    userName={userName}
+                    hasCheckedIn={hasCheckedIn}
+                  />
+                </MainLayout>
+              }
+            />
+
+            <Route
+              path="/statistics"
+              element={
+                <MainLayout
+                  active="folder"
+                  onNavigate={(tab) => {
+                    if (tab === "folder") navigate("/statistics");
+                    else navigate("/" + tab);
+                  }}
+                >
+                  <Statistics
+                    hasCheckedIn={hasCheckedIn}
+                    userName={userName}
+                    onNavigate={(path) => navigate("/" + path)}
+                  />
+                </MainLayout>
+              }
+            />
+
+            <Route
+              path="/chatbot"
+              element={
+                <MainLayout
+                  active="chatbot"
+                  onNavigate={(tab) => {
+                    if (tab === "folder") navigate("/statistics");
+                    else navigate("/" + tab);
+                  }}
+                >
+                  <Chatbot onNavigate={(path) => navigate("/" + path)} />
+                </MainLayout>
+              }
+            />
+
+            <Route
+              path="/community"
+              element={
+                <MainLayout
+                  active="community"
+                  onNavigate={(tab) => {
+                    if (tab === "folder") navigate("/statistics");
+                    else navigate("/" + tab);
+                  }}
+                >
+                  <Community
+                    onNavigate={(path) => navigate("/" + path)}
+                    onPostClick={(id) => navigate(`/community/post/${id}`)}
+                    userName={userName}
+                  />
+                </MainLayout>
+              }
+            />
+
+            <Route
+              path="/community/post/:postId"
+              element={<PostDetailRoute userName={userName} />}
+            />
+
+            <Route
+              path="/profile"
+              element={
+                <MainLayout activeTab={getActiveTab(location.pathname)} onNavigate={navigate}>
+                  <Profile userName={userName} onNavigate={navigate} />
+                </MainLayout>
+              }
+            />
+
+            {/* 추가: 프로필 상세 페이지들을 독립적인 경로로 등록 */}
+            <Route
+              path="/profile/my-activity"
+              element={
+                <MainLayout activeTab="profile" onNavigate={navigate}>
+                  <ProfileMyActivity
+                    onBack={() => navigate("/profile")}
+                    onNavigate={navigate}
+                  />
+                </MainLayout>
+              }
+            />
+
+            <Route
+              path="/profile/edit-post"
+              element={
+                <MainLayout activeTab="profile" onNavigate={navigate}>
+                  <ProfileEditCommunity
+                    onBack={() => navigate("/profile/my-activity")}
+                  />
+                </MainLayout>
+              }
+            />
+
+            <Route
+              path="/search"
+              element={
+                <Search
+                  onNavigate={(path) => navigate("/" + path)}
                   userName={userName}
-                  hasCheckedIn={hasCheckedIn}
                 />
-              </MainLayout>
-            } />
+              }
+            />
 
-            <Route path="/statistics" element={
-              <MainLayout active="folder" onNavigate={(tab) => {
-                 if(tab === 'folder') navigate('/statistics');
-                 else navigate('/' + tab);
-              }}>
-                <Statistics hasCheckedIn={hasCheckedIn} userName={userName} onNavigate={(path) => navigate('/' + path)} />
-              </MainLayout>
-            } />
+            <Route
+              path="/createPost"
+              element={
+                <CommunityCreate onNavigate={(path) => navigate("/" + path)} />
+              }
+            />
 
-            <Route path="/chatbot" element={
-              <MainLayout active="chatbot" onNavigate={(tab) => {
-                 if(tab === 'folder') navigate('/statistics');
-                 else navigate('/' + tab);
-              }}>
-                <Chatbot onNavigate={(path) => navigate('/' + path)} />
-              </MainLayout>
-            } />
+            <Route
+              path="/notification"
+              element={<Notification onBack={() => navigate("/home")} />}
+            />
 
-            <Route path="/community" element={
-              <MainLayout active="community" onNavigate={(tab) => {
-                 if(tab === 'folder') navigate('/statistics');
-                 else navigate('/' + tab);
-              }}>
-                <Community
-                  onNavigate={(path) => navigate('/' + path)}
-                  onPostClick={(id) => navigate(`/community/post/${id}`)}
-                  userName={userName}
+            <Route
+              path="/stress-checkin"
+              element={
+                <StressCheckIn
+                  onBack={() => navigate("/home")}
+                  onComplete={() => {
+                    setHasCheckedIn(true);
+                    navigate("/home");
+                  }}
                 />
-              </MainLayout>
-            } />
-            
-            <Route path="/community/post/:postId" element={<PostDetailRoute userName={userName} />} />
+              }
+            />
 
-            <Route path="/profile" element={
-              <MainLayout active="profile" onNavigate={(tab) => {
-                 if(tab === 'folder') navigate('/statistics');
-                 else navigate('/' + tab);
-              }}>
-                <Profile onNavigate={(path) => navigate('/' + path)} userName={userName} />
-              </MainLayout>
-            } />
-            
-            {/* Other Authenticated Pages */}
-            <Route path="/search" element={<Search onNavigate={(path) => navigate('/' + path)} userName={userName} />} />
-            <Route path="/create-post" element={<CreatePost onNavigate={(path) => {
-                 if (path === 'community') navigate('/community');
-                 else navigate('/' + path); // fallback
-            }} />} />
-            <Route path="/notification" element={<Notification onBack={() => navigate("/home")} />} />
-            
-            <Route path="/stress-checkin" element={
-              <StressCheckIn
-                onBack={() => navigate("/home")}
-                onComplete={() => {
-                  setHasCheckedIn(true);
-                  navigate("/home");
-                }}
-              />
-            } />
-            
-             <Route path="/stress-checkin-stats" element={
-              <StressCheckIn
-                onBack={() => navigate("/statistics")}
-                onComplete={() => {
-                  setHasCheckedIn(true);
-                  navigate("/statistics");
-                }}
-              />
-            } />
+            <Route
+              path="/stress-checkin-stats"
+              element={
+                <StressCheckIn
+                  onBack={() => navigate("/statistics")}
+                  onComplete={() => {
+                    setHasCheckedIn(true);
+                    navigate("/statistics");
+                  }}
+                />
+              }
+            />
+            <Route
+              path="/profile/settings"
+              element={
+                <ProfileSettings
+                  onBack={() => navigate("/profile")}
+                  onNavigate={(path) => navigate("/profile/settings/" + path)}
+                />
+              }
+            />
+            <Route
+              path="/profile/settings/account"
+              element={
+                <ProfileAccount
+                  onBack={() => navigate("/profile/settings")}
+                  onNavigate={(path) =>
+                    navigate("/profile/settings/account/" + path)
+                  }
+                />
+              }
+            />
+            <Route
+              path="/profile/settings/account/withdrawal"
+              element={
+                <Withdrawal
+                  onBack={() => navigate("/profile/settings/account")}
+                />
+              }
+            />
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" replace />} />
-
           </Routes>
         </div>
       </div>

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/mypage/profile-content.css";
+import api from "../api/axiosConfig";
 
 export function ProfileContent({ onBack }) {
   const [preferences, setPreferences] = useState([]); 

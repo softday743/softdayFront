@@ -11,7 +11,7 @@ const api = axios.create({
 const getToken = (key) => localStorage.getItem(key) || sessionStorage.getItem(key);
 
 // Helper: Clear all tokens
-const clearTokens = () => {
+export const clearTokens = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
   sessionStorage.removeItem("accessToken");
@@ -84,6 +84,62 @@ api.interceptors.response.use(
     }
     return Promise.reject(error);
   }
-);
 
+  
+);
+export const boardApi = {
+  // 게시글 목록 조회
+  getPostList: (page = 0, size = 20) => 
+    api.get(`/board?page=${page}&size=${size}`),
+
+  // 게시글 상세 조회
+  getPostDetail: (postId) => 
+    api.get(`/board/${postId}`),
+
+  // 게시글 작성 (PostCreateRequest: title, content, category)
+  createPost: (postData) => 
+    api.post("/board", postData),
+
+  // 게시글 수정 (PostUpdateRequest: title, content, category)
+  updatePost: (postId, postData) => 
+    api.put(`/board/${postId}`, postData),
+
+  // 게시글 삭제
+  deletePost: (postId) => 
+    api.delete(`/board/${postId}`),
+
+  // 좋아요 등록 및 취소
+  addLike: (postId) => api.post(`/board/${postId}/like`),
+  removeLike: (postId) => api.delete(`/board/${postId}/like`),
+
+  // 게시글 저장(북마크) 및 취소
+  savePost: (postId) => api.post(`/board/${postId}/save`),
+  unsavePost: (postId) => api.delete(`/board/${postId}/save`),
+
+  // 댓글/대댓글 작성 (CommentRequest: content, parentId, isAnonymous)
+  createComment: (postId, commentData) => 
+    api.post(`/board/${postId}/comment`, commentData),
+
+  // 댓글 수정 (CommentUpdateRequest: content)
+  updateComment: (commentId, commentData) => 
+    api.put(`/board/comments/${commentId}`, commentData),
+
+  // 댓글 삭제
+  deleteComment: (commentId) => 
+    api.delete(`/board/comments/${commentId}`),
+};
+
+// 회원 관련 API
+export const userApi = {
+  // 회원 탈퇴 요청 (비밀번호와 사유를 함께 전송)
+  withdraw: (withdrawData) => 
+    api.delete("/auth/withdraw", { data: withdrawData }),
+
+  requestEmailCode: (newEmail) => 
+    api.post("/user/email-change/request", { newEmail }),
+    
+  // 인증번호 검증 및 변경 완료
+  verifyEmailCode: (newEmail, code) => 
+    api.post("/user/email-change/verify", { newEmail, code }),
+};
 export default api;

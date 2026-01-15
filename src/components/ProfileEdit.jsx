@@ -2,19 +2,13 @@ import React, { useState, useEffect } from "react";
 import "../styles/mypage/profile-edit.css";
 import api from "../api/axiosConfig";
 
-export function ProfileEdit({ onBack }) {
+export function ProfileEdit({ onBack, onUpdate }) {
   const [formData, setFormData] = useState({
     name: "",
-    job: "",
-    year: "",
+    rank: "",
+    careerYears: "",
     industry: "",
   });
-  // const [formData, setFormData] = useState({
-  //   name: "이소민",
-  //   job: "대리",
-  //   year: "3년차",
-  //   industry: "마케팅",
-  // });
   const [initialData, setInitialData] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -24,6 +18,7 @@ export function ProfileEdit({ onBack }) {
       try {
         const response = await api.get("/user/me");
         setFormData(response.data);
+        setInitialData(response.data);
       } catch (error) {
         console.error("Fetch failed", error);
       }
@@ -37,7 +32,8 @@ export function ProfileEdit({ onBack }) {
   };
 
   const handleBack = () => {
-    const isDirty = JSON.stringify(formData) !== JSON.stringify(initialData);
+    const isDirty =
+      initialData && JSON.stringify(formData) !== JSON.stringify(initialData);
     if (isDirty) {
       setShowPopup(true);
     } else {
@@ -47,10 +43,16 @@ export function ProfileEdit({ onBack }) {
 
   const handleSave = async () => {
     try {
-      // [API] 정보 수정 요청
-      await api.put("/user/me", formData);
+      // 1. PATCH 메서드로 수정 요청
+      await api.patch("/user/me", formData);
       alert("저장되었습니다.");
-      onBack();
+
+      // 2. 부모에게 수정 완료를 알림 (부모는 여기서 fetchProfile을 실행함)
+      if (onUpdate) {
+        onUpdate();
+      } else {
+        onBack();
+      }
     } catch (error) {
       console.error("Update failed", error);
       alert("저장에 실패했습니다.");
@@ -59,15 +61,12 @@ export function ProfileEdit({ onBack }) {
 
   return (
     <div className="profile-edit-container">
-      {/* Header */}
-      <div className="pe-back-arrow" onClick={handleBack}>
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+      <div
+        className="pe-back-arrow"
+        onClick={handleBack}
+        style={{ cursor: "pointer" }}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path
             d="M19 12H5M5 12L12 19M5 12L12 5"
             stroke="black"
@@ -79,60 +78,58 @@ export function ProfileEdit({ onBack }) {
       </div>
       <div className="pe-header-title">프로필 정보 수정</div>
 
-      {/* Name */}
       <div className="pe-label pe-label-name">이름</div>
       <div className="pe-input-container pe-input-name">
         <input
           type="text"
           name="name"
           className="pe-input"
-          value={formData.name}
+          value={formData.name || ""}
           onChange={handleChange}
         />
       </div>
 
-      {/* Job */}
       <div className="pe-label pe-label-job">직급</div>
       <div className="pe-input-container pe-input-job">
         <input
           type="text"
-          name="job"
+          name="rank"
           className="pe-input"
-          value={formData.job}
+          value={formData.rank || ""}
           onChange={handleChange}
         />
       </div>
 
-      {/* Year */}
       <div className="pe-label pe-label-year">연차</div>
       <div className="pe-input-container pe-input-year">
         <input
           type="text"
-          name="year"
+          name="careerYears"
           className="pe-input"
-          value={formData.year}
+          value={formData.careerYears || ""}
           onChange={handleChange}
         />
       </div>
 
-      {/* Industry */}
       <div className="pe-label pe-label-industry">산업 분야</div>
       <div className="pe-input-container pe-input-industry">
         <input
           type="text"
           name="industry"
           className="pe-input"
-          value={formData.industry}
+          value={formData.industry || ""}
           onChange={handleChange}
         />
       </div>
 
-      {/* Save Button */}
-      <div className="pe-save-btn" onClick={handleSave}>
+      <div
+        className="pe-save-btn"
+        onClick={handleSave}
+        style={{ cursor: "pointer" }}
+      >
         저장
       </div>
 
-      {/* Unsaved Changes Popup */}
       {showPopup && (
         <div className="pe-overlay">
           <div className="pe-popup">
