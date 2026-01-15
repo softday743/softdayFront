@@ -5,12 +5,12 @@ import { ProfileMyActivity } from "./ProfileMyActivity";
 import { ProfileContent } from "./ProfileContent";
 import { ProfileLiked } from "./ProfileLiked";
 import { ProfileSaved } from "./ProfileSaved";
+// 에러 해결 포인트: 반드시 중괄호 {} 안에 ProfileSettings를 적어야 합니다.
 import { ProfileSettings } from "./ProfileSettings";
-import api from "../api/axiosConfig";
+import { userApi } from "../api/axiosConfig";
 import { GuestLoginPopup } from "./GuestLoginPopup";
 
 export function Profile({ onNavigate, userName }) {
-  /* ================== 1. Hooks (상태 및 효과) ================== */
   const [view, setView] = useState("main");
   const [formData, setFormData] = useState({
     name: "사용자",
@@ -21,10 +21,10 @@ export function Profile({ onNavigate, userName }) {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const isGuest = !userName;
 
-  // 내 정보 조회 API (함수로 분리하여 재사용 가능하게 함)
   const fetchProfile = useCallback(async () => {
     try {
-      const response = await api.get("/user/me");
+      // 수정 포인트: api.get 대신 import한 userApi.getUserProfile()을 사용합니다.
+      const response = await userApi.getUserProfile();
       if (response.data) {
         setFormData(response.data);
       }
@@ -37,9 +37,8 @@ export function Profile({ onNavigate, userName }) {
     if (!isGuest) {
       fetchProfile();
     }
-  }, [isGuest, fetchProfile]); // 초기 로드 및 게스트 상태 변경 시 실행
+  }, [isGuest, fetchProfile]);
 
-  // 게스트 제한 로직
   const handleRestrictedClick = (action) => {
     if (isGuest) {
       setShowLoginPopup(true);
@@ -48,15 +47,13 @@ export function Profile({ onNavigate, userName }) {
     }
   };
 
-  /* ================== 2. 조건부 렌더링 (화면 전환) ================== */
-  // 수정 성공 시 데이터를 새로 고치고 메인으로 돌아가는 onUpdate 함수 추가
   if (view === "edit") {
     return (
       <ProfileEdit
         onBack={() => setView("main")}
         onUpdate={() => {
-          fetchProfile(); // 데이터 리프레시
-          setView("main"); // 화면 전환
+          fetchProfile();
+          setView("main");
         }}
       />
     );
@@ -66,41 +63,39 @@ export function Profile({ onNavigate, userName }) {
     return (
       <ProfileMyActivity
         onBack={() => setView("main")}
-        onNavigate={onNavigate} // 👈 이 줄을 추가해서 App.jsx의 navigate 기능을 넘겨줍니다.
+        onNavigate={onNavigate}
       />
     );
+
   if (view === "contentPreference")
     return <ProfileContent onBack={() => setView("main")} />;
+
   if (view === "liked") {
     return (
       <ProfileLiked
         onBack={() => setView("main")}
         onPostClick={(postId) => {
-          // App.jsx의 경로 규칙에 맞춰 이동 명령을 내립니다.
-          // "community/post/2"와 같은 주소로 이동하게 됩니다.
-          if (onNavigate) {
-            onNavigate(`community/post/${postId}`);
-          }
+          if (onNavigate) onNavigate(`community/post/${postId}`);
         }}
       />
     );
   }
-  if (view === "saved") return <ProfileSaved onBack={() => setView("main")} />;
-  if (view === "settings")
-    return <ProfileSettings onBack={() => setView("main")} />;
 
-  /* ================== 3. 메인 화면 (Render) ================== */
+  if (view === "saved") return <ProfileSaved onBack={() => setView("main")} />;
+
   return (
     <div className="profile-container">
-      {/* 사용자 이름 섹션 */}
       <div className="profile-user-name">
         {isGuest ? "로그인이 필요해요" : `${formData.name}님`}
       </div>
 
-      {/* 설정 아이콘 */}
       <div
         className="profile-settings-icon"
-        onClick={() => handleRestrictedClick(() => setView("settings"))}
+        onClick={() =>
+          handleRestrictedClick(() => {
+            if (onNavigate) onNavigate("/profile/settings");
+          })
+        }
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path
@@ -120,7 +115,6 @@ export function Profile({ onNavigate, userName }) {
         </svg>
       </div>
 
-      {/* 프로필 정보 카드 */}
       <div className="profile-info-card">
         <div className="profile-card-title">프로필 정보</div>
         <div className="profile-tag-label tag-pos-1">🍦 직급</div>
@@ -152,7 +146,6 @@ export function Profile({ onNavigate, userName }) {
         </div>
       </div>
 
-      {/* 메뉴 리스트 섹션 (기존 유지) */}
       <div className="profile-menu-container">
         <div className="profile-menu-card menu-pos-1">
           <div className="profile-menu-title">내가 쓴 글</div>
@@ -230,7 +223,6 @@ export function Profile({ onNavigate, userName }) {
         </div>
       </div>
 
-      {/* 게스트 로그인 유도 팝업 */}
       {showLoginPopup && (
         <GuestLoginPopup
           type="absolute"

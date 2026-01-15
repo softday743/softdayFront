@@ -1,310 +1,153 @@
 .pl-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: white;
   position: relative;
   max-width: 384px;
   margin: 0 auto;
-  overflow-y: hidden;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header */
 .pl-header-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 55px;
+  padding-top: 55px;
+  text-align: center;
   font-size: 16px;
   font-weight: 600;
-  font-family: "Pretendard";
   color: black;
 }
 
 .pl-back-arrow {
   position: absolute;
   left: 21px;
-  top: 61px;
+  top: 58px;
   cursor: pointer;
   z-index: 10;
 }
 
 /* Tabs */
 .pl-tabs-container {
-  position: absolute;
-  top: 114px;
-  left: 0;
-  width: 100%;
-  height: 48px;
   display: flex;
-  justify-content: space-between;
+  margin-top: 25px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .pl-tab {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
   font-size: 16px;
   font-weight: 600;
-  font-family: "Pretendard";
   cursor: pointer;
+  color: #d6d3d1;
   position: relative;
 }
 
-.pl-tab.active {
-  color: black;
-}
+.pl-tab.active { color: black; }
 .pl-tab.active::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background: black;
+  content: ""; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: black;
 }
 
-.pl-tab.inactive {
-  color: #d6d3d1; /* stone-300 */
-}
-.pl-tab.inactive::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background: #d6d3d1;
+/* Filter Bar */
+.pl-filter-bar { 
+  display: flex; 
+  align-items: center; 
+  padding: 8px 15px 15px 15px; 
+  gap: 10px; 
 }
 
-/* Filters */
-.pl-filter-bar {
-  position: absolute;
-  top: 178px;
-  left: 0;
-  width: 100%;
-  height: 28px;
-  padding: 0 15px;
-  display: flex;
-  align-items: center;
+.pl-filter-btn, .pl-sort-btn {
+  padding: 5px 10px; background: #f9fafb; border: 1px solid #d6d3d1; border-radius: 5px; font-size: 12px; cursor: pointer;
 }
 
-.pl-filter-btn {
-  width: 48px;
-  height: 28px;
-  background: #f9fafb;
-  border-radius: 5px;
-  border: 1px solid #d6d3d1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
-  cursor: pointer;
-}
-
-.pl-search-bar {
-  width: 256px;
-  height: 28px;
-  background: #f9fafb;
-  border-radius: 5px;
-  border: 1px solid #d6d3d1;
-  margin-left: 6px;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.pl-search-icon {
-  position: absolute;
-  right: 15px;
-  top: 4px;
-}
-
-.pl-sort-btn {
-  width: 48px;
-  height: 28px;
-  background: #f9fafb;
-  border-radius: 5px;
-  border: 1px solid #d6d3d1;
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
+.pl-search-bar { 
+  flex: 1; 
+  height: 28px; 
+  background: #f9fafb; 
+  border: 1px solid #d6d3d1; 
+  border-radius: 5px; 
+  display: flex; 
+  align-items: center; 
+  padding: 0 8px;
 }
 
 /* List Area */
 .pl-list-bg {
-  position: absolute;
-  top: 220px;
-  width: 100%;
-  height: calc(100% - 220px);
-  background: #fffbeb; /* amber-50 */
+  flex: 1;
+  background-color: #FFFBEB;
   overflow-y: auto;
-  padding-bottom: 20px;
 }
 
-/* Card Styles - Reusing structures but with pl- prefix */
-.pl-card {
-  width: 350px;
-  height: 160px;
-  background: white;
-  border-radius: 10px;
-  border: 0.5px solid #d4d4d8;
-  margin: 10px auto;
-  position: relative;
+.pl-scroll-content {
+  padding: 15px;
+  padding-bottom: 100px; 
 }
 
-.pl-card-icon {
-  position: absolute;
-  left: 17px;
-  top: 14px;
-  width: 29px;
-  height: 29px;
-}
-.pl-card-emoji {
-  position: absolute;
-  left: 17px;
-  top: 17px;
-  width: 29px;
-  text-align: center;
-  font-size: 16px;
-}
-.pl-card-category {
-  position: absolute;
-  left: 60px;
-  top: 20px;
-  padding: 2px 8px;
-  background: #cffafe;
-  border-radius: 20px;
-  border: 1px solid #2dd4bf;
-  font-size: 8px;
-  font-weight: 600;
-  color: black;
-}
-.pl-card-author {
-  position: absolute;
-  left: 110px;
-  top: 17px;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
-}
-.pl-card-time {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  font-size: 10px;
-  font-weight: 600;
-  color: #a3a3a3;
-}
-.pl-card-title {
-  position: absolute;
-  left: 64px;
-  top: 50px;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-.pl-card-content {
-  position: absolute;
-  left: 64px;
-  top: 78px;
-  font-size: 14px;
-  font-weight: 600;
-  color: black;
-}
-.pl-card-stats {
-  position: absolute;
-  left: 64px;
-  top: 128px;
+/* Card Style (아이디 겹침 방지 레이아웃) */
+.pl-card, .pl-comment-card {
+  background: white; 
+  border-radius: 12px; 
+  border: 1px solid #e5e7eb; 
+  padding: 16px; 
+  margin-bottom: 15px;
   display: flex;
-  align-items: center;
-  gap: 15px;
+  flex-direction: column;
 }
 
-.pl-stat-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #a3a3a3;
-}
-.pl-stat-item.liked {
-  color: #ef4444;
-} /* red-500 */
-.pl-stat-item.comment {
-  color: #a3a3a3; /* neutral-400 in this view */
+.pl-card-header { 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+  margin-bottom: 10px; 
 }
 
-.pl-more-dots {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  transform: rotate(90deg);
+.pl-card-emoji-box { 
+  width: 28px; height: 28px; 
+  background: #FFF9EA; border: 1px solid #FFB200; border-radius: 50%; 
+  display: flex; align-items: center; justify-content: center; 
 }
 
-/* Comment Card */
-.pl-comment-card {
-  width: 350px;
-  height: 112px;
-  background: white;
-  border-radius: 10px;
-  border: 1px solid #d4d4d8;
-  margin: 10px auto;
-  position: relative;
-  overflow: hidden;
+.pl-card-category-tag { 
+  background: #cffafe; color: black; border: 1px solid #2dd4bf; 
+  padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; 
+  white-space: nowrap; /* 카테고리 줄바꿈 방지 */
 }
-/* Reusing inner styles by mapping classes reasonably or redefining */
-.pl-comment-profile-bg {
+
+.pl-card-author-name { 
+  font-size: 12px; font-weight: 600; 
+  max-width: 80px; /* 아이디가 너무 길면 생략 */
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.pl-card-date { 
+  margin-left: auto; 
+  font-size: 11px; color: #a3a3a3; 
+}
+
+.pl-card-title { font-size: 15px; font-weight: 700; margin: 10px 0 5px; color: black; }
+.pl-card-text { font-size: 13px; color: #4b5563; line-height: 1.5; }
+.pl-card-footer { margin-top: 15px; display: flex; gap: 15px; font-size: 11px; font-weight: 600; color: #9ca3af; }
+
+/* 더보기 메뉴 드롭다운 스타일 */
+.pl-dropdown-card {
   position: absolute;
-  left: 20px;
-  top: 20px;
+  right: 0;
+  top: 25px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 100;
+  min-width: 80px;
 }
-.pl-comment-emoji {
-  position: absolute;
-  left: 21px;
-  top: 23px;
-  font-size: 16px;
+
+/* Pagination */
+.pl-pagination {
+  display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 40px; padding-bottom: 20px;
 }
-.pl-comment-author {
-  position: absolute;
-  left: 60px;
-  top: 22px;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
+.pl-page-btn {
+  width: 35px; height: 35px; background: transparent; border: none; font-size: 15px; cursor: pointer; color: #a3a3a3;
 }
-.pl-comment-content {
-  position: absolute;
-  left: 24px;
-  top: 56px;
-  font-size: 14px;
-  font-weight: 600;
-  color: black;
-}
-.pl-comment-date {
-  position: absolute;
-  left: 24px;
-  top: 91px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #a3a3a3;
-}
-.pl-comment-actions {
-  position: absolute;
-  right: 20px;
-  top: 16px;
-  display: flex;
-  gap: 12px;
-}
-.pl-comment-menu {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  transform: rotate(90deg);
-}
+.pl-page-btn.active { color: black; font-weight: 800; }

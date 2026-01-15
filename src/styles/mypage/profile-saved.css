@@ -1,292 +1,167 @@
 .ps-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: white;
   position: relative;
   max-width: 384px;
   margin: 0 auto;
-  overflow-y: hidden;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header */
 .ps-header-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 55px;
+  padding-top: 55px;
+  text-align: center;
   font-size: 16px;
   font-weight: 600;
-  font-family: "Pretendard";
   color: black;
 }
 
 .ps-back-arrow {
   position: absolute;
   left: 21px;
-  top: 61px;
+  top: 58px;
   cursor: pointer;
   z-index: 10;
 }
 
 /* Tabs */
 .ps-tabs-container {
-  position: absolute;
-  top: 114px;
-  left: 0;
-  width: 100%;
-  height: 48px;
   display: flex;
-  justify-content: space-between;
+  margin-top: 25px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .ps-tab {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
   font-size: 16px;
   font-weight: 600;
-  font-family: "Pretendard";
   cursor: pointer;
+  color: #d6d3d1;
   position: relative;
 }
 
-.ps-tab.active {
-  color: black;
-}
+.ps-tab.active { color: black; }
 .ps-tab.active::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background: black;
+  content: ""; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: black;
 }
 
-.ps-tab.inactive {
-  color: #d6d3d1; /* stone-300 */
-}
-.ps-tab.inactive::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background: #d6d3d1;
+/* Filter Bar */
+.ps-filter-bar { 
+  display: flex; 
+  align-items: center; 
+  padding: 8px 15px 15px 15px; 
+  gap: 10px; 
 }
 
-/* Filters */
-.ps-filter-bar {
-  position: absolute;
-  top: 178px;
-  left: 0;
-  width: 100%;
-  height: 28px;
-  padding: 0 15px;
-  display: flex;
-  align-items: center;
+.ps-filter-btn, .ps-sort-btn {
+  padding: 5px 10px; background: #f9fafb; border: 1px solid #d6d3d1; border-radius: 5px; font-size: 12px; cursor: pointer;
 }
 
-.ps-filter-btn {
-  width: 48px;
-  height: 28px;
-  background: #f9fafb;
-  border-radius: 5px;
-  border: 1px solid #d6d3d1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
-  cursor: pointer;
-}
-
-.ps-search-bar {
-  width: 256px;
-  height: 28px;
-  background: #f9fafb;
-  border-radius: 5px;
-  border: 1px solid #d6d3d1;
-  margin-left: 6px;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.ps-search-icon {
-  position: absolute;
-  right: 15px;
-  top: 4px;
-}
-
-.ps-sort-btn {
-  width: 48px;
-  height: 28px;
-  background: #f9fafb;
-  border-radius: 5px;
-  border: 1px solid #d6d3d1;
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
+.ps-search-bar { 
+  flex: 1; 
+  height: 28px; 
+  background: #f9fafb; 
+  border: 1px solid #d6d3d1; 
+  border-radius: 5px; 
+  display: flex; 
+  align-items: center; 
+  padding: 0 8px;
 }
 
 /* List Area */
 .ps-list-bg {
-  position: absolute;
-  top: 220px;
-  width: 100%;
-  height: calc(100% - 220px);
-  background: #fffbeb; /* amber-50 */
+  flex: 1;
+  background-color: #FFFBEB;
   overflow-y: auto;
-  padding-bottom: 20px;
 }
 
-/* Saved Post Card (Reused style basically) */
-.ps-card {
-  width: 350px;
-  height: 160px;
-  background: white;
-  border-radius: 10px;
-  border: 0.5px solid #d4d4d8;
-  margin: 10px auto;
-  position: relative;
-}
-
-.ps-card-icon {
-  position: absolute;
-  left: 17px;
-  top: 14px;
-  width: 29px;
-  height: 29px;
-}
-.ps-card-emoji {
-  position: absolute;
-  left: 17px;
-  top: 17px;
-  width: 29px;
-  text-align: center;
-  font-size: 16px;
-}
-.ps-card-category {
-  position: absolute;
-  left: 60px;
-  top: 20px;
-  padding: 2px 8px;
-  background: #cffafe;
-  border-radius: 20px;
-  border: 1px solid #2dd4bf;
-  font-size: 8px;
-  font-weight: 600;
-  color: black;
-}
-.ps-card-author {
-  position: absolute;
-  left: 110px;
-  top: 17px;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
-}
-.ps-card-time {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  font-size: 10px;
-  font-weight: 600;
-  color: #a3a3a3;
-}
-.ps-card-title {
-  position: absolute;
-  left: 64px;
-  top: 50px;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-}
-.ps-card-content {
-  position: absolute;
-  left: 64px;
-  top: 78px;
-  font-size: 14px;
-  font-weight: 600;
-  color: black;
-}
-.ps-card-stats {
-  position: absolute;
-  left: 64px;
-  top: 128px;
+/* Card Style (아이디 겹침 방지) */
+.ps-card, .ps-content-card {
+  background: white; 
+  border-radius: 12px; 
+  border: 1px solid #e5e7eb; 
+  padding: 16px; 
+  margin: 15px auto;
+  width: calc(100% - 30px);
   display: flex;
-  align-items: center;
-  gap: 15px;
+  flex-direction: column;
 }
-.ps-stat-item {
-  display: flex;
+
+.ps-card-header { 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+  margin-bottom: 10px; 
+}
+
+.ps-card-emoji-box { 
+  width: 28px; height: 28px; 
+  background: #FFF9EA; border: 1px solid #FFB200; border-radius: 50%; 
+  display: flex; align-items: center; justify-content: center; 
+}
+
+.ps-card-category-tag { 
+  background: #cffafe; color: black; border: 1px solid #2dd4bf; 
+  padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; 
+}
+
+.ps-card-author-name { 
+  font-size: 12px; font-weight: 600; 
+  max-width: 80px; 
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.ps-card-date { margin-left: auto; font-size: 11px; color: #a3a3a3; }
+.ps-card-title { font-size: 15px; font-weight: 700; margin: 10px 0 5px; color: black; }
+.ps-card-text { font-size: 13px; color: #4b5563; line-height: 1.5; margin-bottom: 10px; }
+
+/* Footer & Bookmark */
+.ps-card-footer { 
+  margin-top: auto;
+  display: flex; 
   align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  font-weight: 600;
+  gap: 15px; 
+  font-size: 11px; font-weight: 600; color: #9ca3af; 
+}
+
+.ps-saved-label { margin-left: auto; color: #facc15; font-size: 12px; margin-right: 5px; }
+
+/* 페이지네이션 버튼 (하얀 배경 제거) */
+.ps-pagination {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  gap: 15px; 
+  margin-top: 30px; 
+  padding-bottom: 30px;
+}
+
+.ps-page-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
   color: #a3a3a3;
-}
-.ps-more-dots {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  transform: rotate(90deg);
-}
-
-.ps-bookmark-icon {
-  position: absolute;
-  right: 30px; /* Adjust based on HTML 330px vs 484px width scale */
-  top: 129px; /* For post card */
-}
-
-/* Saved Content Card */
-.ps-content-card {
-  width: 350px;
-  height: 112px; /* h-28 */
-  background: white;
-  border-radius: 10px;
-  border: 1px solid #d4d4d8;
-  margin: 10px auto;
-  position: relative;
-  overflow: hidden;
-}
-
-.ps-content-tag {
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  padding: 2px 8px;
-  background: #cffafe;
-  border-radius: 20px;
-  border: 1px solid #2dd4bf;
-  font-size: 10px;
-  font-weight: 600;
-  color: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 44px; /* w-11 */
-  height: 16px; /* h-4 */
 }
 
-.ps-content-text {
-  position: absolute;
-  left: 20px;
-  top: 54px;
-  font-size: 16px;
-  font-weight: 600;
+.ps-page-btn.number {
+  font-size: 15px;
+}
+
+.ps-page-btn.active {
   color: black;
+  font-weight: 800;
 }
 
-.ps-content-bookmark {
-  position: absolute;
-  right: 20px;
-  top: 16px;
+.ps-page-btn:disabled {
+  color: #d1d5db;
+  cursor: default;
 }

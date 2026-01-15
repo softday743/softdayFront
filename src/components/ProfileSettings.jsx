@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "../styles/mypage/profile-settings.css";
 
-export function ProfileSettings({ onBack }) {
-  const [view, setView] = useState("main"); // 'main' | 'notification'
-
-  // Notification Toggles
+// export function 형식을 사용하여 이름을 명시적으로 내보냅니다.
+export function ProfileSettings({ onBack, onNavigate }) {
+  const [view, setView] = useState("main");
   const [toggles, setToggles] = useState({
     board: true,
     stats: true,
@@ -16,19 +15,16 @@ export function ProfileSettings({ onBack }) {
     setToggles((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  /* ================== 로그아웃 로직 ================== */
   const handleLogout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       sessionStorage.removeItem("accessToken");
       sessionStorage.removeItem("refreshToken");
-
       window.location.href = "/"; 
     }
   };
 
-  // CSS-based Switch Component
   const Switch = ({ isOn, onClick }) => (
     <div className={`pst-switch ${isOn ? "on" : "off"}`} onClick={onClick}>
       <div className="pst-switch-handle" />
@@ -46,7 +42,6 @@ export function ProfileSettings({ onBack }) {
           </div>
           <div className="pst-header-title">알림</div>
         </div>
-
         <div className="pst-noti-container">
           <div className="pst-section-title">서비스 알림</div>
           <div className="pst-noti-item">
@@ -84,10 +79,12 @@ export function ProfileSettings({ onBack }) {
 
       <div className="pst-menu-list">
         <div className="pst-menu-row" onClick={() => setView("notification")}>알림</div>
-        <div className="pst-menu-row">계정 관리</div>
-        <div className="pst-menu-row">개인정보 처리방침</div>
-        <div className="pst-menu-row">서비스 이용약관</div>
-        <div className="pst-menu-row">버전 정보</div>
+        <div 
+          className="pst-menu-row" 
+          onClick={() => onNavigate && onNavigate("account")}
+        >
+          계정 관리
+        </div>
       </div>
 
       <div className="pst-logout" onClick={handleLogout} style={{ cursor: "pointer" }}>
