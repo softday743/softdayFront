@@ -477,7 +477,10 @@ function App() {
             <Route
               path="/profile"
               element={
-                <MainLayout activeTab={getActiveTab(location.pathname)} onNavigate={navigate}>
+                <MainLayout
+                  activeTab={getActiveTab(location.pathname)}
+                  onNavigate={navigate}
+                >
                   <Profile userName={userName} onNavigate={navigate} />
                 </MainLayout>
               }
