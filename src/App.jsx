@@ -485,7 +485,6 @@ function App() {
                 </MainLayout>
               }
             />
-
             {/* 추가: 프로필 상세 페이지들을 독립적인 경로로 등록 */}
             <Route
               path="/profile/my-activity"
