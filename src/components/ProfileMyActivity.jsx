@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/mypage/profile-my-activity.css";
 import { boardApi, userApi } from "../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
-import { PostDetail } from "./PostDetail"; 
+import { PostDetail } from "./PostDetail";
 
 export function ProfileMyActivity({ onBack, onNavigate, userName }) {
   const [activeTab, setActiveTab] = useState("posts");
@@ -13,10 +13,15 @@ export function ProfileMyActivity({ onBack, onNavigate, userName }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [selectedPostId, setSelectedPostId] = useState(null);
-  const [myPosts, setMyPosts] = useState([]); 
-  const [myComments, setMyComments] = useState([]); 
+  const [myPosts, setMyPosts] = useState([]);
+  const [myComments, setMyComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openMenuId, setOpenMenuId] = useState(null);
+
+  // --- 추가된 상태: 모달 제어 ---
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // 삭제 확인 모달
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); // 삭제 완료 모달
+  const [targetId, setTargetId] = useState(null); // 삭제할 대상 ID 저장
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -28,10 +33,10 @@ export function ProfileMyActivity({ onBack, onNavigate, userName }) {
   const fetchData = async () => {
     try {
       if (activeTab === "posts") {
-        const response = await userApi.getMyPosts(); 
+        const response = await userApi.getMyPosts();
         setMyPosts(response.data || []);
       } else {
-        const response = await userApi.getMyComments(); 
+        const response = await userApi.getMyComments();
         setMyComments(response.data || []);
       }
     } catch (error) {
@@ -39,7 +44,6 @@ export function ProfileMyActivity({ onBack, onNavigate, userName }) {
     }
   };
 
-  // --- 데이터 페칭 (Spring Page 객체 대응) ---
   useEffect(() => {
     setLoading(true);
     fetchData().finally(() => setLoading(false));
@@ -62,8 +66,8 @@ export function ProfileMyActivity({ onBack, onNavigate, userName }) {
       return myPosts
         .filter((post) => {
           const matchesCategory = categoryFilter === "전체" || post.category === categoryFilter;
-          const matchesSearch = 
-            (post.title?.toLowerCase().includes(search) || false) || 
+          const matchesSearch =
+            (post.title?.toLowerCase().includes(search) || false) ||
             (post.content?.toLowerCase().includes(search) || false);
           return matchesCategory && matchesSearch;
         })
@@ -90,13 +94,30 @@ export function ProfileMyActivity({ onBack, onNavigate, userName }) {
     if (scrollArea) scrollArea.scrollTop = 0;
   };
 
-  const handleDeletePost = async (e, postId) => {
+  // --- 삭제 로직 수정 ---
+  // 1. 삭제 버튼을 눌렀을 때 확인 모달을 띄우는 함수
+  const openDeleteConfirm = (e, postId) => {
     e.stopPropagation();
-    if (window.confirm("삭제하시겠습니까?")) {
-      try {
-        await boardApi.deletePost(postId);
+    setTargetId(postId);
+    setIsDeleteModalOpen(true);
+    setOpenMenuId(null); // 수정/삭제 드롭다운 닫기
+  };
+
+  // 2. 모달에서 '예'를 눌렀을 때 실제 삭제를 수행하는 함수
+  const handleConfirmDelete = async () => {
+    try {
+      await boardApi.deletePost(targetId);
+      setIsDeleteModalOpen(false); // 확인 모달 닫기
+      setIsSuccessModalOpen(true); // 완료 모달 띄우기
+      
+      // 1.5초 뒤에 완료 모달을 자동으로 닫고 데이터를 새로고침함
+      setTimeout(() => {
+        setIsSuccessModalOpen(false);
         fetchData();
-      } catch (error) { alert("삭제 실패"); }
+      }, 1500);
+    } catch (error) {
+      alert("삭제 실패");
+      setIsDeleteModalOpen(false);
     }
   };
 
@@ -167,7 +188,6 @@ export function ProfileMyActivity({ onBack, onNavigate, userName }) {
           ) : (
             <>
               {currentItems.map((item) => (
-                /* 여기서 style={{ cursor: "pointer" }}를 추가했습니다 */
                 <div key={item.id} className={activeTab === "posts" ? "pma-card" : "pma-comment-card"} onClick={() => setSelectedPostId(activeTab === "posts" ? item.id : item.postId)} style={{ cursor: "pointer" }}>
                   {activeTab === "posts" ? (
                     <>
@@ -181,7 +201,8 @@ export function ProfileMyActivity({ onBack, onNavigate, userName }) {
                           {openMenuId === item.id && (
                             <div className="pma-dropdown-card" style={{ position: "absolute", right: 0, top: "25px", backgroundColor: "#fff", border: "1px solid #eee", borderRadius: "8px", boxShadow: "0 2px 10px rgba(0,0,0,0.1)", zIndex: 100, minWidth: "80px" }}>
                               <div onClick={(e) => { e.stopPropagation(); navigate("/profile/edit-post", { state: { post: item } }); }} style={{ padding: "10px", fontSize: "13px", borderBottom: "1px solid #f5f5f5", textAlign: "center", cursor: "pointer" }}>수정</div>
-                              <div onClick={(e) => handleDeletePost(e, item.id)} style={{ padding: "10px", fontSize: "13px", color: "#ff4d4f", textAlign: "center", cursor: "pointer" }}>삭제</div>
+                              {/* 삭제 함수를 openDeleteConfirm으로 변경 */}
+                              <div onClick={(e) => openDeleteConfirm(e, item.id)} style={{ padding: "10px", fontSize: "13px", color: "#ff4d4f", textAlign: "center", cursor: "pointer" }}>삭제</div>
                             </div>
                           )}
                         </div>
@@ -217,35 +238,53 @@ export function ProfileMyActivity({ onBack, onNavigate, userName }) {
                     onClick={(e) => { e.stopPropagation(); handlePageChange(currentPage - 1); }}
                     disabled={currentPage === 1}
                     style={{ cursor: currentPage === 1 ? "default" : "pointer" }}
-                  >
-                    &lt;
-                  </button>
-                  
+                  > &lt; </button>
                   {Array.from({ length: totalPages }, (_, i) => (
                     <button
                       key={i + 1}
                       className={`pma-page-btn number ${currentPage === i + 1 ? "active" : ""}`}
                       onClick={(e) => { e.stopPropagation(); handlePageChange(i + 1); }}
                       style={{ cursor: "pointer" }}
-                    >
-                      {i + 1}
-                    </button>
+                    > {i + 1} </button>
                   ))}
-
                   <button
                     className="pma-page-btn arrow"
                     onClick={(e) => { e.stopPropagation(); handlePageChange(currentPage + 1); }}
                     disabled={currentPage === totalPages}
                     style={{ cursor: currentPage === totalPages ? "default" : "pointer" }}
-                  >
-                    &gt;
-                  </button>
+                  > &gt; </button>
                 </div>
               )}
             </>
           )}
         </div>
       </div>
+
+      {/* --- 모달 UI: 확인 창 --- */}
+      {isDeleteModalOpen && (
+        <div className="pma-modal-overlay">
+          <div className="pma-modal-content">
+            <p className="pma-modal-title">
+              해당 댓글을 삭제하시겠습니까?<br />
+              삭제한 댓글은 복구할 수 없어요.
+            </p>
+            <div className="pma-modal-buttons">
+              <button className="pma-btn-cancel" onClick={() => setIsDeleteModalOpen(false)}>아니오</button>
+              <button className="pma-btn-confirm" onClick={handleConfirmDelete}>예</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* --- 모달 UI: 삭제 완료 알림 --- */}
+      {isSuccessModalOpen && (
+        <div className="pma-modal-overlay">
+          <div className="pma-modal-content success">
+            <p className="pma-modal-title">삭제 되었어요.</p>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

@@ -130,3 +130,75 @@
   color: #e5e7eb;
   cursor: not-allowed;
 }
+
+/* --- Modal Styles --- */
+
+/* 화면 전체를 덮는 어두운 배경 */
+.pma-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* 배경 어둡게 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* 메뉴보다 높게 설정 */
+}
+
+/* 흰색 모달 박스 */
+.pma-modal-content {
+  background-color: white;
+  width: 300px;
+  padding: 30px 20px 20px 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 성공 알림은 좀 더 작고 여백 위주 */
+.pma-modal-content.success {
+  padding: 40px 20px;
+}
+
+.pma-modal-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.pma-modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* '아니오' 버튼 (살구색) */
+.pma-btn-cancel {
+  flex: 1;
+  background-color: #ffe5bc; /* 이미지와 유사한 살구/오렌지색 */
+  border: none;
+  padding: 12px 0;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* '예' 버튼 (연한 회색) */
+.pma-btn-confirm {
+  flex: 1;
+  background-color: #f1f1f1;
+  border: none;
+  padding: 12px 0;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pma-btn-cancel:hover, .pma-btn-confirm:hover {
+  opacity: 0.8;
+}
