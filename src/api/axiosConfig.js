@@ -135,4 +135,13 @@ export const userApi = {
   withdraw: () => api.delete("/user/me"),
 };
 
+/**
+ * 5. 챗봇 관련 API (Chat)
+ */
+export const chatApi = {
+  // 메시지 전송 (conversationId가 있으면 이어서 대화, 없으면 null)
+  sendMessage: (message, conversationId = null) =>
+    api.post("/chat/send", { message, conversationId }),
+};
+
 export default api;

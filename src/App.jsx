@@ -219,7 +219,7 @@ function App() {
             {/* 메인 탭 서비스 */}
             <Route path="/home" element={<MainLayout active="home" onNavigate={(tab) => navigate(tab === "folder" ? "/statistics" : "/" + tab)}><Home onNavigate={(p) => navigate("/" + p)} userName={userName} hasCheckedIn={hasCheckedIn} /></MainLayout>} />
             <Route path="/statistics" element={<MainLayout active="folder" onNavigate={(tab) => navigate(tab === "folder" ? "/statistics" : "/" + tab)}><Statistics hasCheckedIn={hasCheckedIn} userName={userName} onNavigate={(p) => navigate("/" + p)} /></MainLayout>} />
-            <Route path="/chatbot" element={<MainLayout active="chatbot" onNavigate={(tab) => navigate(tab === "folder" ? "/statistics" : "/" + tab)}><Chatbot onNavigate={(p) => navigate("/" + p)} /></MainLayout>} />
+            <Route path="/chatbot" element={<MainLayout active="chatbot" onNavigate={(tab) => navigate(tab === "folder" ? "/statistics" : "/" + tab)}>{/* 여기에 userName={userName} 추가 */}<Chatbot onNavigate={(p) => navigate("/" + p)} userName={userName} /> </MainLayout>} />
             <Route path="/community" element={<MainLayout active="community" onNavigate={(tab) => navigate(tab === "folder" ? "/statistics" : "/" + tab)}><Community onNavigate={(p) => navigate("/" + p)} onPostClick={(id) => navigate(`/community/post/${id}`)} userName={userName} /></MainLayout>} />
             <Route path="/community/post/:postId" element={<PostDetailRoute userName={userName} />} />
 

@@ -39,6 +39,12 @@ export function BottomNav({ active, onNavigate }) {
     height: "28px",
   };
 
+  // [수정] 통계(Folder) 탭 클릭 핸들러
+  const handleStatisticsClick = () => {
+    alert("준비중입니다."); // 팝업(알림창) 띄우기
+    // onNavigate("folder"); // 페이지 이동 코드는 주석 처리 또는 삭제하여 막음
+  };
+
   return (
     <div style={containerStyle}>
       {/* Item 1: Home */}
@@ -104,8 +110,8 @@ export function BottomNav({ active, onNavigate }) {
         </div>
       </div>
 
-      {/* Item 4: Folder */}
-      <div style={itemStyle} onClick={() => onNavigate("folder")}>
+      {/* Item 4: Folder (통계) - 클릭 시 알림창 띄우기 */}
+      <div style={itemStyle} onClick={handleStatisticsClick}>
         <div style={iconWrapperStyle}>
           <svg
             width="28"
@@ -143,7 +149,7 @@ export function BottomNav({ active, onNavigate }) {
               strokeLinejoin="round"
             />
           </svg>
-        </div>
+        </div> 
       </div>
     </div>
   );
