@@ -4,7 +4,7 @@ import axios from "axios";
  * 1. Axios 인스턴스 설정
  */
 const api = axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: "http://52.79.242.162/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -12,9 +12,7 @@ const api = axios.create({
 
 // 토큰 가져오기 함수 (sessionStorage를 명확하게 타겟팅)
 const getToken = () => {
-  return (
-    sessionStorage.getItem("accessToken") || localStorage.getItem("accessToken")
-  );
+  return sessionStorage.getItem("accessToken") || localStorage.getItem("accessToken");
 };
 
 // 토큰 삭제 함수
@@ -65,9 +63,7 @@ api.interceptors.response.use(
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-      const refreshToken =
-        sessionStorage.getItem("refreshToken") ||
-        localStorage.getItem("refreshToken");
+      const refreshToken = sessionStorage.getItem("refreshToken") || localStorage.getItem("refreshToken");
 
       if (refreshToken) {
         try {
@@ -77,11 +73,10 @@ api.interceptors.response.use(
             { refreshToken }
           );
           const { accessToken, refreshToken: newRefreshToken } = data;
-
+          
           // 재발급된 토큰 저장 (sessionStorage 우선)
           sessionStorage.setItem("accessToken", accessToken);
-          if (newRefreshToken)
-            sessionStorage.setItem("refreshToken", newRefreshToken);
+          if (newRefreshToken) sessionStorage.setItem("refreshToken", newRefreshToken);
 
           // 새 토큰으로 헤더 교체 후 원래 요청 재시도
           originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
@@ -102,25 +97,20 @@ api.interceptors.response.use(
 export const authApi = {
   login: (data) => api.post("/auth/login", data),
   signup: (data) => api.post("/auth/signup", data),
-  checkUsername: (username) =>
-    api.get(`/auth/check-username?username=${username}`),
+  checkUsername: (username) => api.get(`/auth/check-username?username=${username}`),
   checkEmail: (email) => api.get(`/auth/check-email?email=${email}`),
-  sendVerificationCode: (email) =>
-    api.post("/auth/send-verification-code", { email }),
+  sendVerificationCode: (email) => api.post("/auth/send-verification-code", { email }),
   verifyCode: (email, code) => api.post("/auth/verify-code", { email, code }),
   findId: (email, code) => api.post("/auth/find-id", { email, code }),
-  verifyResetUser: (username, email, code) =>
-    api.post("/auth/verify-reset-user", { username, email, code }),
-  resetPassword: (username, newPassword) =>
-    api.post("/auth/reset-password", { username, newPassword }),
+  verifyResetUser: (username, email, code) => api.post("/auth/verify-reset-user", { username, email, code }),
+  resetPassword: (username, newPassword) => api.post("/auth/reset-password", { username, newPassword }),
 };
 
 /**
  * 3. 게시판 관련 API (Board)
  */
 export const boardApi = {
-  getPostList: (page = 0, size = 20, sort = "createdAt,DESC") =>
-    api.get(`/board?page=${page}&size=${size}&sort=${sort}`),
+  getPostList: (page = 0, size = 20, sort = "createdAt,DESC") => api.get(`/board?page=${page}&size=${size}&sort=${sort}`),
   getPopularTop: () => api.get("/board/popular/top"),
   getPostDetail: (postId) => api.get(`/board/${postId}`),
   createPost: (data) => api.post("/board", data),
@@ -131,8 +121,7 @@ export const boardApi = {
   savePost: (postId) => api.post(`/board/${postId}/save`),
   unsavePost: (postId) => api.delete(`/board/${postId}/save`),
   createComment: (postId, data) => api.post(`/board/${postId}/comment`, data),
-  updateComment: (commentId, data) =>
-    api.put(`/board/comments/${commentId}`, data),
+  updateComment: (commentId, data) => api.put(`/board/comments/${commentId}`, data),
   deleteComment: (commentId) => api.delete(`/board/comments/${commentId}`),
 };
 
@@ -143,12 +132,10 @@ export const userApi = {
   getUserProfile: () => api.get("/user/me"),
   updateUserProfile: (data) => api.put("/user/me", data), // 여기서 에러 발생 중
   getMyPosts: (sort = "createdAt,DESC") => api.get(`/user/posts?sort=${sort}`),
-  getMyComments: (sort = "createdAt,DESC") =>
-    api.get(`/user/comments?sort=${sort}`),
-  getLikedPosts: (sort = "createdAt,DESC") =>
-    api.get(`/user/liked-posts?sort=${sort}`),
+  getMyComments: (sort = "createdAt,DESC") => api.get(`/user/comments?sort=${sort}`),
+  getLikedPosts: (sort = "createdAt,DESC") => api.get(`/user/liked-posts?sort=${sort}`),
   getSavedPosts: () => api.get("/user/saved-posts"),
-  withdraw: (withdrawData) => api.post("/auth/withdraw", withdrawData),
+  withdraw: (withdrawData) => api.post("/auth/withdraw", withdrawData), 
 };
 
 export default api;
